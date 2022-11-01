@@ -1,7 +1,7 @@
 {
   "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll.eslint", "source.organizeImports"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "files.exclude": {
     "**/.eslintcache": true,
