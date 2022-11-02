@@ -47,10 +47,15 @@ export default function MapPage(): ReactElement {
         initialViewState={{
           latitude: 37.8,
           longitude: -122.4,
-          zoom: 1,
+          zoom: 2,
         }}
+        minZoom={0.7}
+        maxBounds={[
+          [-Infinity, -62.847193],
+          [Infinity, 84.613245],
+        ]}
         mapLib={maplibregl}
-        style={{ width: 800, height: 600 }}
+        style={{ width: '100vw', height: '100vh' }}
         mapStyle={mapStyle as mapboxgl.Style}
       >
         <Layer id="ocean" type="background" paint={styles.ocean} />
