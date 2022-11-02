@@ -20,6 +20,11 @@
 //   });
 // });
 
+// Source: https://github.com/cypress-io/cypress-realworld-app/blob/develop/cypress/support/commands.ts#L34
+Cypress.Commands.add('getById', (value, ...arguments_) => {
+  return cy.get(`[data-test=${value}]`, ...arguments_);
+});
+
 Cypress.Commands.add('interceptAPI', (path) => {
   const [pathWithoutParameters, parameters] = path.split('?');
   let fixturePath = pathWithoutParameters;
