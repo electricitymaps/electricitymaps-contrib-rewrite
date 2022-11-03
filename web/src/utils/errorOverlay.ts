@@ -11,7 +11,7 @@ const showErrorOverlay = (error: Error) => {
   document.body.append(overlay);
 };
 
-export default function showErrorsInOverlay() {
+export default function enableErrorsInOverlay() {
   window.addEventListener('error', ({ error }) => showErrorOverlay(error));
   window.addEventListener('unhandledrejection', ({ reason }) => showErrorOverlay(reason));
 }
