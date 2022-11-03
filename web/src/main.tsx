@@ -1,13 +1,16 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { REFETCH_INTERVAL_MS } from 'api/helpers';
 import App from 'App';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import { createConsoleGreeting } from 'utils/createConsoleGreeting';
 import { registerSW } from 'virtual:pwa-register';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
-import { REFETCH_INTERVAL_MS } from 'api/helpers';
 
 registerSW();
+createConsoleGreeting();
 
 const MAX_RETRIES = 1;
 const queryClient = new QueryClient({
