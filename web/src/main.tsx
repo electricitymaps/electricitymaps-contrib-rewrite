@@ -11,7 +11,7 @@ import enableErrorsInOverlay from 'utils/errorOverlay';
 registerSW();
 
 if (import.meta.env.DEV) {
-  showErrorsInOverlay();
+  enableErrorsInOverlay();
 }
 
 const MAX_RETRIES = 1;
