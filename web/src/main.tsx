@@ -6,7 +6,7 @@ import { registerSW } from 'virtual:pwa-register';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
 import { REFETCH_INTERVAL_MS } from 'api/helpers';
-import showErrorsInOverlay from 'utils/errorOverlay';
+import enableErrorsInOverlay from 'utils/errorOverlay';
 
 registerSW();
 
