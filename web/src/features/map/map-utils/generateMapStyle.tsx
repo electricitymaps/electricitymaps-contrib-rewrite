@@ -1,7 +1,54 @@
 import generateTopos from './generateTopos';
-import zonesConfig from '../../../../config/zones.json';
+import config from '../../../../config/zones.json';
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson';
+import { Property } from 'maplibre-gl';
+import { Zones, GenerationTypes } from 'types';
 
-export const generateMapStyle = (): mapboxgl.Style => {
+export interface MapZone {
+  geography: any;
+  config: any;
+  hourly: any;
+  daily: any;
+  monthly: any;
+  yearly: any;
+}
+
+type z = typeof config;
+
+export type ZoneConfigTypes = {
+  [key in keyof z]: {
+    disclaimer?: string;
+    estimation_method?: string;
+    delays?: any;
+    bounding_box?: number[][];
+    capacity?: GenerationTypes;
+    contributors?: string[];
+    timezone?: Date | string | null;
+    flag_file_name?: string;
+    parsers?: any;
+  };
+};
+
+export const combineZoneData = (zoneData: any, aggregate: any) => {
+  // Combines details and overviews and other relevant keys
+  // From zoneData for a specific aggregate into a single object
+  const { overviews, details, hasData } = zoneData[aggregate];
+  const { hasParser } = zoneData.config;
+  const { center } = zoneData.geography.properties;
+
+  if (overviews.length === 0) {
+    // If there is no data available return one entry with static data
+    return [{ hasData, hasParser, center }];
+  }
+
+  const combined = overviews.map((overview: any, index: any) => {
+    return { ...overview, ...details[index], hasParser, center };
+  });
+
+  return combined;
+};
+
+export const generateMapStyle = (data: any): FeatureCollection<Geometry, GeoJsonProperties> => {
   const mapStyle: mapboxgl.Style = {
     version: 8,
     sources: {},
@@ -19,47 +66,61 @@ export const generateMapStyle = (): mapboxgl.Style => {
   const zones = {};
   const selectedTimeAggregate = 'hourly';
 
-  Object.keys(zonesConfig).forEach((key) => {
-    const zone = {};
-    console.log('sda', key);
+  const zonesConfig: ZoneConfigTypes = config;
+
+  const keys = Object.keys(zonesConfig) as Array<keyof ZoneConfigTypes>;
+
+  for (const key of keys) {
+    const zone: MapZone = {
+      geography: undefined,
+      config: undefined,
+      hourly: undefined,
+      daily: undefined,
+      monthly: undefined,
+      yearly: undefined,
+    };
     const zoneConfig = zonesConfig[key];
     if (!geographies[key]) {
-      return;
+      continue;
     }
     zone.geography = geographies[key];
     zone.config = {};
-    Object.keys(TIME).forEach((agg) => {
-      zone[TIME[agg]] = { details: [], overviews: [], isExpired: true };
-    });
-    console.log('sfd');
+    for (const agg of Object.keys(TIME) as Array<keyof typeof TIME>) {
+      zone[TIME[agg] as keyof MapZone] = { details: [], overviews: [], isExpired: true };
+    }
+
     zone.config.capacity = zoneConfig.capacity;
     zone.config.contributors = zoneConfig.contributors;
     zone.config.timezone = zoneConfig.timezone;
-    // hasParser is true if parser exists, or if estimation method exists
+    // HasParser is true if parser exists, or if estimation method exists
     zone.config.hasParser = zoneConfig.parsers?.production !== undefined || zoneConfig.estimation_method !== undefined;
     zone.config.delays = zoneConfig.delays;
     zone.config.disclaimer = zoneConfig.disclaimer;
     zone.config.countryCode = key;
-
+    // Console.log('dsfs', data?.countries);
+    // Zone.hourly = data?.countries[key].length > 0 ? data.countries[key][24] : undefined;
+    // Console.log('dsfs', zone.hourly, data?.countries['AR'][24]);
+    //Needs refactoring to type this
     zones[key] = zone;
-  });
+  }
 
   const zoneValues = Object.values(zones);
+  console.log('zones', zones);
 
-  const features = zoneValues.map((zone, i) => {
+  const features = zoneValues.map((zone, index) => {
     // Map a country view of all zones with "subZoneNames" to the aggregated view
-    // if (isAggregateEnabled && zone.geography.properties.isAggregatedView) {
+    // If (isAggregateEnabled && zone.geography.properties.isAggregatedView) {
     if (true) {
       const length = (coordinate: string | any[]) => (coordinate ? coordinate.length : 0);
       const zoneId = zone.config.countryCode;
-      console.log('zone', zone);
+
       return {
         type: 'Feature',
         geometry: {
           ...zone.geography.geometry,
           coordinates: zone.geography.geometry.coordinates.filter(length), // Remove empty geometries
         },
-        id: i, // assign an integer id so the feature can be updated later on
+        id: index, // Assign an integer id so the feature can be updated later on
         properties: {
           color: undefined,
           zoneData: zone[selectedTimeAggregate].overviews,
@@ -77,7 +138,7 @@ export const generateMapStyle = (): mapboxgl.Style => {
           ...zone.geography.geometry,
           coordinates: zone.geography.geometry.coordinates.filter(length), // Remove empty geometries
         },
-        id: i, // assign an integer id so the feature can be updated later on
+        id: index, // Assign an integer id so the feature can be updated later on
         properties: {
           color: undefined,
           zoneData: zone[selectedTimeAggregate].overviews,
@@ -91,13 +152,10 @@ export const generateMapStyle = (): mapboxgl.Style => {
   });
 
   return {
-    // TODO: Clean up further
-    zonesClickable: {
-      type: 'FeatureCollection',
-      features,
-    },
+    type: 'FeatureCollection',
+    features,
   };
   // TODO: `zoneValues` will change even in cases where the geometry doesn't change.
   // This will cause this memo to re-update although it should only update when the
-  // geometry changes. This will slow down the map render..
+  // Geometry changes. This will slow down the map render..
 };

@@ -12,6 +12,8 @@ specifiers:
   '@testing-library/user-event': 14.4.3
   '@types/css-mediaquery': 0.1.1
   '@types/d3-scale': ^4.0.2
+  '@types/geojson': ^7946.0.10
+  '@types/mapbox-gl': ^2.7.7
   '@types/react': 18.0.22
   '@types/react-dom': 18.0.7
   '@types/react-router-dom': 5.3.3
@@ -41,6 +43,7 @@ specifiers:
   eslint-plugin-react-prefer-function-component: 3.0.0
   eslint-plugin-testing-library: 5.9.1
   eslint-plugin-unicorn: 44.0.2
+  geojson: ^0.5.0
   husky: 8.0.1
   jsdom: 20.0.1
   lint-staged: 13.0.3
@@ -72,6 +75,7 @@ dependencies:
   '@tanstack/react-query': 4.13.0_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.13.0_vwr3yfyniquaygdm2roeczqxuu
   d3-scale: 4.0.2
+  geojson: 0.5.0
   mapbox-gl: /empty-npm-package/1.0.0
   maplibre-gl: 2.4.0
   react: 18.2.0
@@ -91,6 +95,8 @@ devDependencies:
   '@testing-library/user-event': 14.4.3_aaq3sbffpfe3jnxzm2zngsddei
   '@types/css-mediaquery': 0.1.1
   '@types/d3-scale': 4.0.2
+  '@types/geojson': 7946.0.10
+  '@types/mapbox-gl': 2.7.7
   '@types/react': 18.0.22
   '@types/react-dom': 18.0.7
   '@types/react-router-dom': 5.3.3
@@ -2042,11 +2048,10 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/mapbox-gl/2.7.6:
-    resolution: {integrity: sha512-EPIfNO7WApXaFM7DuJBj+kpXmqffqJHMJ3Q9gbV/nNL23XHR0PC5CCDYbAFa4tKErm0xJd9C5kPLF6KvA/cRcA==}
+  /@types/mapbox-gl/2.7.7:
+    resolution: {integrity: sha512-pllZybHHZv2ZS3Hmlfy+j+m2YUjQNCEoqHJ/H+uQsdtsDCfyyfdg7hhiVCcZHlAtCGC13gTPzQpoPMpCell9Mg==}
     dependencies:
       '@types/geojson': 7946.0.10
-    dev: false
 
   /@types/mapbox__point-geometry/0.1.2:
     resolution: {integrity: sha512-D0lgCq+3VWV85ey1MZVkE8ZveyuvW5VAfuahVTQRpXFQTxw03SuIf1/K4UQ87MMIXVKzpFjXFiFMZzLj2kU+iA==}
@@ -4621,6 +4626,11 @@ packages:
     resolution: {integrity: sha512-EvGQQi/zPrDA6zr6BnJD/YhwAkBP8nnJ9emh3EnHQKVMfg/MRVtPbMYdgVy/IaEmn4UfagD2a6fafPDL5hbtwg==}
     dev: false
 
+  /geojson/0.5.0:
+    resolution: {integrity: sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ==}
+    engines: {node: '>= 0.10'}
+    dev: false
+
   /get-caller-file/2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -6530,7 +6540,7 @@ packages:
       mapbox-gl: '*'
       react: '>=16.3.0'
     dependencies:
-      '@types/mapbox-gl': 2.7.6
+      '@types/mapbox-gl': 2.7.7
       mapbox-gl: /empty-npm-package/1.0.0
       react: 18.2.0
     dev: false

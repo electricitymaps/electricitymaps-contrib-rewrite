@@ -1,25 +1,46 @@
-/* eslint-disable unicorn/no-abusive-eslint-disable */
+import { GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import { merge } from 'topojson-client';
+import { Zones } from 'types';
 import topo from '../../../../config/world.json';
 
-// eslint-disable-next-line unicorn/no-abusive-eslint-disable, unicorn/no-abusive-eslint-disable
-/* eslint-disable */
-// @ts-nocheck
-const generateTopos = () => {
-  const zones = {};
-  Object.keys(topo.objects).forEach((k) => {
-    if (!topo.objects[k].arcs) {
-      return;
+export interface TopoObject {
+  type: any;
+  arcs: number[][][];
+  properties: {
+    zoneName: string;
+    countryKey: string;
+    countryName?: string; //Potential bug spotted, check why aggregated view value doesn't have country name
+    isAggregatedView: boolean;
+    isHighestGranularity: boolean;
+    center: number[];
+  };
+}
+
+export interface Topo {
+  type: any;
+  arcs: number[][][];
+  objects: {
+    [key: string]: TopoObject;
+  };
+}
+
+const generateTopos = (): Zones => {
+  const zones: Zones = {};
+  const topography = topo as Topo;
+
+  for (const k of Object.keys(topography.objects)) {
+    if (!topography.objects[k].arcs) {
+      continue;
     }
     const geo = {
-      geometry: merge(topo, [topo.objects[k]]),
-      properties: topo.objects[k].properties,
+      geometry: merge(topography as any, [topography.objects[k]]),
+      properties: topography.objects[k].properties,
     };
     // Exclude zones with null geometries.
     if (geo.geometry) {
       zones[k] = geo;
     }
-  });
+  }
   return zones;
 };
 

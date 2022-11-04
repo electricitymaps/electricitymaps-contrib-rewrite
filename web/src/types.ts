@@ -1,3 +1,5 @@
+import { MultiPolygon, Polygon } from 'geojson';
+
 export interface IFruit {
   name: string;
   image: {
@@ -58,4 +60,18 @@ export enum TimeAverages {
   HOURLY = 'hourly',
   MONTHLY = 'monthly',
   YEARLY = 'yearly',
+}
+
+export interface Zones {
+  [key: string]: {
+    geometry: MultiPolygon | Polygon;
+    properties: {
+      zoneName: string;
+      countryKey: string;
+      countryName?: string | undefined;
+      isAggregatedView: boolean;
+      isHighestGranularity: boolean;
+      center: number[];
+    };
+  };
 }
