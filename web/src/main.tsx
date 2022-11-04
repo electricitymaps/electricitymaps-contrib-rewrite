@@ -6,11 +6,16 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { createConsoleGreeting } from 'utils/createConsoleGreeting';
+import enableErrorsInOverlay from 'utils/errorOverlay';
 import { registerSW } from 'virtual:pwa-register';
 import './index.css';
 
 registerSW();
 createConsoleGreeting();
+
+if (import.meta.env.DEV) {
+  enableErrorsInOverlay();
+}
 
 const MAX_RETRIES = 1;
 const queryClient = new QueryClient({
