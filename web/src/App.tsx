@@ -7,7 +7,7 @@ import { lazy, Suspense } from 'react';
 const Map = lazy(async () => import('features/map/Map'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
 
-const mainStyles = clsx('flex h-screen w-screen flex-col');
+const mainStyles = clsx('fixed flex h-screen w-screen flex-col');
 const innerStyles = clsx('relative flex flex-auto items-stretch');
 export default function App(): ReactElement {
   return (
