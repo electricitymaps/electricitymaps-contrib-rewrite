@@ -31,7 +31,7 @@ if (container) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools position="top-right" initialIsOpen={false} />
       </QueryClientProvider>
     </StrictMode>
   );
