@@ -1,7 +1,11 @@
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import ZoneDetails from './Zone/ZoneDetails';
 
-function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }): JSX.Element {
+function ValidZoneIdGuardWrapper({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element {
   const { zoneId } = useParams();
 
   if (!zoneId) {
@@ -12,7 +16,7 @@ function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }): JSX.E
 
 export default function LeftPanel(): JSX.Element {
   return (
-    <div className=" flex w-4/12 bg-zinc-200 shadow-lg">
+    <div className="absolute flex h-full w-full bg-zinc-200 shadow-lg sm:w-4/12">
       <Routes>
         <Route path="/" element={<p>Ranking Panel</p>} />
         <Route

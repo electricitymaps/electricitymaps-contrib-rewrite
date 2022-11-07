@@ -18,6 +18,7 @@ function TimeSlider() {
           'block h-6 w-6 rounded-full bg-white shadow-xl dark:bg-white',
           'focus:outline-none focus-visible:ring focus-visible:ring-gray-300 focus-visible:ring-opacity-75'
         )}
+        // TODO: icon can be added as child of thumb here
       />
     </SliderPrimitive.Root>
   );
