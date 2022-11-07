@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 
@@ -19,14 +18,14 @@ type CollapseButtonProps = {
 };
 
 // TODO: Add icon, handle hover state
-const customShadowStyle = 'shadow-[6px_2px_10px_-3px_rgba(0,0,0,0.1)]';
-const buttonStyles = clsx(
-  'z-10 shadow-md absolute w-6 h-12 cursor-pointer rounded-r left-full top-2 bg-zinc-50',
-  customShadowStyle
-);
 function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
   return (
-    <button className={buttonStyles} onClick={onCollapse}>
+    <button
+      className={
+        'absolute left-full top-2 z-10 h-12 w-6 cursor-pointer rounded-r bg-zinc-50 shadow-[6px_2px_10px_-3px_rgba(0,0,0,0.1)]'
+      }
+      onClick={onCollapse}
+    >
       {isCollapsed ? '<' : '>'}
     </button>
   );
@@ -36,15 +35,13 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
   const [isOpen, setOpen] = useState(false);
   const onCollapse = () => setOpen(!isOpen);
 
-  const wrapperStyles = clsx(
-    'shadow-xl absolute left-0 top-0 z-20 flex h-full w-[calc(14vw_+_16rem)] bg-zinc-50 transition-all duration-400',
-    isOpen && '-translate-x-full'
-  );
-  const contentWrapperStyles = clsx('overflow-y-scroll p-2');
-
   return (
-    <aside className={wrapperStyles}>
-      <section className={contentWrapperStyles}>{children}</section>
+    <aside
+      className={`duration-400 absolute left-0 top-0 z-20 hidden h-full w-[calc(14vw_+_16rem)] bg-zinc-50 shadow-xl transition-all md:flex ${
+        isOpen && '-translate-x-full'
+      }`}
+    >
+      <section className="overflow-y-scroll p-2">{children}</section>
       <CollapseButton isCollapsed={isOpen} onCollapse={onCollapse} />
     </aside>
   );
