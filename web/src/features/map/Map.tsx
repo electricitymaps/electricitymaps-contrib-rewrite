@@ -34,9 +34,9 @@ export default function MapPage(): ReactElement {
   if (isLoading || isError) {
     return <LoadingOrError error={error as Error} />;
   }
-  console.log('data', data);
-  const zonesClickable = generateMapStyle(data);
-  console.log('zonesClickable', zonesClickable);
+  // console.log('data', data);
+  const zonesClickable = data;
+  // console.log('zonesClickable', zonesClickable);
 
   const southernLattitudeBound = -62.947_193;
   const northernLattitudeBound = 84.613_245;
@@ -60,7 +60,7 @@ export default function MapPage(): ReactElement {
         mapStyle={mapStyle as mapboxgl.Style}
       >
         <Layer id="ocean" type="background" paint={styles.ocean} />
-        <Source id="zones-clickable" generateId type="geojson" data={zonesClickable}>
+        <Source id="zones-clickable" generateId type="geojson" data={data}>
           <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
           {/* Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer */}
@@ -71,9 +71,9 @@ export default function MapPage(): ReactElement {
       </Map>
 
       <div className="m-2 grid min-h-screen grid-cols-[minmax(0,384px)] place-content-center gap-2 md:m-0 md:grid-cols-[repeat(2,minmax(0,384px))] xl:grid-cols-[repeat(3,384px)]">
-        {Object.entries(data.countries).map(([zoneKey, zoneOverviews]) =>
+        {/* {Object.entries(data.countries).map(([zoneKey, zoneOverviews]) =>
           zoneOverviews.length > 0 ? <li key={zoneKey}>{zoneOverviews[0].co2intensity}</li> : undefined
-        )}
+        )} */}
       </div>
     </>
   );

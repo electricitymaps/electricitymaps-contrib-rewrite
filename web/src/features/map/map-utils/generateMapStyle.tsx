@@ -98,7 +98,7 @@ export const generateMapStyle = (data: any): FeatureCollection<Geometry, GeoJson
     zone.config.disclaimer = zoneConfig.disclaimer;
     zone.config.countryCode = key;
     // Console.log('dsfs', data?.countries);
-    // Zone.hourly = data?.countries[key].length > 0 ? data.countries[key][24] : undefined;
+    zone.hourly = data?.countries[key].length > 0 ? data.countries[key][24] : undefined;
     // Console.log('dsfs', zone.hourly, data?.countries['AR'][24]);
     //Needs refactoring to type this
     zones[key] = zone;

@@ -1,7 +1,17 @@
+enum step {
+  ZERO = 0,
+  TWO_HUNDRED = 200,
+  FOUR_HUNDRED = 400,
+  SIX_HUNDRED = 600,
+  EIGHT_HUNDRED = 800,
+}
+
+const steps = [step.ZERO, step.TWO_HUNDRED, step.FOUR_HUNDRED, step.SIX_HUNDRED, step.EIGHT_HUNDRED];
+
 export const themes = {
   colorblindDark: {
     co2Scale: {
-      steps: [0, 200, 400, 600, 800],
+      steps,
       colors: ['#FFFFB0', '#E0B040', '#A06030', '#602020', '#000010'],
     },
     oceanColor: '#33414A',
@@ -12,7 +22,7 @@ export const themes = {
   },
   dark: {
     co2Scale: {
-      steps: [0, 150, 600, 750, 800],
+      steps,
       colors: ['#2AA364', '#F5EB4D', '#9E4229', '#381D02', '#381D02'],
     },
     oceanColor: '#33414A',
@@ -23,7 +33,7 @@ export const themes = {
   },
   colorblindBright: {
     co2Scale: {
-      steps: [0, 200, 400, 600, 800],
+      steps,
       colors: ['#FFFFB0', '#E0B040', '#A06030', '#602020', '#000010'],
     },
     oceanColor: '#FAFAFA',
@@ -34,7 +44,7 @@ export const themes = {
   },
   bright: {
     co2Scale: {
-      steps: [0, 150, 600, 750, 800],
+      steps,
       colors: ['#2AA364', '#F5EB4D', '#9E4229', '#381D02', '#381D02'],
     },
     oceanColor: '#FAFAFA',

@@ -1,28 +1,38 @@
-import { MultiPolygon, Polygon } from 'geojson';
-
-export interface IFruit {
-  name: string;
-  image: {
-    author: {
-      name: string;
-      url: string;
-    };
-    color: string;
-    url: string;
-  };
-  metadata: {
-    name: string;
-    value: string;
-  }[];
-}
+import { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from '@turf/turf';
 
 export interface GridState {
-  countries: Record<string, ZoneOverview[] | []>; // TODO: Can we change countries -> zones in app-backend?
+  // callerLocation?: [number, number];
+  // data: {
+  countries: { [key: string]: ZoneResponse };
+  createdAt: string;
+  datetime: string;
+  exchanges: { [key: string]: [unknown] };
+  stateAggregation: string;
+  // };
+}
+export interface ZoneResponse {
+  [key: string]: {
+    co2intensity: number;
+    co2intensityProduction: number;
+    countryCode: string;
+    fossilFuelRatio: number;
+    fossilFuelRatioProduction: number;
+    renewableRatio: number;
+    renewableRatioProduction: number;
+    stateDatetime: number;
+  };
 }
 
+export interface ZoneOverviewForTimePeriod {
+  [dateTimeKey: string]: ZoneOverview;
+}
 export interface ZoneOverview {
   countryCode: string;
   co2intensity?: number;
+  consumptionColour?: string;
+  productionColour?: string;
+  colorBlindConsumptionColour?: string;
+  colorBlindProductionColour?: string;
   stateDatetime: string;
 }
 
@@ -62,16 +72,15 @@ export enum TimeAverages {
   YEARLY = 'yearly',
 }
 
-export interface Zones {
-  [key: string]: {
-    geometry: MultiPolygon | Polygon;
-    properties: {
-      zoneName: string;
-      countryKey: string;
-      countryName?: string | undefined;
-      isAggregatedView: boolean;
-      isHighestGranularity: boolean;
-      center: number[];
-    };
+export interface MapGrid extends FeatureCollection<Geometry> {
+  features: Array<MapZone>;
+}
+export interface MapZone extends Feature<Polygon | MultiPolygon> {
+  geometry: MultiPolygon | Polygon;
+  Id?: number;
+  properties: {
+    zoneData: ZoneOverviewForTimePeriod;
+    zoneId: string;
+    color: string;
   };
 }

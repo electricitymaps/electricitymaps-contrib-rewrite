@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { scaleLinear } from 'd3-scale';
 
-import { themes } from '../features/map/map-utils/themes';
+import { themes } from './oldThemes';
 
 export function useTheme() {
   const brightModeEnabled = true; //useSelector((state) => state.application.brightModeEnabled);
@@ -21,7 +21,7 @@ export function useCo2ColorScale() {
 
   return useMemo(
     () =>
-      scaleLinear().domain(theme.co2Scale.steps).range(theme.co2Scale.colors).unknown(theme.clickableFill).clamp(true),
+      scaleLinear().domain(theme.co2Scale.steps).range(theme.co2Scale.steps).unknown(theme.clickableFill).clamp(true),
     [theme]
   );
 }
