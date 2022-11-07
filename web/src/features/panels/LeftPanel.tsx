@@ -18,8 +18,12 @@ type CollapseButtonProps = {
   onCollapse: () => void;
 };
 
-// TODO: Add icon, handle hover state, set custom shadow
-const buttonStyles = clsx('z-20 absolute w-6 h-12 cursor-pointer rounded-r left-full top-2 bg-zinc-50');
+// TODO: Add icon, handle hover state
+const customShadowStyle = 'shadow-[6px_2px_10px_-3px_rgba(0,0,0,0.1)]';
+const buttonStyles = clsx(
+  'z-10 shadow-md absolute w-6 h-12 cursor-pointer rounded-r left-full top-2 bg-zinc-50',
+  customShadowStyle
+);
 function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
   return (
     <button className={buttonStyles} onClick={onCollapse}>
@@ -33,7 +37,7 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
   const onCollapse = () => setOpen(!isOpen);
 
   const wrapperStyles = clsx(
-    'absolute left-0 top-0 z-20 flex h-full w-[calc(14vw_+_16rem)] bg-zinc-50 transition-all duration-400',
+    'shadow-xl absolute left-0 top-0 z-20 flex h-full w-[calc(14vw_+_16rem)] bg-zinc-50 transition-all duration-400',
     isOpen && '-translate-x-full'
   );
   const contentWrapperStyles = clsx('overflow-y-scroll p-2');
