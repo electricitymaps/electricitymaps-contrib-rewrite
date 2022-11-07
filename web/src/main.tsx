@@ -1,13 +1,21 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { REFETCH_INTERVAL_MS } from 'api/helpers';
 import App from 'App';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
+import { createConsoleGreeting } from 'utils/createConsoleGreeting';
+import enableErrorsInOverlay from 'utils/errorOverlay';
 import { registerSW } from 'virtual:pwa-register';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './index.css';
-import { REFETCH_INTERVAL_MS } from 'api/helpers';
 
 registerSW();
+createConsoleGreeting();
+
+if (import.meta.env.DEV) {
+  enableErrorsInOverlay();
+}
 
 const MAX_RETRIES = 1;
 const queryClient = new QueryClient({
@@ -25,7 +33,9 @@ if (container) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </StrictMode>

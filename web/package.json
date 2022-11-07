@@ -1,6 +1,6 @@
 {
   "name": "electricitymap-web",
-  "version": "2.0.0",
+  "version": "1.1.0-beta.1",
   "description": "A real-time visualisation of the CO2 emissions of electricity consumption",
   "license": "GPL-3.0-or-later",
   "engines": {
@@ -12,23 +12,23 @@
   },
   "scripts": {
     "build": "vite build",
-    "commit": "cz",
+    "cy:components": "cypress open --components -b electron",
+    "cy:e2e": "cypress open --e2e -b electron",
     "dev": "vite --open",
     "prepare": "cd .. && husky install web/.husky",
     "preview": "vite preview",
     "preview:test": "start-server-and-test preview http://localhost:4173",
     "test": "vitest",
     "test:ci": "vitest run",
-    "test:e2e": "pnpm preview:test 'cypress open'",
-    "test:e2e:headless": "pnpm preview:test 'cypress run'",
-    "test:e2e:ci": "vite build && pnpm preview:test 'cypress run --record'",
     "format": "prettier -uw --cache --ignore-path .gitignore .",
     "run-tsc": "tsc",
     "run-eslint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
     "lint": "run-p run-tsc run-eslint",
-    "validate": "run-p lint test:ci test:e2e:headless"
+    "validate": "run-p lint test:ci test:e2e:headless",
+    "deploy": "pnpm build && sh deploy.sh"
   },
   "dependencies": {
+    "@radix-ui/react-navigation-menu": "^1.1.1",
     "@tanstack/react-query": "4.13.0",
     "@tanstack/react-query-devtools": "^4.13.0",
     "d3-scale": "^4.0.2",
@@ -65,10 +65,8 @@
     "@vitejs/plugin-react": "2.1.0",
     "@vitest/coverage-istanbul": "0.24.3",
     "autoprefixer": "10.4.12",
-    "commitizen": "4.2.5",
     "css-mediaquery": "0.1.2",
     "cypress": "10.10.0",
-    "cz-conventional-changelog": "3.3.0",
     "eslint": "8.26.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-base": "15.0.0",

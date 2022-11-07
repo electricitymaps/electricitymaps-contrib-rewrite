@@ -1,5 +1,5 @@
 {
-  "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll", "source.organizeImports"],
+  "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll.eslint", "source.organizeImports"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
@@ -16,6 +16,7 @@
   "files.watcherExclude": {
     "**/dist": true
   },
+  "eslint.workingDirectories": [{ "mode": "auto" }],
   "javascript.format.enable": false,
   "typescript.disableAutomaticTypeAcquisition": true,
   "typescript.tsdk": "node_modules/typescript/lib",

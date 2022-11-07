@@ -133,6 +133,12 @@
         }
       }
     ],
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "ignore": [".*[pP]rops"]
+      }
+    ],
     "unicorn/no-nested-ternary": ["error"]
   },
   "settings": {
