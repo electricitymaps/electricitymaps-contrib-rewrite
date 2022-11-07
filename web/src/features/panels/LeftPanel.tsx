@@ -43,10 +43,10 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
   const contentWrapperStyles = clsx('overflow-y-scroll p-2');
 
   return (
-    <div className={wrapperStyles}>
-      <div className={contentWrapperStyles}>{children}</div>
+    <aside className={wrapperStyles}>
+      <section className={contentWrapperStyles}>{children}</section>
       <CollapseButton isCollapsed={isOpen} onCollapse={onCollapse} />
-    </div>
+    </aside>
   );
 }
 
