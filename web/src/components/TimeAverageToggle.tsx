@@ -35,28 +35,13 @@ const settings: ToggleItem[] = [
 ];
 
 function TimeAverageToggle({ className }: { className?: string }) {
-  const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
+  const [_, setTimeAverage] = useAtom(timeAverageAtom);
   const [label, setLabel] = useState('24 hours');
 
   const onToggleGroupClick = (newTimeAvg: TimeAverages) => {
     setTimeAverage(newTimeAvg);
     setLabel(settings.find((s) => s.value === newTimeAvg)?.text ?? '24 hours');
   };
-
-  const transitions = useTransition(timeAverage, {
-    from: { opacity: 0, y: -10 },
-    enter: { opacity: 1, y: 0 },
-    leave: { opacity: 0, y: 10 },
-    config: config.stiff,
-  });
-
-  const [props, set, stop] = useSpring(() => ({
-    opacity: 1,
-    transform: 'translateX(50px)',
-    from: {
-      transform: 'translateX(0px)',
-    },
-  }));
 
   return (
     <>
@@ -70,13 +55,14 @@ function TimeAverageToggle({ className }: { className?: string }) {
           <ToggleGroupPrimitive.Item
             key={`group-item-${value}-${label}`}
             value={value}
+            id={`${value}-toggle`}
             aria-label={label}
             onClick={() => onToggleGroupClick(value)}
           >
-            <div className={`mr-2 rounded-full bg-gray-100 px-5 py-2 text-sm`}>
-              <p className="w-15 h-6 text-gray-700 dark:text-gray-100">
-                {text}
-              </p>
+            <div
+              className={`mr-2 whitespace-nowrap rounded-full bg-gray-100 px-4 py-2 text-center text-xs`}
+            >
+              <p className="text-sm text-gray-700 dark:text-gray-100">{text}</p>
             </div>
           </ToggleGroupPrimitive.Item>
         ))}
@@ -88,6 +74,10 @@ function TimeAverageToggle({ className }: { className?: string }) {
 function ToggleItem({ value, text }: { value: TimeAverages; text: string }) {
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
 
+  function getDistanceBetweenElements(a, b) {
+    return Math.abs(a.getBoundingClientRect().x - b.getBoundingClientRect().x);
+  }
+
   const getTransform = (value: TimeAverages) => {
     if (value !== TimeAverages.HOURLY) {
       return 'translateX(0px)';
@@ -96,12 +86,27 @@ function ToggleItem({ value, text }: { value: TimeAverages; text: string }) {
     switch (timeAverage) {
       case TimeAverages.HOURLY:
         return 'translateX(0px)';
-      case TimeAverages.DAILY:
-        return 'translateX(105px)';
-      case TimeAverages.MONTHLY:
-        return 'translateX(203px)';
-      case TimeAverages.YEARLY:
-        return 'translateX(320px)';
+      case TimeAverages.DAILY: {
+        const distance = getDistanceBetweenElements(
+          document.getElementById('hourly-toggle'),
+          document.getElementById('daily-toggle')
+        );
+        return `translateX(${distance}px)`;
+      }
+      case TimeAverages.MONTHLY: {
+        const distance = getDistanceBetweenElements(
+          document.getElementById('hourly-toggle'),
+          document.getElementById('monthly-toggle')
+        );
+        return `translateX(${distance}px)`;
+      }
+      case TimeAverages.YEARLY: {
+        const distance = getDistanceBetweenElements(
+          document.getElementById('hourly-toggle'),
+          document.getElementById('yearly-toggle')
+        );
+        return `translateX(${distance}px)`;
+      }
     }
   };
 
@@ -112,10 +117,10 @@ function ToggleItem({ value, text }: { value: TimeAverages; text: string }) {
   return (
     <animated.div
       style={{ transform: props.transform }}
-      className={`absolute z-10 mr-2 flex rounded-full bg-white px-2 py-2 text-center text-sm font-bold text-green-700 shadow-md`}
+      className={`absolute z-10 mr-2 flex rounded-full bg-white py-2 px-1.5 text-center text-sm font-bold text-green-700 shadow-2xl`}
     >
       <AnimatedClock />
-      <animated.p className="w-15 h-6 text-gray-700 dark:text-gray-100">
+      <animated.p className="text-gray-700 dark:text-gray-100">
         {text}
       </animated.p>
     </animated.div>
@@ -151,7 +156,12 @@ function AnimatedClock() {
 
   return (
     <animated.span
-      style={{ color: '#335a3d', marginRight: 3, fontSize: '22px', ...props }}
+      style={{
+        color: '#335a3d',
+        marginRight: '0.1rem',
+        fontSize: '1.075rem',
+        ...props,
+      }}
       class="material-symbols-outlined"
     >
       schedule

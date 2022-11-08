@@ -15,7 +15,7 @@ function TimeSlider() {
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb
         className={cx(
-          'block h-6 w-6 rounded-full bg-white shadow-xl dark:bg-white',
+          'block h-6 w-6 rounded-full bg-white shadow-2xl hover:cursor-pointer dark:bg-white',
           'focus:outline-none focus-visible:ring focus-visible:ring-gray-300 focus-visible:ring-opacity-75'
         )}
         // TODO: icon can be added as child of thumb here
