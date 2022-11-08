@@ -47,3 +47,40 @@ As an eMap internal team member, you can also run the app connected to productio
 ## Geometries development
 
 See [how to edit world geometries](https://github.com/electricityMaps/electricitymaps-contrib/wiki/Edit-world-geometries).
+
+## State Management
+
+We use [jotai](https://jotai.org/) for global state management and React's setState() for local component state.
+
+### Do I have to put all my state into Redux? Should I ever use React's setState()?
+
+> There is no “right” answer for this. Some users prefer to keep every single piece of data in Redux, to maintain a fully serializable and controlled version of their application at all times. Others prefer to keep non-critical or UI state, such as “is this dropdown currently open”, inside a component's internal state. (Original [link](https://redux.js.org/faq/organizing-state#do-i-have-to-put-all-my-state-into-redux-should-i-ever-use-reacts-setstate), visited 2022)
+
+The following list can be used to determine whether to store in atom or setState.
+
+- Do other parts of the application care about this data?
+- Do you need to be able to create further derived data based on this original data?
+- Is the same data being used to drive multiple components?
+- Do you want to persist the data for another session?
+- Do you want to cache the data (ie, use what's in state if it's already there instead of re-requesting it)?
+
+**Choosing atoms**
+
+1. States that drastically changes the behavior of the map and is important when sharing with other people. Examples could be production/consumption and country/zones view. This state should be stored in the URL and localstorage. Use atomWithCustomStorage.
+
+2. States that personalizes the app but is not essential to be shared. For example dark-mode and color-blind mode. This state should be stored in localstorage. UseAtomWithStorage
+
+3. All other global state should be able to use the basic atom.
+
+**Avoid prop drilling with global state**
+
+In general all global atoms should be accessed through useAtom and not through prop drilling. This allows our components to be more modular and takes full advantage of the global nature of atoms.
+
+Exceptions to this case is for derived values. Take the following example.
+
+- ButtonGroup.tsx
+- Button1.tsx
+- Button2.tsx
+- Button3.tsx
+
+Here we the buttonGroup may retrieve a state 'globalSelectedValue' from the global state. Instead of passing down selectedValue to the buttons, the buttonGroup can pass down a 'isSelected' boolean prop which depends on 'globalSelectedValue'
