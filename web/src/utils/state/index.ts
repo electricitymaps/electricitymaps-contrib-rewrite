@@ -1,4 +1,3 @@
-import { atom } from 'jotai';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 import { ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
@@ -50,5 +49,3 @@ export const isLeftPanelOpenAtom = atomWithStorage(
   false,
   createJSONStorage(() => sessionStorage)
 );
-
-export const selectedDateAtom = atom<Date | undefined>(undefined);

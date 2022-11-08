@@ -85,12 +85,12 @@ function createStorage<Value extends string>({
     subscribe: (key, setValue) => {
       const callback = () => {
         if (_URLStorage) {
-          const searchParams = new URLSearchParams(location.hash.slice(1));
-          const val = searchParams.get(key) as Value;
-          if (val !== null) {
-            setValue(val);
-            _localStorage && _localStorage.setItem(key, val);
-            _sessionStorage && _sessionStorage.setItem(key, val);
+          const searchParameters = new URLSearchParams(location.hash.slice(1));
+          const value = searchParameters.get(key) as Value;
+          if (value !== null) {
+            setValue(value);
+            _localStorage && _localStorage.setItem(key, value);
+            _sessionStorage && _sessionStorage.setItem(key, value);
           }
         }
       };
