@@ -74,13 +74,13 @@ The following list can be used to determine whether to store in atom or setState
 
 **Avoid prop drilling with global state**
 
-In general all global atoms should be accessed through useAtom and not through prop drilling. This allows our components to be more modular and takes full advantage of the global nature of atoms.
+In general all global atoms should be accessed through useAtom and not through prop drilling. This allows our components to be more modular and takes full advantage of the global nature of atoms. In general we want to avoid transporting props multiple levels down.
 
-Exceptions to this case is for derived values. Take the following example.
+If the components are very closely related it may make sense to pass down derived values instead.
 
 - ButtonGroup.tsx
 - Button1.tsx
 - Button2.tsx
 - Button3.tsx
 
-Here we the buttonGroup may retrieve a state 'globalSelectedValue' from the global state. Instead of passing down selectedValue to the buttons, the buttonGroup can pass down a 'isSelected' boolean prop which depends on 'globalSelectedValue'
+Here the buttonGroup may retrieve a state 'globalSelectedValue' from the global state. Instead of passing down 'globalSelectedValue' to the buttons, the buttonGroup can pass down a 'isSelected' boolean prop which depends on 'globalSelectedValue' and the value of the individual buttons.
