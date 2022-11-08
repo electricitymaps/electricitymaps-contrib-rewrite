@@ -47,32 +47,3 @@ As an eMap internal team member, you can also run the app connected to productio
 ## Geometries development
 
 See [how to edit world geometries](https://github.com/electricityMaps/electricitymaps-contrib/wiki/Edit-world-geometries).
-
-## State Management
-
-We use [jotai](https://jotai.org/) for global state management
-
-In choosing 
-
-
-**Persisting atoms**
-
-1. States that drastically changes the behavior of the map and is important when sharing with other people. Examples could be production/consumption and country/zones view. This state should be stored in the URL and localstorage.
-
-2. States that personalizes the app but is not essential to be shared. For example dark-mode and color-blind mode. This state should be stored in localstorage.
- 
-
-
-
-**Using atom vs React.useState**
-
-There are still a lot of cases where we want to use the react state.  
-
-
-We want components to be modular.
-
-This means we import the atom directly in the component that uses it. 
-
-
-
-
