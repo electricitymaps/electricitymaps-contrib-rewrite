@@ -7,6 +7,13 @@ import { atom } from 'jotai';
 
 const NO_STORAGE_VALUE = Symbol();
 
+const subscribe = (callback: () => void) => {
+  window.addEventListener('hashchange', callback);
+  return () => {
+    window.removeEventListener('hashchange', callback);
+  };
+};
+
 function createURLStorage<Value extends string>() {
   return {
     getItem: (key: string) => {
@@ -75,6 +82,20 @@ function createStorage<Value extends string>({
       _sessionStorage && _sessionStorage.removeItem(key);
       _localStorage && _localStorage.removeItem(key);
     },
+    subscribe: (key, setValue) => {
+      const callback = () => {
+        if (_URLStorage) {
+          const searchParams = new URLSearchParams(location.hash.slice(1));
+          const val = searchParams.get(key) as Value;
+          if (val !== null) {
+            setValue(val);
+            _localStorage && _localStorage.setItem(key, val);
+            _sessionStorage && _sessionStorage.setItem(key, val);
+          }
+        }
+      };
+      return subscribe(callback);
+    },
   };
 }
 
@@ -98,12 +119,11 @@ export default function atomWithCustomStorage<Value extends string>({
   options,
 }: {
   key: string;
-  initialValue: Value;
+  initialValue: string;
   options: StorageOptions;
 }) {
   const storage = createStorage(options);
   const baseAtom = atomWithStorage(key, initialValue, storage);
-
   // Wrap base atom to return initial value if storage is empty
   return atom(
     (get) => {

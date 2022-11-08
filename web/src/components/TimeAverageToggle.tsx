@@ -34,8 +34,8 @@ const settings: ToggleItem[] = [
 
 function TimeAverageToggle({ className }: { className?: string }) {
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
-  const onToggleGroupClick = (newTimeAvg: TimeAverages) => {
-    setTimeAverage(newTimeAvg);
+  const onToggleGroupClick = (newTimeAverage: TimeAverages) => {
+    setTimeAverage(newTimeAverage);
   };
 
   return (

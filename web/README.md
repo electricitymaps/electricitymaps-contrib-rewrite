@@ -68,9 +68,11 @@ The following list can be used to determine whether to store in atom or setState
 
 1. States that drastically changes the behavior of the map and is important when sharing with other people. Examples could be production/consumption and country/zones view. This state should be stored in the URL and localstorage. Use atomWithCustomStorage.
 
-2. States that personalizes the app but is not essential to be shared. For example dark-mode and color-blind mode. This state should be stored in localstorage. UseAtomWithStorage
+2. States that personalizes the app but is not essential to be shared. For example dark-mode and color-blind mode. This state should be stored in localstorage. use atomWithStorage
 
-3. All other global state should be able to use the basic atom.
+3. State that changes the viewer experience and may be disrupted by a reload but is not essential to be shared. This state should be stored in sessionStorage. Use atomWithStorage.
+
+4. All other global state should be able to use the basic atom.
 
 **Avoid prop drilling with global state**
 
