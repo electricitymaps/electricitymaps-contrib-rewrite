@@ -17,7 +17,7 @@ const getSelectedDatetime = (dateTimes: Array<string>) => {
 };
 const getLength = (coordinate?: [number, number]) => (coordinate ? coordinate.length : 0);
 
-const mapZonesToGrid = (data: GridState, getCo2colorScale: (co2intensity: number) => string) => {
+const mapZonesToGrid = ({ data, callerLocation }: GridState, getCo2colorScale: (co2intensity: number) => string) => {
   const keys = Object.keys(data.zones) as Array<keyof GridState>;
   const geographies = generateTopos();
   const selectedDateTime = getSelectedDatetime(data.datetimes);
@@ -63,8 +63,8 @@ const getState = async (timeAverage: string, getCo2colorScale: (co2intensity: nu
   const response = await fetch(`${getBasePath()}/${path}`, requestOptions);
 
   if (response.ok) {
-    const { data } = (await response.json()) as { data: GridState };
-    const zones: MapZone[] = mapZonesToGrid(data, getCo2colorScale) as MapZone[];
+    const result = (await response.json()) as GridState;
+    const zones: MapZone[] = mapZonesToGrid(result, getCo2colorScale) as MapZone[];
     const mapGrid = featureCollection(zones);
 
     return mapGrid;

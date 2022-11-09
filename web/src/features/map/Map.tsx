@@ -35,8 +35,8 @@ export default function MapPage(): ReactElement {
   }
 
   const zonesClickable = data;
-  const southernLattitudeBound = -62.947_193;
-  const northernLattitudeBound = 84.613_245;
+  const southernLatitudeBound = -62.947_193;
+  const northernLatitudeBound = 84.613_245;
 
   return (
     <>
@@ -49,8 +49,8 @@ export default function MapPage(): ReactElement {
         }}
         minZoom={0.7}
         maxBounds={[
-          [Number.NEGATIVE_INFINITY, southernLattitudeBound],
-          [Number.POSITIVE_INFINITY, northernLattitudeBound],
+          [Number.NEGATIVE_INFINITY, southernLatitudeBound],
+          [Number.POSITIVE_INFINITY, northernLatitudeBound],
         ]}
         mapLib={maplibregl}
         style={{ minWidth: '100vw', height: '100vh' }}

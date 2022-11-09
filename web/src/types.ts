@@ -1,16 +1,17 @@
 import { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from '@turf/turf';
 
 export interface GridState {
-  // callerLocation?: [number, number];
-  // data: {
-  zones: { [key: string]: ZoneResponse };
-  createdAt: string;
-  datetime: string;
-  datetimes: Array<string>;
-  exchanges: { [key: string]: [unknown] };
-  stateAggregation: string;
-  // };
+  callerLocation?: [number, number];
+  data: {
+    zones: { [key: string]: ZoneResponse };
+    createdAt: string;
+    datetime: string;
+    datetimes: Array<string>;
+    exchanges: { [key: string]: [unknown] };
+    stateAggregation: string;
+  };
 }
+
 export interface ZoneResponse {
   [key: string]: {
     co2intensity: number;
