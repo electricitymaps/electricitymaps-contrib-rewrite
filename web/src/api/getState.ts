@@ -36,6 +36,7 @@ const mapZonesToGrid = ({ data, callerLocation }: GridState, getCo2colorScale: (
         type: 'Feature',
         geometry: {
           ...geographies[key].geometry,
+          // TODO: Figure out if we still need this check, as invalid/empty coordinates should be removed during buildtime generation
           coordinates: geographies[key].geometry.coordinates.filter((element: [number, number] | undefined) =>
             getLength(element)
           ),
