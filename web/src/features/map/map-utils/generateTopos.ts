@@ -2,7 +2,7 @@ import { GeoJsonProperties, MultiPolygon, Polygon } from 'geojson';
 import { merge } from 'topojson-client';
 import { Zones } from 'types';
 import topo from '../../../../config/world.json';
-
+// TODO: Investigate if we can move this step to buildtime geo scripts
 export interface TopoObject {
   type: any;
   arcs: number[][][];
