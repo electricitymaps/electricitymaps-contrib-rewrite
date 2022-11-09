@@ -2,12 +2,13 @@ import Head from 'components/Head';
 import LoadingOrError from 'components/LoadingOrError';
 import { ReactElement, useMemo } from 'react';
 import useGetState from 'api/getState';
-import { TimeAverages } from 'types';
 import { Map, Source, Layer } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 import { FillPaint } from 'mapbox-gl';
+
+import { TimeAverages } from 'utils/constants';
 
 const mapStyle = { version: 8, sources: {}, layers: [] };
 
@@ -67,7 +68,6 @@ export default function MapPage(): ReactElement {
         </Source>
       </Map>
 
-      <div className="m-2 grid min-h-screen grid-cols-[minmax(0,384px)] place-content-center gap-2 md:m-0 md:grid-cols-[repeat(2,minmax(0,384px))] xl:grid-cols-[repeat(3,384px)]"></div>
     </>
   );
 }

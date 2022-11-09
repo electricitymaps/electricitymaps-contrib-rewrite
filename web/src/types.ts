@@ -67,13 +67,6 @@ export interface StorageTypes {
   hydro: number;
 }
 
-export enum TimeAverages {
-  DAILY = 'daily',
-  HOURLY = 'hourly',
-  MONTHLY = 'monthly',
-  YEARLY = 'yearly',
-}
-
 export interface MapGrid extends FeatureCollection<Geometry> {
   features: Array<MapZone>;
 }
@@ -86,3 +79,4 @@ export interface MapZone extends Feature<Polygon | MultiPolygon> {
     color: string;
   };
 }
+

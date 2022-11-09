@@ -2,6 +2,7 @@ import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import generateTopos from 'features/map/map-utils/generateTopos';
 import type { GridState, MapGrid, MapZone, TimeAverages } from 'types';
+import { TimeAverages } from 'utils/constants';
 import { getBasePath, getHeaders, QUERY_KEYS, REFETCH_INTERVAL_MS } from './helpers';
 import { featureCollection } from '@turf/turf';
 
