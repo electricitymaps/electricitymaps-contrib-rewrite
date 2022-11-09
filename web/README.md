@@ -50,11 +50,11 @@ See [how to edit world geometries](https://github.com/electricityMaps/electricit
 
 ## State Management
 
-We use [jotai](https://jotai.org/) for global state management and React's setState() for local component state.
+We use [jotai](https://jotai.org/) for global UI state management, [TanStack Query](https://tanstack.com/query/v4/docs/overview) for data state management and React's setState() for local component state.
 
-### Do I have to put all my state into Redux? Should I ever use React's setState()?
+### Do I have to put all my state into jotai? Should I ever use React's setState()?
 
-> There is no “right” answer for this. Some users prefer to keep every single piece of data in Redux, to maintain a fully serializable and controlled version of their application at all times. Others prefer to keep non-critical or UI state, such as “is this dropdown currently open”, inside a component's internal state. (Original [link](https://redux.js.org/faq/organizing-state#do-i-have-to-put-all-my-state-into-redux-should-i-ever-use-reacts-setstate), visited 2022)
+> There is no “right” answer for this. Some users prefer to keep every single piece of data in jotai, to maintain a fully serializable and controlled version of their application at all times. Others prefer to keep non-critical or UI state, such as “is this dropdown currently open”, inside a component's internal state. (Original [link](https://redux.js.org/faq/organizing-state#do-i-have-to-put-all-my-state-into-redux-should-i-ever-use-reacts-setstate), visited 2022)
 
 The following list can be used to determine whether to store in atom or setState.
 
