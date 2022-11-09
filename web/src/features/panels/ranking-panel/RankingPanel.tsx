@@ -3,6 +3,7 @@ import { useTranslation } from '../../../translation/translation';
 import SearchBar from './SearchBar';
 import ZoneList from './ZoneList';
 import InfoText from './InfoText';
+import i18n from 'i18next';
 
 interface RankingPanelProperties {}
 
@@ -23,8 +24,13 @@ const documentSearchKeyUpHandler = (key: any, searchReference: any) => {
     searchReference.current.focus();
   }
 };
+// I18n.changeLanguage('en', () => {
+//   //TODO remove when done testing language change
+//   Console.log('language set');
+// });
 
 export default function RankingPanel(properties: RankingPanelProperties): ReactElement {
+  console.log('renders three times when translating');
   const { __ } = useTranslation();
 
   return (
