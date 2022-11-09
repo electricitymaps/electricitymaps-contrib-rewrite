@@ -1,32 +1,49 @@
 import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import generateTopos from 'features/map/map-utils/generateTopos';
-import { useCo2ColorScale } from 'hooks/theme';
-import type { GridState, MapGrid, MapZone, TimeAverages, ZoneOverview, ZoneOverviewForTimePeriod } from 'types';
+import type { GridState, MapGrid, MapZone, TimeAverages } from 'types';
 import { getBasePath, getHeaders, QUERY_KEYS, REFETCH_INTERVAL_MS } from './helpers';
-import * as turf from '@turf/turf';
-const mapZonesToGrid = (data: GridState) => {
-  const keys = Object.keys(data.countries) as Array<keyof GridState>;
+import { featureCollection } from '@turf/turf';
+
+export function getCO2IntensityByMode(
+  zoneData: { co2intensity: number; co2intensityProduction: number },
+  electricityMixMode: string
+) {
+  return electricityMixMode === 'consumption' ? zoneData.co2intensity : zoneData.co2intensityProduction;
+}
+
+const getSelectedDatetime = (dateTimes: Array<string>) => {
+  return dateTimes[dateTimes.length - 1];
+};
+const getLength = (coordinate?: [number, number]) => (coordinate ? coordinate.length : 0);
+
+const mapZonesToGrid = (data: GridState, getCo2colorScale: (co2intensity: number) => string) => {
+  const keys = Object.keys(data.zones) as Array<keyof GridState>;
   const geographies = generateTopos();
+  const selectedDateTime = getSelectedDatetime(data.datetimes);
   if (!keys) {
     return [] as MapZone[];
   }
   const zones = keys
     .map((key) => {
-      const length = (coordinate?: [number, number]) => (coordinate ? coordinate.length : 0);
       if (!geographies[key]) {
         return;
       }
+      const zoneData = data.zones[key][selectedDateTime];
+      const co2intensity = zoneData ? getCO2IntensityByMode(zoneData, 'consumption') : undefined; //TODO get mode
+      const fillColor = co2intensity ? getCo2colorScale(co2intensity) : undefined;
       return {
         type: 'Feature',
         geometry: {
           ...geographies[key].geometry,
-          coordinates: geographies[key].geometry.coordinates.filter(length), // Remove empty geometries
+          coordinates: geographies[key].geometry.coordinates.filter((element: [number, number] | undefined) =>
+            getLength(element)
+          ),
         },
         Id: key,
         properties: {
-          color: undefined,
-          zoneData: data.countries[key],
+          color: fillColor,
+          zoneData: data.zones[key],
           zoneId: key,
         },
       };
@@ -36,34 +53,32 @@ const mapZonesToGrid = (data: GridState) => {
   return zones;
 };
 
-const getState = async (timeAverage: string): Promise<MapGrid> => {
-  const path = `/v5/state/${timeAverage}`;
+const getState = async (timeAverage: string, getCo2colorScale: (co2intensity: number) => string): Promise<MapGrid> => {
+  const path = `v6/state/${timeAverage}`;
   const requestOptions: RequestInit = {
     method: 'GET',
     headers: await getHeaders(path),
   };
 
   const response = await fetch(`${getBasePath()}/${path}`, requestOptions);
-  // const co2ColorScale = useCo2ColorScale();
+
   if (response.ok) {
     const { data } = (await response.json()) as { data: GridState };
+    const zones: MapZone[] = mapZonesToGrid(data, getCo2colorScale) as MapZone[];
+    const mapGrid = featureCollection(zones);
 
-    const zones: MapZone[] = mapZonesToGrid(data) as MapZone[];
-    console.log('SAD', zones);
-
-    const mapGrid = turf.featureCollection(zones);
-
-    // = {
-    //   features: zones,
-    // };
     return mapGrid;
   }
 
   throw new Error(await response.text());
 };
 
-const useGetState = (timeAverage: TimeAverages, options?: UseQueryOptions<MapGrid>): UseQueryResult<MapGrid> =>
-  useQuery<MapGrid>([QUERY_KEYS.STATE, timeAverage], async () => getState(timeAverage), {
+const useGetState = (
+  timeAverage: TimeAverages,
+  getCo2colorScale: (co2intensity: number) => string,
+  options?: UseQueryOptions<MapGrid>
+): UseQueryResult<MapGrid> =>
+  useQuery<MapGrid>([QUERY_KEYS.STATE, timeAverage], async () => getState(timeAverage, getCo2colorScale), {
     staleTime: REFETCH_INTERVAL_MS,
     ...options,
   });

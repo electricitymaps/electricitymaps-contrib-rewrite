@@ -21,7 +21,11 @@ export function useCo2ColorScale() {
 
   return useMemo(
     () =>
-      scaleLinear().domain(theme.co2Scale.steps).range(theme.co2Scale.steps).unknown(theme.clickableFill).clamp(true),
+      scaleLinear<number, string>()
+        .domain(theme.co2Scale.steps)
+        .range(theme.co2Scale.colors)
+        .unknown(theme.clickableFill)
+        .clamp(true), //TODO
     [theme]
   );
 }

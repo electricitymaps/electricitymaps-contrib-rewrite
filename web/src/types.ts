@@ -3,9 +3,10 @@ import { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from '@tu
 export interface GridState {
   // callerLocation?: [number, number];
   // data: {
-  countries: { [key: string]: ZoneResponse };
+  zones: { [key: string]: ZoneResponse };
   createdAt: string;
   datetime: string;
+  datetimes: Array<string>;
   exchanges: { [key: string]: [unknown] };
   stateAggregation: string;
   // };
