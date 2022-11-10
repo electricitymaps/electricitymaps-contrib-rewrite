@@ -1,3 +1,5 @@
+import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
+import { CircularGauge } from '../../../components/CircularGauge';
 import { CountryTag } from './CountryTag';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
@@ -10,11 +12,10 @@ export function ZoneHeader(props: ZoneHeaderProps) {
   // TODO: use correct zoneId
 
   return (
-    <div className="mt-1 grid w-full gap-20 pr-4">
+    <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
       <ZoneHeaderTitle
         title="Western Area Power Administration Rocky Mountain Region "
         formattedDate="November 9, 2022 at 8:00"
-        goBackPath="/"
         labels={[
           <div
             key="estimated"
@@ -31,26 +32,11 @@ export function ZoneHeader(props: ZoneHeaderProps) {
         ]}
         countryTag={<CountryTag zoneId={'US-NW-WACM'} />}
       />
-      <ZoneHeaderTitle
-        title="West Denmark"
-        formattedDate="November 9, 2022 at 8:00"
-        goBackPath="/"
-        labels={[
-          <div
-            key="estimated"
-            className="w-18 rounded-full bg-yellow-400 px-2 text-center text-xs"
-          >
-            Estimated
-          </div>,
-        ]}
-        countryTag={<CountryTag zoneId={'DK-DK1'} />}
-      />
-      <ZoneHeaderTitle
-        title="Spain "
-        formattedDate="November 9, 2022 at 8:00"
-        goBackPath="/"
-        countryTag={<CountryTag zoneId={'ES'} />}
-      />
+      <div className="flex flex-row justify-evenly">
+        <CarbonIntensitySquare co2intensity={60} withSubtext />
+        <CircularGauge name="Low-carbon" percentage={78} />
+        <CircularGauge name="Renewable" percentage={65} />
+      </div>
     </div>
   );
 }
