@@ -4,7 +4,15 @@ const DEFAULT_FLAG_SIZE = 48;
 
 const getFlagFileName = (zoneId: string) => {
   // Return (zonesConfig[zoneId.toUpperCase()] || {}).flag_file_name; TODO: enable when config setup
-  return 'dk.png';
+  if (zoneId === 'DK-DK1') {
+    return 'dk.png';
+  }
+
+  if (zoneId === 'ES') {
+    return 'es.png';
+  }
+
+  return 'us.png';
 };
 
 const getFlagUri = function (zoneId: string, flagSize = DEFAULT_FLAG_SIZE) {
@@ -15,7 +23,15 @@ const getFlagUri = function (zoneId: string, flagSize = DEFAULT_FLAG_SIZE) {
   return resolvePath(`flags_iso/${flagSize}/${flagFile}`).pathname;
 };
 
-export function CountryFlag({ zoneId, flagSize = DEFAULT_FLAG_SIZE, ...props }: { zoneId: string; flagSize?: number }) {
+export function CountryFlag({
+  zoneId,
+  flagSize = DEFAULT_FLAG_SIZE,
+  ...props
+}: {
+  zoneId: string;
+  flagSize?: number;
+  className?: string;
+}) {
   const flagUri = getFlagUri(zoneId, flagSize);
 
   if (flagUri === undefined) {
