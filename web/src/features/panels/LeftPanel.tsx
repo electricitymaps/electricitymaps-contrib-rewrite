@@ -43,6 +43,7 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
       }`}
     >
       <section className="overflow-auto p-2">{children}</section>
+
       <CollapseButton isCollapsed={isOpen} onCollapse={onCollapse} />
     </aside>
   );
