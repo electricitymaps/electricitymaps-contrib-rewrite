@@ -68,6 +68,7 @@ export interface StorageTypes {
 }
 
 export interface MapGrid extends FeatureCollection<Geometry> {
+  type: 'FeatureCollection';
   features: Array<MapZone>;
 }
 export interface MapZone extends Feature<Polygon | MultiPolygon> {
@@ -79,4 +80,3 @@ export interface MapZone extends Feature<Polygon | MultiPolygon> {
     color: string;
   };
 }
-

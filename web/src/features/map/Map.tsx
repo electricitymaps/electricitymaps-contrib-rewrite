@@ -1,7 +1,7 @@
 import Head from 'components/Head';
 import LoadingOrError from 'components/LoadingOrError';
 import { ReactElement, useMemo } from 'react';
-import useGetState from 'api/getState';
+import { getMapState } from './map-utils/getMapGrid';
 import { Map, Source, Layer } from 'react-map-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -9,6 +9,7 @@ import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 import { FillPaint } from 'mapbox-gl';
 
 import { TimeAverages } from 'utils/constants';
+import useGetState from 'api/getState';
 
 const mapStyle = { version: 8, sources: {}, layers: [] };
 
@@ -23,19 +24,24 @@ export default function MapPage(): ReactElement {
       ocean: { 'background-color': theme.oceanColor },
       zonesBorder: { 'line-color': theme.strokeColor, 'line-width': theme.strokeWidth },
       zonesClickable: {
-        'fill-color': ['coalesce', ['feature-state', 'color'], ['get', 'color'], theme.clickableFill],
+        'fill-color': [
+          'coalesce',
+          ['feature-state', 'color'],
+          ['get', 'color'],
+          theme.clickableFill,
+        ],
       } as FillPaint,
     }),
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(TimeAverages.HOURLY, getCo2colorScale);
+  const { isLoading, isError, error, data } = useGetState(TimeAverages.HOURLY);
+  const mapState = useMemo(() => getMapState(data, getCo2colorScale), [data]);
 
   if (isLoading || isError) {
     return <LoadingOrError error={error as Error} />;
   }
 
-  const zonesClickable = data;
   const southernLatitudeBound = -62.947_193;
   const northernLatitudeBound = 84.613_245;
 
@@ -58,16 +64,20 @@ export default function MapPage(): ReactElement {
         mapStyle={mapStyle as mapboxgl.Style}
       >
         <Layer id="ocean" type="background" paint={styles.ocean} />
-        <Source id="zones-clickable" generateId type="geojson" data={data}>
+        <Source id="zones-clickable" generateId type="geojson" data={mapState}>
           <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
           {/* Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer */}
         </Source>
-        <Source type="geojson" data={zonesClickable}>
-          <Layer id="hover" type="fill" paint={styles.hover} filter={['hoverFilter //TODO']} />
+        <Source type="geojson" data={mapState}>
+          <Layer
+            id="hover"
+            type="fill"
+            paint={styles.hover}
+            filter={['hoverFilter //TODO']}
+          />
         </Source>
       </Map>
-
     </>
   );
 }

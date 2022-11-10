@@ -27,7 +27,7 @@ function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
       }
       onClick={onCollapse}
     >
-      {isCollapsed ? '<' : '>'}
+      {isCollapsed ? '>' : '<'}
     </button>
   );
 }
@@ -38,11 +38,11 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
 
   return (
     <aside
-      className={`duration-400 absolute left-0 top-0 z-20 hidden h-full w-[calc(14vw_+_16rem)] bg-zinc-50 shadow-xl transition-all md:flex ${
+      className={`duration-400 absolute left-0 top-0 z-20 hidden h-full w-[calc(14vw_+_16rem)]  bg-zinc-50 shadow-xl transition-all md:flex ${
         isOpen && '-translate-x-full'
       }`}
     >
-      <section className="overflow-y-scroll p-2">{children}</section>
+      <section className="overflow-auto p-2">{children}</section>
       <CollapseButton isCollapsed={isOpen} onCollapse={onCollapse} />
     </aside>
   );

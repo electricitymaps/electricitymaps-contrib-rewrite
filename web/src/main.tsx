@@ -36,7 +36,7 @@ if (container) {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-        <ReactQueryDevtools position='top-right' initialIsOpen={false} />
+        <ReactQueryDevtools position="top-right" initialIsOpen={false} />
       </QueryClientProvider>
     </StrictMode>
   );
