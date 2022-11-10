@@ -65,5 +65,4 @@ export function getBasePath() {
 export const QUERY_KEYS = {
   STATE: 'state',
   ZONE: 'zone',
-  MAP_STATE: 'mapState',
 };
