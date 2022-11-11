@@ -18,13 +18,13 @@ export function ZoneHeader(props: ZoneHeaderProps) {
         formattedDate="November 9, 2022 at 8:00"
         labels={[
           <div
-            key="estimated"
+            key="estimated-label"
             className="w-18 rounded-full bg-yellow-400 px-2 text-center text-xs"
           >
             Estimated
           </div>,
           <div
-            key="estimated"
+            key="aggregated-label"
             className="w-20 rounded-full bg-gray-400 px-2 text-center text-xs text-white"
           >
             Aggregated
