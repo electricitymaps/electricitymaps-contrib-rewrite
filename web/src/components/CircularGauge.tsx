@@ -1,48 +1,56 @@
-import { Label, PolarAngleAxis, RadialBar, RadialBarChart } from 'recharts';
+import { Label, Pie, PieChart } from 'recharts';
+
+const PIE_START_ANGLE = 90;
 
 export interface CircularGaugeProps {
   percentage: number;
   name: string;
-  pixelWidth?: number;
-  pixelHeight?: number;
 }
 
-const MAX_PERCENTAGE = 100;
-
 export function CircularGauge({ percentage, name }: CircularGaugeProps) {
-  const data = [{ percentage, fill: '#4C764A' }];
+  const value = percentage / 100;
+  const data = [{ value }];
+  const percentageAsAngle = value * 360;
+  const endAngle = PIE_START_ANGLE - percentageAsAngle;
+
   return (
     <div className="flex flex-col items-center">
-      <RadialBarChart
-        width={90}
-        height={90}
-        data={data}
-        innerRadius="75%"
-        outerRadius="100%"
-      >
-        <PolarAngleAxis
-          type="number"
-          domain={[0, MAX_PERCENTAGE]}
-          dataKey={'percentage'}
-          tick={false}
+      <PieChart width={90} height={90}>
+        <Pie
+          innerRadius="75%"
+          outerRadius="100%"
+          startAngle={90}
+          endAngle={-360}
+          paddingAngle={0}
+          dataKey="value"
+          data={[{ value: 100 }]}
+          fill="#eee"
+          isAnimationActive={false}
+          strokeWidth={0}
         >
-          <Label value={'Low carbon'} offset={0} position="insideBottom" />
-        </PolarAngleAxis>
-        <RadialBar
-          label={{
-            position: 'center',
-            offset: 0,
-            className: 'select-none fill-black font-bold',
-            formatter: (value: number) => `${value}%`,
-          }}
-          background
-          dataKey="percentage"
+          <Label
+            className="select-none fill-black text-sm font-bold"
+            position="center"
+            offset={0}
+            formatter={(value: number) => `${value}%`}
+            value={percentage}
+          />
+        </Pie>
+        <Pie
           data={data}
-        ></RadialBar>
-      </RadialBarChart>
-      <div>
-        <div className="text-center text-xs">{name}</div>
-      </div>
+          innerRadius="75%"
+          outerRadius="100%"
+          startAngle={90}
+          endAngle={endAngle}
+          fill="#3C764A" // TODO: Use theme color
+          paddingAngle={0}
+          dataKey="value"
+          animationDuration={500}
+          animationBegin={0}
+          strokeWidth={0}
+        />
+      </PieChart>
+      <div className="text-center text-xs">{name}</div>
     </div>
   );
 }
