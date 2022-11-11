@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-
 // import { useTranslation } from '../helpers/translation';
+import { animated, useSpring } from '@react-spring/web';
 import { useCo2ColorScale } from '../hooks/theme';
 
 /**
@@ -13,6 +12,7 @@ import { useCo2ColorScale } from '../hooks/theme';
  * @param {string} rgbColor a string with the background color (e.g. "rgb(0,5,4)")
  */
 const getTextColor = (rgbColor: string) => {
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const colors = rgbColor.replace(/[^\d,.]/g, '').split(',');
   const r = Number.parseInt(colors[0], 10);
   const g = Number.parseInt(colors[1], 10);
@@ -23,6 +23,7 @@ const getTextColor = (rgbColor: string) => {
   });
   const luminosity = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
   return luminosity >= 0.384_741_302_385_683_16 ? 'black' : 'white';
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 };
 
 interface CarbonIntensitySquareProps {
@@ -36,21 +37,26 @@ function CarbonIntensitySquare({
 }: CarbonIntensitySquareProps) {
   // const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
+  const styles = useSpring({ backgroundColor: co2ColorScale(co2intensity) });
+  const { number } = useSpring({
+    from: { number: 0 },
+    number: co2intensity,
+  });
 
   return (
     <div>
       <div id="surface" className={`flex h-[90px] w-[90px]`}>
-        <div
+        <animated.div
           style={{
-            backgroundColor: co2ColorScale(co2intensity),
             color: getTextColor(co2ColorScale(co2intensity)),
+            ...styles,
           }}
           className="text-md mx-auto mt-3 flex h-[68px] w-[68px] flex-col items-center justify-center rounded-2xl"
         >
           <p className="text-md select-none font-bold" data-test-id="co2-square-value">
-            {Math.round(co2intensity) || '?'}g
+            <animated.div>{number.to((x) => `${Math.round(x) || '?'}g`)}</animated.div>
           </p>
-        </div>
+        </animated.div>
       </div>
       <div className="flex flex-col items-center">
         <div className="text-xs">{'Carbon Intensity'}</div>
