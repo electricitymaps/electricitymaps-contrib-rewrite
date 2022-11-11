@@ -1,5 +1,5 @@
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
-import { CircularGauge } from '../../../components/CircularGauge';
+import { CircularGauge } from 'components/CircularGauge';
 import { CountryTag } from './CountryTag';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
