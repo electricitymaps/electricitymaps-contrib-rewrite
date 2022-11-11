@@ -1,3 +1,4 @@
+import { atom } from 'jotai';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 import { ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
@@ -10,6 +11,8 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
     syncWithLocalStorage: true,
   },
 });
+
+export const selectedDatetimeIndexAtom = atom('2022-11-10T08:00:00Z');
 
 /** Some example atoms that are not currently used */
 export const spatialAggregateAtom = atomWithCustomStorage<ToggleOptions>({
@@ -39,13 +42,12 @@ export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
   },
 });
 
-export const themeAtom = atomWithStorage<ThemeOptions>(
-  'theme',
-  ThemeOptions.LIGHT
-);
+export const themeAtom = atomWithStorage<ThemeOptions>('theme', ThemeOptions.LIGHT);
 
 export const isLeftPanelOpenAtom = atomWithStorage(
   'is-left-panel-open',
   false,
   createJSONStorage(() => sessionStorage)
 );
+
+export const selectedDateAtom = atom(new Date());

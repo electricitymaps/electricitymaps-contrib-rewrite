@@ -4,7 +4,7 @@ import TimeController from 'features/time/TimeController';
 import type { ReactElement } from 'react';
 import { lazy, Suspense } from 'react';
 
-const Map = lazy(async () => import('features/map/Map'));
+const Map = lazy(async () => import('features/map/OtherMaps'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
 
 export default function App(): ReactElement {
