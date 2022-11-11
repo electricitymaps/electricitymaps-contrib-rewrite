@@ -5,9 +5,9 @@ pnpm-lock.yaml
 
 .venv
 **/parsers/test/mocks
-web/world.json
-web/exchanges.json
-web/zones.json
+web/config/world.json
+web/config/exchanges.json
+web/config/zones.json
 world-aggregated.json
 
 mockserver/public
