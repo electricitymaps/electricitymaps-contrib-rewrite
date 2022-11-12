@@ -5,19 +5,22 @@ import { useAtom } from 'jotai';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 
 export default function TimeController() {
-  const [timeaverage] = useAtom(timeAverageAtom);
+  const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetimeIndex, setSelectedDatetimeIndex] = useAtom(
     selectedDatetimeIndexAtom
   );
-  const { data, isLoading } = useGetState(timeaverage);
+  const { data, isLoading, isError } = useGetState(timeAverage);
 
-  if (isLoading) {
+  if (isLoading || isError) {
     return <div>Loading...</div>;
   }
 
-  if (!data) {
-    return null;
-  }
+  const { datetimes } = data.data;
+
+  const onTimeSliderChange = (datetimeIndex: number) => {
+    // TODO: Does this work properly missing values?
+    setSelectedDatetimeIndex(datetimes[datetimeIndex]);
+  };
 
   return (
     <div
@@ -32,7 +35,7 @@ export default function TimeController() {
         </div>
       </div>
       <TimeAverageToggle className="mb-2" />
-      <TimeSlider datetimes={data.data.datetimes} />
+      <TimeSlider onChange={onTimeSliderChange} datetimes={datetimes} />
     </div>
   );
 }

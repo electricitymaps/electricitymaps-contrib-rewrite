@@ -1,7 +1,8 @@
 import type { UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import generateTopos from 'features/map/map-utils/generateTopos';
-import type { GridState, MapGrid, MapZone, TimeAverages } from 'types';
+import type { GridState, MapZone } from 'types';
+import { TimeAverages } from 'utils/constants';
 import { getBasePath, getHeaders, QUERY_KEYS, REFETCH_INTERVAL_MS } from './helpers';
 
 export function getCO2IntensityByMode(
@@ -60,7 +61,7 @@ const mapZonesToGrid = (
   return zones;
 };
 
-const getState = async (timeAverage: string): Promise<MapGrid> => {
+const getState = async (timeAverage: string): Promise<GridState> => {
   const path = `v6/state/${timeAverage}`;
   const requestOptions: RequestInit = {
     method: 'GET',
@@ -79,11 +80,15 @@ const getState = async (timeAverage: string): Promise<MapGrid> => {
 
 const useGetState = (
   timeAverage: TimeAverages,
-  options?: UseQueryOptions<MapGrid>
-): UseQueryResult<MapGrid> =>
-  useQuery<MapGrid>([QUERY_KEYS.STATE, timeAverage], async () => getState(timeAverage), {
-    staleTime: REFETCH_INTERVAL_MS,
-    ...options,
-  });
+  options?: UseQueryOptions<GridState>
+): UseQueryResult<GridState> =>
+  useQuery<GridState>(
+    [QUERY_KEYS.STATE, timeAverage],
+    async () => getState(timeAverage),
+    {
+      staleTime: REFETCH_INTERVAL_MS,
+      ...options,
+    }
+  );
 
 export default useGetState;
