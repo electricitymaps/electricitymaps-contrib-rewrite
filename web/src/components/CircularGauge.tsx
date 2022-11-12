@@ -15,9 +15,9 @@ export function CircularGauge({ percentage, name }: CircularGaugeProps) {
 
   return (
     <div className="flex flex-col items-center">
-      <PieChart width={90} height={90}>
+      <PieChart width={65} height={65} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <Pie
-          innerRadius="75%"
+          innerRadius="80%"
           outerRadius="100%"
           startAngle={90}
           endAngle={-360}
@@ -38,7 +38,7 @@ export function CircularGauge({ percentage, name }: CircularGaugeProps) {
         </Pie>
         <Pie
           data={data}
-          innerRadius="75%"
+          innerRadius="80%"
           outerRadius="100%"
           startAngle={90}
           endAngle={endAngle}
@@ -50,7 +50,7 @@ export function CircularGauge({ percentage, name }: CircularGaugeProps) {
           strokeWidth={0}
         />
       </PieChart>
-      <div className="text-center text-xs">{name}</div>
+      <div className="mt-3 text-center text-xs">{name}</div>
     </div>
   );
 }
