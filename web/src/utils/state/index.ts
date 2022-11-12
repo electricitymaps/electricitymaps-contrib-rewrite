@@ -3,6 +3,8 @@ import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 import { ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
 
+// TODO: Fix typing such that we don't need to cast to TimeAverage
+// TODO: Ensure it works as intended without URL params
 export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
   key: 'average',
   initialValue: TimeAverages.HOURLY.toString(),
@@ -12,7 +14,7 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
   },
 });
 
-export const selectedDatetimeIndexAtom = atom('2022-11-10T08:00:00Z');
+export const selectedDatetimeIndexAtom = atom('');
 
 /** Some example atoms that are not currently used */
 export const spatialAggregateAtom = atomWithCustomStorage<ToggleOptions>({
@@ -49,5 +51,3 @@ export const isLeftPanelOpenAtom = atomWithStorage(
   false,
   createJSONStorage(() => sessionStorage)
 );
-
-export const selectedDateAtom = atom(new Date());

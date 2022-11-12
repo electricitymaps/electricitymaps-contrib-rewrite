@@ -1,20 +1,17 @@
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import { useAtom } from 'jotai';
-import { selectedDatetimeIndexAtom } from 'utils/state';
 
-function TimeSlider({ datetimes }) {
-  const [datetimeIndex, setDatetimeIndex] = useAtom(selectedDatetimeIndexAtom);
+interface TimeSliderProps {
+  datetimes: string[];
+  onChange: (datetimeIndex: number) => void;
+}
 
-  const onValueChange = (value: number) => {
-    setDatetimeIndex(datetimes[value]);
-  };
-
+function TimeSlider({ datetimes, onChange }: TimeSliderProps) {
   return (
     <SliderPrimitive.Root
       defaultValue={[0]}
       max={datetimes.length - 1}
       step={1}
-      onValueChange={onValueChange}
+      onValueChange={(value) => onChange(value[0])}
       aria-label="value"
       className="relative mb-2 flex h-5 w-full touch-none items-center"
     >
