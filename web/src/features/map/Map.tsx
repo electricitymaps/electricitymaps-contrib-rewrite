@@ -120,7 +120,36 @@ export default function MapPage(): ReactElement {
     return <LoadingOrError error={error as Error} />;
   }
 
-  // TODO: Ignore zone hovering if the map is dragging
+  const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
+    const map = mapReference.current?.getMap();
+    if (!map || !event.features) {
+      return;
+    }
+    const feature = event.features[0];
+
+    // Remove state from old feature if we are no longer hovering anything,
+    // or if we are hovering a different feature than the previous one
+    if (selectedFeatureId && (!feature || selectedFeatureId !== feature.id)) {
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: selectedFeatureId },
+        { selected: false }
+      );
+    }
+
+    if (feature && feature.properties) {
+      setSelectedFeatureId(feature.id);
+      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
+
+      const zoneId = feature.properties.zoneId;
+      // TODO: Open left panel
+      // TODO: Consider using flyTo zone?
+      navigate(`/zone/${zoneId}`);
+    } else {
+      setSelectedFeatureId(undefined);
+      navigate('/map');
+    }
+  };
+
   const onMouseMove = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
     if (!map || !event.features) {
@@ -175,6 +204,7 @@ export default function MapPage(): ReactElement {
         }}
         interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
         cursor={cursorType}
+        onClick={onClick}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
         minZoom={0.7}
