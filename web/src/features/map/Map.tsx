@@ -1,6 +1,6 @@
 import Head from 'components/Head';
 import LoadingOrError from 'components/LoadingOrError';
-import { FillPaint } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,34 +9,25 @@ import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
 import { useAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
-const mapStyle = { version: 8, sources: {}, layers: [] };
+const ZONE_SOURCE = 'zones-clickable';
 
-const changeFeatureHoverState = (
-  map: mapboxgl.Map,
-  featureId: string | number,
-  state: boolean
-) => {
-  map.setFeatureState(
-    {
-      source: 'zones-clickable',
-      id: featureId,
-    },
-    {
-      hover: state,
-    }
-  );
-};
+const mapStyle = { version: 8, sources: {}, layers: [] };
 
 export default function MapPage(): ReactElement {
   const [hoveredFeatureId, setHoveredFeatureId] = useState<string | number | undefined>();
+  const [selectedFeatureId, setSelectedFeatureId] = useState<
+    string | number | undefined
+  >();
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
   const getCo2colorScale = useCo2ColorScale();
+  const navigate = useNavigate();
 
   const theme = useTheme();
   // Calculate layer styles only when the theme changes
@@ -44,8 +35,21 @@ export default function MapPage(): ReactElement {
   const styles = useMemo(
     () => ({
       ocean: { 'background-color': theme.oceanColor },
-      // Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer
-      zonesBorder: { 'line-color': theme.strokeColor, 'line-width': theme.strokeWidth },
+      zonesBorder: {
+        'line-color': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          'white',
+          theme.strokeColor,
+        ],
+        // Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer
+        'line-width': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          (theme.strokeWidth as number) * 10,
+          theme.strokeWidth,
+        ],
+      } as mapboxgl.LinePaint,
       zonesClickable: {
         'fill-color': [
           'coalesce',
@@ -53,11 +57,11 @@ export default function MapPage(): ReactElement {
           ['get', 'color'],
           theme.clickableFill,
         ],
-      } as FillPaint,
+      } as mapboxgl.FillPaint,
       zonesHover: {
         'fill-color': '#FFFFFF',
         'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.3, 0],
-      } as FillPaint,
+      } as mapboxgl.FillPaint,
     }),
     [theme]
   );
@@ -150,6 +154,8 @@ export default function MapPage(): ReactElement {
     }
   };
 
+  // TODO: Consider if we need to ignore zone hovering if the map is dragging
+  // TODO: Save cursor position to be used for tooltip
   const onMouseMove = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
     if (!map || !event.features) {
@@ -161,13 +167,16 @@ export default function MapPage(): ReactElement {
     // Remove state from old feature if we are no longer hovering anything,
     // or if we are hovering a different feature than the previous one
     if (hoveredFeatureId && (!feature || hoveredFeatureId !== feature.id)) {
-      changeFeatureHoverState(map, hoveredFeatureId, false);
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: hoveredFeatureId },
+        { hover: false }
+      );
     }
 
     if (feature && feature.id) {
       setCursorType('pointer');
       setHoveredFeatureId(feature.id);
-      changeFeatureHoverState(map, feature.id, true);
+      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { hover: true });
     } else {
       setCursorType('grab');
       setHoveredFeatureId(undefined);
