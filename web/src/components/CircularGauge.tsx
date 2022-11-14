@@ -8,6 +8,8 @@ export interface CircularGaugeProps {
 }
 
 export function CircularGauge({ percentage, name }: CircularGaugeProps) {
+  // TODO: To improve performance, the background pie does not 
+  // need to rerender on percentage change
   const value = percentage / 100;
   const data = [{ value }];
   const percentageAsAngle = value * 360;
