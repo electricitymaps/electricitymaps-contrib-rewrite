@@ -53,6 +53,12 @@ export default function MapPage(): ReactElement {
       return;
     }
 
+    // An issue where the map has not loaded source yet causing map errors
+    const isSourceLoaded = map.getSource('zones-clickable') != undefined;
+    if (!isSourceLoaded) {
+      return;
+    }
+
     for (const [index, feature] of geometries.features.entries()) {
       const { zoneId } = feature.properties;
       const zone = data.data?.zones[zoneId];
@@ -69,7 +75,7 @@ export default function MapPage(): ReactElement {
       const existingColor = map.getFeatureState({
         source: 'zones-clickable',
         id: index,
-      }).color;
+      })?.color;
 
       if (existingColor !== fillColor) {
         map.setFeatureState(
