@@ -32,17 +32,17 @@ function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
 }
 
 function OuterPanel({ children }: { children: React.ReactNode }) {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   const onCollapse = () => setOpen(!isOpen);
 
   return (
     <aside
       className={`absolute left-0 top-0 z-20 h-full w-full bg-zinc-50 shadow-xl transition-all duration-500 dark:bg-gray-800 md:flex md:w-[calc(14vw_+_16rem)] ${
-        isOpen && '-translate-x-full'
+        !isOpen && '-translate-x-full'
       }`}
     >
       <section className="w-full overflow-y-scroll p-2">{children}</section>
-      <CollapseButton isCollapsed={isOpen} onCollapse={onCollapse} />
+      <CollapseButton isCollapsed={!isOpen} onCollapse={onCollapse} />
     </aside>
   );
 }
