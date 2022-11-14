@@ -3,7 +3,7 @@ import LoadingOrError from 'components/LoadingOrError';
 import { FillPaint } from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { ReactElement, useEffect, useMemo, useRef } from 'react';
+import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Layer, Map, MapRef, Source } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
@@ -15,10 +15,27 @@ import { useGetGeometries } from './map-utils/getMapGrid';
 
 const mapStyle = { version: 8, sources: {}, layers: [] };
 
+const changeFeatureHoverState = (
+  map: mapboxgl.Map,
+  featureId: string | number,
+  state: boolean
+) => {
+  map.setFeatureState(
+    {
+      source: 'zones-clickable',
+      id: featureId,
+    },
+    {
+      hover: state,
+    }
+  );
+};
+
 export default function MapPage(): ReactElement {
+  const [hoveredFeatureId, setHoveredFeatureId] = useState<string | number | undefined>();
+  const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
-
   const getCo2colorScale = useCo2ColorScale();
 
   const theme = useTheme();
@@ -26,8 +43,8 @@ export default function MapPage(): ReactElement {
   // To keep the stable and prevent excessive rerendering.
   const styles = useMemo(
     () => ({
-      hover: { 'fill-color': 'white', 'fill-opacity': 0.3 },
       ocean: { 'background-color': theme.oceanColor },
+      // Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer
       zonesBorder: { 'line-color': theme.strokeColor, 'line-width': theme.strokeWidth },
       zonesClickable: {
         'fill-color': [
@@ -36,6 +53,10 @@ export default function MapPage(): ReactElement {
           ['get', 'color'],
           theme.clickableFill,
         ],
+      } as FillPaint,
+      zonesHover: {
+        'fill-color': '#FFFFFF',
+        'fill-opacity': ['case', ['boolean', ['feature-state', 'hover'], false], 0.3, 0],
       } as FillPaint,
     }),
     [theme]
@@ -99,6 +120,31 @@ export default function MapPage(): ReactElement {
     return <LoadingOrError error={error as Error} />;
   }
 
+  // TODO: Ignore zone hovering if the map is dragging
+  const onMouseMove = (event: mapboxgl.MapLayerMouseEvent) => {
+    const map = mapReference.current?.getMap();
+    if (!map || !event.features) {
+      return;
+    }
+
+    const feature = event.features[0];
+
+    // Remove state from old feature if we are no longer hovering anything,
+    // or if we are hovering a different feature than the previous one
+    if (hoveredFeatureId && (!feature || hoveredFeatureId !== feature.id)) {
+      changeFeatureHoverState(map, hoveredFeatureId, false);
+    }
+
+    if (feature && feature.id) {
+      setCursorType('pointer');
+      setHoveredFeatureId(feature.id);
+      changeFeatureHoverState(map, feature.id, true);
+    } else {
+      setCursorType('grab');
+      setHoveredFeatureId(undefined);
+    }
+  };
+
   const southernLatitudeBound = -62.947_193;
   const northernLatitudeBound = 84.613_245;
 
@@ -112,6 +158,9 @@ export default function MapPage(): ReactElement {
           longitude: -122.4,
           zoom: 2,
         }}
+        interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
+        cursor={cursorType}
+        onMouseMove={onMouseMove}
         minZoom={0.7}
         maxBounds={[
           [Number.NEGATIVE_INFINITY, southernLatitudeBound],
@@ -124,8 +173,8 @@ export default function MapPage(): ReactElement {
         <Layer id="ocean" type="background" paint={styles.ocean} />
         <Source id="zones-clickable" generateId type="geojson" data={geometries}>
           <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
+          <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
-          {/* Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer */}
         </Source>
       </Map>
     </>
