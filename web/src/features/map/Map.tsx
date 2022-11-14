@@ -46,6 +46,7 @@ export default function MapPage(): ReactElement {
   const geometries = useGetGeometries();
 
   useEffect(() => {
+    // This effect colors the zones based on the co2 intensity
     const map = mapReference.current?.getMap();
 
     if (!map || isLoading || isError) {
@@ -61,11 +62,9 @@ export default function MapPage(): ReactElement {
           ? getCO2IntensityByMode(zone[datetimeIndex], 'consumption')
           : undefined;
 
-      if (!co2intensity) {
-        continue;
-      }
-
-      const fillColor = getCo2colorScale(co2intensity);
+      const fillColor = co2intensity
+        ? getCo2colorScale(co2intensity)
+        : theme.clickableFill;
 
       const existingColor = map.getFeatureState({
         source: 'zones-clickable',
