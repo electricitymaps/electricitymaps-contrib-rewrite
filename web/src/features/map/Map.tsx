@@ -192,6 +192,11 @@ export default function MapPage(): ReactElement {
   const southernLatitudeBound = -62.947_193;
   const northernLatitudeBound = 84.613_245;
 
+  const onError = (event: mapboxgl.ErrorEvent) => {
+    console.error(event.error);
+    // TODO: Remove loading overlay
+    // TODO: Show error message to user
+  };
   return (
     <>
       <Head title="Electricity Maps" />
@@ -205,6 +210,7 @@ export default function MapPage(): ReactElement {
         interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
         cursor={cursorType}
         onClick={onClick}
+        onError={onError}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
         minZoom={0.7}
