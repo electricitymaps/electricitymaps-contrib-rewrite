@@ -1,26 +1,32 @@
 import type { ReactElement } from 'react';
-import { MapGrid } from 'types';
+import { GridState } from 'types';
 
 interface ZonelistProperties {
-  zoneData: MapGrid | undefined;
+  data: ZoneRow[];
 }
 
-function ZoneRow({
-  zoneName,
-  countryName,
-  co2,
-}: {
-  zoneName: string;
-  countryName: string;
-  co2: number;
-}) {
+export interface ZoneRow {
+  zoneId: keyof GridState;
+  color?: string;
+  co2intensity?: number;
+}
+
+function ZoneRow({ co2intensity, zoneId, color }: ZoneRow) {
   return (
-    <div className="bg-gray-200">
-      <text>{zoneName}</text>
+    <div key={zoneId} style={{ backgroundColor: color }}>
+      <text>
+        {zoneId} - {co2intensity}
+      </text>
     </div>
   );
 }
 
 export default function Zonelist(properties: ZonelistProperties): ReactElement {
-  return <ZoneRow zoneName="ASD" countryName="Sad" co2={5} />;
+  return (
+    <div>
+      {properties.data.map((d) => (
+        <ZoneRow key={d.zoneId} {...d} />
+      ))}
+    </div>
+  );
 }

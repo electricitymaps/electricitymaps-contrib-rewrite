@@ -1,39 +1,33 @@
-import type { GridState, MapZone } from 'types';
-import { getCO2IntensityByMode } from 'utils/helperFunctions';
-
-const defaultDatetimeIndex = 22;
-
-const getSelectedDatetime = (dateTimes: Array<string>, datetimeIndex: number) => {
-  return dateTimes[datetimeIndex];
-};
+import type { GridState } from 'types';
+import { getCO2IntensityByMode } from 'utils/helpers';
+import { ZoneRow } from './ZoneList';
 
 export const getRankedState = (
   data: GridState | undefined,
   getCo2colorScale: (co2intensity: number) => string,
   sortOrder: 'asc' | 'desc',
-  datetimeIndex: number = defaultDatetimeIndex
-) => {
+  datetimeIndex: string
+): ZoneRow[] => {
   if (!data) {
     return [];
   }
   const zonesData = data.data;
   const keys = Object.keys(zonesData.zones) as Array<keyof GridState>;
 
-  const selectedDateTime = getSelectedDatetime(zonesData.datetimes, datetimeIndex);
   if (!keys) {
-    return [] as MapZone[];
+    return [];
   }
   const zones = keys
     .map((key) => {
-      const zoneData = zonesData.zones[key][selectedDateTime];
+      const zoneData = zonesData.zones[key][datetimeIndex];
       const co2intensity = zoneData
         ? getCO2IntensityByMode(zoneData, 'consumption')
         : undefined; //TODO get mode
       const fillColor = co2intensity ? getCo2colorScale(co2intensity) : undefined;
       return {
-        zoneKey: key,
+        zoneId: key,
         color: fillColor,
-        co2intensity: co2intensity,
+        co2intensity,
       };
     })
     .filter((zone) => zone.co2intensity !== undefined);

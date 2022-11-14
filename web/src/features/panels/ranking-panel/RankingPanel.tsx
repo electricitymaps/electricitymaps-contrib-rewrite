@@ -1,7 +1,8 @@
 import useGetState from 'api/getState';
 import { useCo2ColorScale } from 'hooks/theme';
-import { ReactElement, useMemo } from 'react';
-import { TimeAverages } from 'utils/constants';
+import { useAtom } from 'jotai';
+import { ReactElement } from 'react';
+import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useTranslation } from '../../../translation/translation';
 import { getRankedState } from './getRankingPanelData';
 import SearchBar from './SearchBar';
@@ -35,8 +36,11 @@ export default function RankingPanel(properties: RankingPanelProperties): ReactE
   console.log('renders three times when translating');
   const { __ } = useTranslation();
   const getCo2colorScale = useCo2ColorScale();
-  const { isLoading, isSuccess, isError, error, data } = useGetState(TimeAverages.HOURLY);
-  const rankedList = useMemo(() => getRankedState(data, getCo2colorScale, 'asc'), [data]);
+  const [timeAverage] = useAtom(timeAverageAtom);
+  const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
+
+  const { isLoading, isSuccess, isError, error, data } = useGetState(timeAverage);
+  const rankedList = getRankedState(data, getCo2colorScale, 'asc', selectedDatetime);
 
   return (
     <div className="p-5">
@@ -57,7 +61,7 @@ export default function RankingPanel(properties: RankingPanelProperties): ReactE
           console.log('search', input);
         }}
       />
-      {/* {!isLoading && <ZoneList zoneData={data} />} */}
+      {!isLoading && <ZoneList data={rankedList} />}
       {/* <InfoText /> TODO */}
     </div>
   );
