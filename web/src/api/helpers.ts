@@ -27,7 +27,6 @@ function isUsingLocalEndpoint(): boolean {
 }
 
 function getToken(): string {
-  return 'kUp26@Zg4fv$9Pm';
   invariant(
     import.meta.env.VITE_PUBLIC_ELECTRICITYMAP_PUBLIC_TOKEN,
     'VITE_PUBLIC_ELECTRICITYMAP_PUBLIC_TOKEN is not defined in environment'

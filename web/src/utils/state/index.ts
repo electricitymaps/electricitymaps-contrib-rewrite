@@ -14,6 +14,7 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
   },
 });
 
+// TODO consider another initial value
 export const selectedDatetimeIndexAtom = atom('');
 
 /** Some example atoms that are not currently used */

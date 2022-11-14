@@ -9,7 +9,6 @@ import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
 import { useAtom } from 'jotai';
-import { TimeAverages } from 'utils/constants';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useGetGeometries } from './map-utils/getMapGrid';
@@ -20,7 +19,6 @@ export default function MapPage(): ReactElement {
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
 
-  const typedTimeAverage = timeAverage as TimeAverages;
   const getCo2colorScale = useCo2ColorScale();
 
   const theme = useTheme();
@@ -43,7 +41,7 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(typedTimeAverage);
+  const { isLoading, isError, error, data } = useGetState(timeAverage);
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
