@@ -27,7 +27,7 @@ export default function TimeController() {
   return (
     <div
       className={
-        'absolute bottom-20 left-3 right-3 rounded-xl bg-white p-5 shadow-md sm:max-w-md'
+        'absolute bottom-20 left-3 right-3 z-30 rounded-xl bg-white p-5 shadow-md sm:max-w-md'
       }
     >
       <div className="flex flex-row items-center justify-between">
