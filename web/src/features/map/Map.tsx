@@ -145,6 +145,21 @@ export default function MapPage(): ReactElement {
     }
   };
 
+  const onMouseOut = () => {
+    const map = mapReference.current?.getMap();
+    if (!map) {
+      return;
+    }
+
+    if (hoveredFeatureId !== null) {
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: hoveredFeatureId },
+        { hover: false }
+      );
+      setHoveredFeatureId(undefined);
+    }
+  };
+
   const southernLatitudeBound = -62.947_193;
   const northernLatitudeBound = 84.613_245;
 
@@ -161,6 +176,7 @@ export default function MapPage(): ReactElement {
         interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
         cursor={cursorType}
         onMouseMove={onMouseMove}
+        onMouseOut={onMouseOut}
         minZoom={0.7}
         maxBounds={[
           [Number.NEGATIVE_INFINITY, southernLatitudeBound],
