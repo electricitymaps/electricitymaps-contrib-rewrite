@@ -1,10 +1,12 @@
 import generateTopos from 'features/map/map-utils/generateTopos';
-
-import { featureCollection } from '@turf/turf';
+import { useTheme } from 'hooks/theme';
+import { useAtom } from 'jotai';
+import { useMemo } from 'react';
 import { MapGeometries } from 'types';
+import { spatialAggregateAtom } from 'utils/state';
 
-export const getGeometries = (): MapGeometries => {
-  const geographies = generateTopos();
-
-  return featureCollection(zones);
+export const useGetGeometries = (): MapGeometries => {
+  const [spatialAggregate] = useAtom(spatialAggregateAtom);
+  const theme = useTheme();
+  return useMemo(() => generateTopos(theme), [spatialAggregate, theme]);
 };

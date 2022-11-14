@@ -4,7 +4,7 @@ import { FillPaint } from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { ReactElement, useEffect, useMemo, useRef } from 'react';
-import { Layer, Map, Source } from 'react-map-gl';
+import { Layer, Map, MapRef, Source } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
@@ -12,13 +12,11 @@ import { useAtom } from 'jotai';
 import { TimeAverages } from 'utils/constants';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
-import { getGeometries } from './map-utils/getMapGrid';
+import { useGetGeometries } from './map-utils/getMapGrid';
 
 const mapStyle = { version: 8, sources: {}, layers: [] };
 
 export default function MapPage(): ReactElement {
-  console.log('Render');
-
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
 
@@ -46,18 +44,13 @@ export default function MapPage(): ReactElement {
   );
 
   const { isLoading, isError, error, data } = useGetState(typedTimeAverage);
-  const spatialAggregation = 'zone';
-  const mapReference = useRef(null);
-
-  const geometries = useMemo(() => getGeometries(), [spatialAggregation]);
+  const mapReference = useRef<MapRef>(null);
+  const geometries = useGetGeometries();
 
   useEffect(() => {
-    const map = mapReference?.current?.getMap();
-    if (!map || isLoading || isError) {
-      return;
-    }
+    const map = mapReference.current?.getMap();
 
-    if (!data.data) {
+    if (!map || isLoading || isError) {
       return;
     }
 
@@ -70,12 +63,16 @@ export default function MapPage(): ReactElement {
           ? getCO2IntensityByMode(zone[datetimeIndex], 'consumption')
           : undefined;
 
+      if (!co2intensity) {
+        continue;
+      }
+
       const fillColor = getCo2colorScale(co2intensity);
 
-      const existingColor = map.getFeatureState(
-        { source: 'zones-clickable', id: index },
-        'color'
-      );
+      const existingColor = map.getFeatureState({
+        source: 'zones-clickable',
+        id: index,
+      }).color;
 
       if (existingColor !== fillColor) {
         map.setFeatureState(
@@ -126,14 +123,6 @@ export default function MapPage(): ReactElement {
           <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
           {/* Note: if stroke width is 1px, then it is faster to use fill-outline in fill layer */}
-        </Source>
-        <Source type="geojson" data={geometries}>
-          <Layer
-            id="hover"
-            type="fill"
-            paint={styles.hover}
-            filter={['hoverFilter //TODO']}
-          />
         </Source>
       </Map>
     </>

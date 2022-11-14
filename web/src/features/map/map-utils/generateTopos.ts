@@ -1,5 +1,6 @@
+import { multiPolygon } from '@turf/turf';
 import { merge } from 'topojson-client';
-import { MapGeometries } from 'types';
+import { MapGeometries, Theme } from 'types';
 import topo from '../../../../config/world.json';
 // TODO: Investigate if we can move this step to buildtime geo scripts
 export interface TopoObject {
@@ -26,7 +27,7 @@ export interface Topo {
 /**
  * This function takes the topojson file and converts it to a geojson file
  */
-const generateTopos = (): MapGeometries => {
+const generateTopos = (theme: Theme): MapGeometries => {
   const geometries: MapGeometries = { features: [], type: 'FeatureCollection' };
   const topography = topo as Topo;
 
@@ -34,16 +35,15 @@ const generateTopos = (): MapGeometries => {
     if (!topography.objects[k].arcs) {
       continue;
     }
-    const geo = {
-      type: 'Feature',
-      geometry: merge(topography as any, [topography.objects[k]]),
-      properties: {
-        zoneId: topography.objects[k].properties.zoneName,
-        color: 'red',
-      },
-    };
 
-    geometries.features.push(geo);
+    const topoObject = merge(topography, [topography.objects[k]]);
+    const mp = multiPolygon(topoObject.coordinates, {
+      zoneId: topography.objects[k].properties.zoneName,
+      color: theme.nonClickableFill,
+      ...topography.objects[k].properties,
+    });
+
+    geometries.features.push(mp);
   }
   return geometries;
 };
