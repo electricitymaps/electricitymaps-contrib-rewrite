@@ -6,9 +6,6 @@ const config = {
   content: ['index.html', 'src/**/*.tsx'],
   theme: {
     extend: {
-      backgroundImage: {
-        thumb: "url('/public/slider-thumb.svg')",
-      },
       fontSize: {
         '2xs': '.6rem',
       },
