@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import RankingPanel from './ranking-panel/RankingPanel';
 
-import ZoneDetails from './Zone/ZoneDetails';
+import ZoneDetails from './zone/ZoneDetails';
 
 function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }) {
   const { zoneId } = useParams();

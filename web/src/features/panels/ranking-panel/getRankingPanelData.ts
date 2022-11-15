@@ -1,3 +1,4 @@
+import { getCountryName, getZoneName } from 'translation/translation';
 import type { GridState } from 'types';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { ZoneRow } from './ZoneList';
@@ -28,6 +29,9 @@ export const getRankedState = (
         zoneId: key,
         color: fillColor,
         co2intensity,
+        countryName: getCountryName(key),
+        zoneName: getZoneName(key),
+        ranking: undefined,
       };
     })
     .filter((zone) => zone.co2intensity !== undefined);

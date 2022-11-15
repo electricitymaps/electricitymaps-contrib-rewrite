@@ -1,29 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
-function SearchBar({ className, documentKeyUpHandler, placeholder, searchHandler }: any) {
+function SearchBar({ placeholder, searchHandler, value }: any) {
   const reference = useRef(null);
 
-  // Set up global key up handlers that apply to this search bar
-  useEffect(() => {
-    const keyUpHandler = documentKeyUpHandler
-      ? (event_: { key: any }) => documentKeyUpHandler(event_.key, reference)
-      : () => {};
-    document.addEventListener('keyup', keyUpHandler);
-    return () => {
-      document.removeEventListener('keyup', keyUpHandler);
-    };
-  });
-
-  // Apply the search query after every key press
-  const onHandleKeyUp = (event: any) => {
+  const onHandleInput = (event: unknown) => {
+    console.log('event', event);
     if (searchHandler) {
-      searchHandler(event.target.value.toLowerCase());
+      searchHandler(event);
     }
   };
 
   return (
-    <div className={className}>
-      <input ref={reference} placeholder={placeholder} onKeyUp={onHandleKeyUp} />
+    <div className="mb-1 flex h-8 flex-row items-center rounded bg-gray-200 p-3 dark:bg-slate-700">
+      <div>?</div>
+      <input
+        className="font w-full bg-inherit pl-2 text-base "
+        ref={reference}
+        placeholder={placeholder}
+        onChange={onHandleInput}
+        value={value}
+      />
     </div>
   );
 }
