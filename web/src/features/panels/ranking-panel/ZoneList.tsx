@@ -8,7 +8,7 @@ interface ZonelistProperties {
 
 export interface ZoneRow {
   zoneId: keyof GridState;
-  ranking?: number | undefined;
+  ranking?: number;
   color?: string;
   co2intensity?: number;
   countryName?: string;
