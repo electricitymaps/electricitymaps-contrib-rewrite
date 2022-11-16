@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 
 import ZoneDetails from './Zone/ZoneDetails';
@@ -26,7 +27,7 @@ function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
       }
       onClick={onCollapse}
     >
-      {isCollapsed ? '>' : '<'}
+      {isCollapsed ? <HiChevronLeft /> : <HiChevronRight />}
     </button>
   );
 }
