@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
-import { ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
+import { Mode, ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
 
 // TODO: Fix typing such that we don't need to cast to TimeAverage
@@ -36,11 +36,6 @@ export const solarLayerAtom = atomWithCustomStorage<ToggleOptions>({
     syncWithLocalStorage: true,
   },
 });
-
-export enum Mode {
-  CONSUMPTION = 'consumption',
-  PRODUCTION = 'production',
-}
 
 export const productionConsumptionAtom = atomWithCustomStorage<Mode>({
   key: 'mode',

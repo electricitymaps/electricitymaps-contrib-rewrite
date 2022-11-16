@@ -4,7 +4,7 @@ import * as Tooltip from '@radix-ui/react-tooltip';
 import { useTranslation } from '../translation/translation';
 
 interface ToggleButtonProperties {
-  options: string[];
+  options: Array<{ value: string; translationKey: string }>;
   selectedOption: string;
   onToggle: (option: string) => void;
   tooltipText?: string;
@@ -17,12 +17,11 @@ export default function ToggleButton({
   onToggle,
 }: ToggleButtonProperties): ReactElement {
   const { __ } = useTranslation();
-  console.log('Options', options, selectedOption);
   return (
     <div className="flex h-9 rounded-full border bg-gray-100 p-1 drop-shadow">
       <ToggleGroupPrimitive.Root
         className={
-          'flex-start  flex h-7 flex-row items-center gap-x-2 self-center rounded-full border bg-gray-100  drop-shadow'
+          'flex-start flex h-7 flex-grow flex-row items-center justify-between gap-x-2 self-center rounded-full border bg-gray-100  drop-shadow'
         }
         type="multiple"
         aria-label="Font settings"
@@ -30,14 +29,14 @@ export default function ToggleButton({
         {options.map((option, key) => (
           <ToggleGroupPrimitive.Item
             key={`group-item-${key}`}
-            value={option}
-            onClick={() => onToggle(option)}
+            value={option.value}
+            onClick={() => onToggle(option.value)}
             className={`
-       inline-flex h-6 rounded-full px-4 pt-1 text-sm  ${
-         option === selectedOption ? 'bg-white drop-shadow ' : 'bg-gray-100'
+       inline-flex h-6 w-full rounded-full px-4 pt-1 text-sm  ${
+         option.value === selectedOption ? 'bg-white drop-shadow ' : 'bg-gray-100'
        }`}
           >
-            <p className="sans w-15">{option}</p>
+            <p className="sans  flex-grow">{__(option.translationKey)}</p>
           </ToggleGroupPrimitive.Item>
         ))}
       </ToggleGroupPrimitive.Root>

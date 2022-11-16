@@ -1,5 +1,4 @@
 import Head from 'components/Head';
-import LoadingOrError from 'components/LoadingOrError';
 import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
