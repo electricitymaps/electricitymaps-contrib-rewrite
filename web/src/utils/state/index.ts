@@ -37,6 +37,20 @@ export const solarLayerAtom = atomWithCustomStorage<ToggleOptions>({
   },
 });
 
+export enum Mode {
+  CONSUMPTION = 'consumption',
+  PRODUCTION = 'production',
+}
+
+export const productionConsumptionAtom = atomWithCustomStorage<Mode>({
+  key: 'mode',
+  initialValue: 'consumption',
+  options: {
+    syncWithUrl: true,
+    syncWithLocalStorage: true,
+  },
+});
+
 export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
   key: 'wind',
   initialValue: ToggleOptions.OFF,
