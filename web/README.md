@@ -54,6 +54,8 @@ We use [react-icons](https://github.com/react-icons/react-icons) and by default 
 
 If an icon should be missing, then feel free to look into other libraries to find an icon that matches the style. An important rule here is that we ideally want to use only outlined icons (and no filled/solid icons).
 
+Search for icons here: [https://react-icons.github.io/react-icons/](https://react-icons.github.io/react-icons/)
+
 ## State Management
 
 We use [jotai](https://jotai.org/) for global UI state management, [TanStack Query](https://tanstack.com/query/v4/docs/overview) for data state management and React's setState() for local component state.
