@@ -17,16 +17,23 @@ export interface ZoneRow {
 
 function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRow) {
   return (
-    <div className="flex h-8  items-center   pl-2" key={ranking}>
-      <text className=" flex w-4 justify-end pr-2">{ranking}</text>
+    <div
+      className="my-1 flex  h-9 items-center rounded  bg-gray-100 pl-3 hover:bg-gray-200"
+      key={ranking}
+    >
+      <text className=" flex w-4 justify-end pr-2 text-sm">{ranking}</text>
       <div
         className="mr-2 h-4 w-4 min-w-[16px] rounded"
         style={{ backgroundColor: color }}
       ></div>
       <CountryTag zoneId={zoneId} />
       <div className="over flex flex-col justify-center overflow-hidden pl-2 ">
-        <text className="truncate text-base  leading-none">{countryName}</text>
-        <text className="text-xs text-gray-200">{zoneName}</text>
+        <text className="truncate text-sm leading-none">{countryName}</text>
+        <text
+          className={`${countryName ? 'text-xs text-gray-400' : 'truncate text-sm '}`}
+        >
+          {zoneName}
+        </text>
       </div>
     </div>
   );
