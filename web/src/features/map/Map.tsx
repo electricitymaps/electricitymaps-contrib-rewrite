@@ -20,6 +20,8 @@ const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 
 type FeatureId = string | number | undefined;
 
+// TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
+// We could even consider not changing it hear, but always reading it from the path parameter?
 export default function MapPage(): ReactElement {
   const [hoveredFeatureId, setHoveredFeatureId] = useState<FeatureId>();
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
