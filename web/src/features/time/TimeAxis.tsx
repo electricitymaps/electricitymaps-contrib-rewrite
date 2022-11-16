@@ -29,7 +29,7 @@ const renderTick = (
   return (
     <g
       key={`timeaxis-tick-${index}`}
-      className="text-2xs"
+      className="text-xs"
       opacity={1}
       transform={`translate(${scale(value)},0)`}
     >

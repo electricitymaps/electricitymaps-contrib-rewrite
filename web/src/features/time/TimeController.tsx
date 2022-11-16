@@ -50,7 +50,7 @@ export default function TimeController() {
     >
       <div className=" flex flex-row items-center justify-between">
         <p className="mb-2 text-base font-bold">{__('time-controller.title')}</p>
-        <div className="mb-2 rounded-full bg-green-900/10 py-2 px-3 text-xs text-green-900 dark:bg-gray-700 dark:text-white">
+        <div className="mb-2 rounded-full bg-brand-green/10 py-2 px-3 text-xs text-brand-green dark:bg-gray-700 dark:text-white">
           {!isLoading && formatDate(new Date(selectedDatetime), 'en', timeAverage)}
         </div>
       </div>

@@ -54,7 +54,7 @@ function TimeAverageToggle({ timeAverage, onToggleGroupClick }: TimeAverageToggl
           onClick={() => onToggleGroupClick(value)}
           className={
             timeAverage === value
-              ? 'inline-flex items-center rounded-full bg-white px-3 py-2 text-sm font-bold text-green-900 shadow-2xl dark:bg-gray-500 dark:text-white'
+              ? 'inline-flex items-center rounded-full bg-white px-3 py-2 text-sm font-bold text-brand-green shadow-2xl dark:bg-gray-500 dark:text-white'
               : 'inline-flex rounded-full bg-gray-100 px-3 py-2 text-sm dark:bg-gray-700'
           }
         >
