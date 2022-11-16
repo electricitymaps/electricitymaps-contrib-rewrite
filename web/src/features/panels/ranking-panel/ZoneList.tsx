@@ -49,9 +49,8 @@ function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRow) {
 export default function Zonelist(properties: ZonelistProperties): ReactElement {
   return (
     <div>
-      {properties.data.map((d, index) => {
-        const a = { ...d, ranking: index + 1 };
-        return <ZoneRow key={index} {...a} />;
+      {properties.data.map((rowProps, index) => {
+        return <ZoneRow key={index} ranking={index + 1} {...rowProps} />;
       })}
     </div>
   );
