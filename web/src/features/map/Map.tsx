@@ -116,13 +116,79 @@ export default function MapPage(): ReactElement {
     }
   }, [mapReference, geometries, data, getCo2colorScale, datetimeIndex]);
 
-  if (isLoading || isError) {
-    if (error) {
-      console.error(error);
+  const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
+    const map = mapReference.current?.getMap();
+    if (!map || !event.features) {
+      return;
+    }
+    const feature = event.features[0];
+
+    // Remove state from old feature if we are no longer hovering anything,
+    // or if we are hovering a different feature than the previous one
+    if (selectedFeatureId && (!feature || selectedFeatureId !== feature.id)) {
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: selectedFeatureId },
+        { selected: false }
+      );
     }
 
-    return <LoadingOrError error={error as Error} />;
-  }
+    if (feature && feature.properties) {
+      setSelectedFeatureId(feature.id);
+      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
+
+      const zoneId = feature.properties.zoneId;
+      // TODO: Open left panel
+      // TODO: Consider using flyTo zone?
+      navigate(`/zone/${zoneId}`);
+    } else {
+      setSelectedFeatureId(undefined);
+      navigate('/map');
+    }
+  };
+
+  // TODO: Consider if we need to ignore zone hovering if the map is dragging
+  // TODO: Save cursor position to be used for tooltip
+  const onMouseMove = (event: mapboxgl.MapLayerMouseEvent) => {
+    const map = mapReference.current?.getMap();
+    if (!map || !event.features) {
+      return;
+    }
+
+    const feature = event.features[0];
+
+    // Remove state from old feature if we are no longer hovering anything,
+    // or if we are hovering a different feature than the previous one
+    if (hoveredFeatureId && (!feature || hoveredFeatureId !== feature.id)) {
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: hoveredFeatureId },
+        { hover: false }
+      );
+    }
+
+    if (feature && feature.id) {
+      setCursorType('pointer');
+      setHoveredFeatureId(feature.id);
+      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { hover: true });
+    } else {
+      setCursorType('grab');
+      setHoveredFeatureId(undefined);
+    }
+  };
+
+  const onMouseOut = () => {
+    const map = mapReference.current?.getMap();
+    if (!map) {
+      return;
+    }
+
+    if (hoveredFeatureId !== null) {
+      map.setFeatureState(
+        { source: ZONE_SOURCE, id: hoveredFeatureId },
+        { hover: false }
+      );
+      setHoveredFeatureId(undefined);
+    }
+  };
 
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
