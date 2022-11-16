@@ -116,14 +116,6 @@ export default function MapPage(): ReactElement {
     }
   }, [mapReference, geometries, data, getCo2colorScale, datetimeIndex]);
 
-  if (isLoading || isError) {
-    if (error) {
-      console.error(error);
-    }
-
-    return <LoadingOrError error={error as Error} />;
-  }
-
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
     if (!map || !event.features) {
