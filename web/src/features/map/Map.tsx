@@ -1,5 +1,4 @@
 import Head from 'components/Head';
-import LoadingOrError from 'components/LoadingOrError';
 import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -9,7 +8,7 @@ import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
 import { useAtom } from 'jotai';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useGetGeometries } from './map-utils/getMapGrid';
@@ -31,6 +30,8 @@ export default function MapPage(): ReactElement {
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
+  const location = useLocation();
+  const createToWithState = (to: string) => `${to}${location.search}${location.hash}`;
 
   const theme = useTheme();
   // Calculate layer styles only when the theme changes
@@ -142,10 +143,10 @@ export default function MapPage(): ReactElement {
       const zoneId = feature.properties.zoneId;
       // TODO: Open left panel
       // TODO: Consider using flyTo zone?
-      navigate(`/zone/${zoneId}`);
+      navigate(createToWithState(`/zone/${zoneId}`));
     } else {
       setSelectedFeatureId(undefined);
-      navigate('/map');
+      navigate(createToWithState('/map'));
     }
   };
 
