@@ -15,6 +15,9 @@ import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
 const ZONE_SOURCE = 'zones-clickable';
+const SOUTHERN_LATITUDE_BOUND = -62.947_193;
+const NORTHERN_LATITUDE_BOUND = 84.613_245;
+const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 
 const mapStyle = { version: 8, sources: {}, layers: [] };
 
@@ -213,12 +216,12 @@ export default function MapPage(): ReactElement {
         onMouseOut={onMouseOut}
         minZoom={0.7}
         maxBounds={[
-          [Number.NEGATIVE_INFINITY, southernLatitudeBound],
-          [Number.POSITIVE_INFINITY, northernLatitudeBound],
+          [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],
+          [Number.POSITIVE_INFINITY, NORTHERN_LATITUDE_BOUND],
         ]}
         mapLib={maplibregl}
         style={{ minWidth: '100vw', height: '100vh' }}
-        mapStyle={mapStyle as mapboxgl.Style}
+        mapStyle={MAP_STYLE as mapboxgl.Style}
       >
         <Layer id="ocean" type="background" paint={styles.ocean} />
         <Source id="zones-clickable" generateId type="geojson" data={geometries}>
