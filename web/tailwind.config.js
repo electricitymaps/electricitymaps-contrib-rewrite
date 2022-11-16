@@ -5,7 +5,21 @@ const formsPlugin = require('@tailwindcss/forms');
 const config = {
   content: ['index.html', 'src/**/*.tsx'],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        thumb: "url('/public/slider-thumb.svg')",
+      },
+      fontSize: {
+        '2xs': '.6rem',
+      },
+      boxShadow: {
+        '2xl': '0.1px 0.1px 5px rgba(0, 0, 0, 0.1)',
+        '3xl': '0.1px 0.1px 6px rgba(0, 0, 0, 0.15);',
+      },
+      colors: {
+        'green-900': '#135836',
+      },
+    },
     fontFamily: {
       sans: ['Inter', ...defaultConfig.theme.fontFamily.sans],
       poppins: ['Poppins', ...defaultConfig.theme.fontFamily.sans],
@@ -15,6 +29,7 @@ const config = {
       '2xs': '.6rem',
       xs: '0.6rem',
       sm: '0.75rem',
+      md: '0.8rem',
       base: '0.875rem',
       lg: '1.3rem',
       xl: '1.5rem',
