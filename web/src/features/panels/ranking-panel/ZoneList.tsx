@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GridState } from 'types';
 import { CountryTag } from '../zone/CountryTag';
 
@@ -16,10 +17,16 @@ export interface ZoneRow {
 }
 
 function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRow) {
+  const navigate = useNavigate();
+
+  const onRowClick = () => {
+    navigate(`/zone/${zoneId}`);
+  };
   return (
-    <div
-      className="my-1 flex  h-9 items-center rounded  bg-gray-100 pl-3 hover:bg-gray-200"
+    <button
+      className="my-1 flex h-9 w-full items-center rounded bg-gray-100  pl-3 text-left hover:bg-gray-200"
       key={ranking}
+      onClick={onRowClick}
     >
       <text className=" flex w-4 justify-end pr-2 text-sm">{ranking}</text>
       <div
@@ -35,7 +42,7 @@ function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRow) {
           {zoneName}
         </text>
       </div>
-    </div>
+    </button>
   );
 }
 
