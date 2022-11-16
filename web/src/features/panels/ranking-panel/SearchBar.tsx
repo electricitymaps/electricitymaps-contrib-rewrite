@@ -1,8 +1,4 @@
-import { useRef } from 'react';
-
 function SearchBar({ placeholder, searchHandler, value }: any) {
-  const reference = useRef(null);
-
   const onHandleInput = (event: unknown) => {
     if (searchHandler) {
       searchHandler(event);
@@ -14,7 +10,6 @@ function SearchBar({ placeholder, searchHandler, value }: any) {
       <div>?</div>
       <input
         className="font w-full bg-inherit pl-2 text-base "
-        ref={reference}
         placeholder={placeholder}
         onChange={onHandleInput}
         value={value}
