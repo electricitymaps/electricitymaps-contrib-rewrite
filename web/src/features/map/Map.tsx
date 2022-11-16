@@ -18,13 +18,11 @@ const SOUTHERN_LATITUDE_BOUND = -62.947_193;
 const NORTHERN_LATITUDE_BOUND = 84.613_245;
 const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 
-const mapStyle = { version: 8, sources: {}, layers: [] };
+type FeatureId = string | number | undefined;
 
 export default function MapPage(): ReactElement {
-  const [hoveredFeatureId, setHoveredFeatureId] = useState<string | number | undefined>();
-  const [selectedFeatureId, setSelectedFeatureId] = useState<
-    string | number | undefined
-  >();
+  const [hoveredFeatureId, setHoveredFeatureId] = useState<FeatureId>();
+  const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
