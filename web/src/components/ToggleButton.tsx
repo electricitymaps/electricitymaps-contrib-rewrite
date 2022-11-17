@@ -18,10 +18,10 @@ export default function ToggleButton({
 }: ToggleButtonProperties): ReactElement {
   const { __ } = useTranslation();
   return (
-    <div className="flex h-9 rounded-full border bg-gray-100 p-1 drop-shadow">
+    <div className="z-10 flex h-9 rounded-full border bg-gray-100 px-[5px] py-1 drop-shadow  dark:border-0 dark:bg-gray-900">
       <ToggleGroupPrimitive.Root
         className={
-          'flex-start flex h-7 flex-grow flex-row items-center justify-between gap-x-2 self-center rounded-full border bg-gray-100  drop-shadow'
+          'flex-start flex h-6 flex-grow flex-row items-center justify-between  self-center rounded-full border bg-gray-100 drop-shadow  dark:border-0 dark:bg-gray-700'
         }
         type="multiple"
         aria-label="Font settings"
@@ -33,7 +33,9 @@ export default function ToggleButton({
             onClick={() => onToggle(option.value)}
             className={`
        inline-flex h-6 w-full rounded-full px-4 pt-1 text-sm  ${
-         option.value === selectedOption ? 'bg-white drop-shadow ' : 'bg-gray-100'
+         option.value === selectedOption
+           ? ' bg-white drop-shadow  transition duration-500 ease-in-out dark:bg-gray-500'
+           : 'bg-gray-100 dark:bg-gray-700'
        }`}
           >
             <p className="sans  flex-grow">{__(option.translationKey)}</p>
@@ -44,13 +46,13 @@ export default function ToggleButton({
         <Tooltip.Provider>
           <Tooltip.Root delayDuration={0}>
             <Tooltip.Trigger asChild>
-              <div className="ml-2 h-6 w-6 justify-center self-center rounded-full bg-white text-center drop-shadow">
+              <div className="b ml-2 h-6 w-6 justify-center self-center rounded-full bg-white text-center drop-shadow dark:border dark:border-gray-500 dark:bg-gray-900">
                 <text>i</text>
               </div>
             </Tooltip.Trigger>
             <Tooltip.Portal>
               <Tooltip.Content
-                className="TooltipContent relative right-[76px] max-w-[164px] rounded border bg-gray-100 p-2 text-center text-sm drop-shadow-sm"
+                className="TooltipContent relative right-[48px] max-w-[164px] rounded border bg-gray-100 p-2  text-center text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
                 sideOffset={10}
                 side="bottom"
               >

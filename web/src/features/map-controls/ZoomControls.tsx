@@ -2,7 +2,7 @@ import { ReactElement, useState } from 'react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 
 import { useTranslation } from 'translation/translation';
-import StandardTooltip from 'components/TooltipWrapper';
+import { NavigationControl } from 'react-map-gl';
 import TooltipWrapper from 'components/TooltipWrapper';
 
 interface ZoomControlsProperties {}
@@ -25,19 +25,15 @@ export default function ZoomControls(properties: ZoomControlsProperties): ReactE
     >
       <TooltipWrapper tooltipText={__('tooltips.zoomIn')}>
         <ToggleGroup.Item
-          className="h-8 w-8 rounded rounded-b-none bg-white drop-shadow"
+          className="h-8 w-8 rounded rounded-b-none bg-white drop-shadow dark:bg-gray-900"
           value="zoomIn"
-        >
-          <text>+</text>
-        </ToggleGroup.Item>
+        ></ToggleGroup.Item>
       </TooltipWrapper>
       <TooltipWrapper tooltipText={__('tooltips.zoomOut')}>
         <ToggleGroup.Item
-          className="h-8 w-8 rounded  rounded-t-none bg-white drop-shadow"
+          className="h-8 w-8 rounded  rounded-t-none bg-white drop-shadow dark:bg-gray-900"
           value="zoomOut"
-        >
-          <text>-</text>
-        </ToggleGroup.Item>
+        ></ToggleGroup.Item>
       </TooltipWrapper>
     </ToggleGroup.Root>
   );

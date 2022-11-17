@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Layer, Map, MapRef, Source } from 'react-map-gl';
+import { Layer, Map, MapRef, Source, NavigationControl } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
@@ -199,6 +199,7 @@ export default function MapPage(): ReactElement {
     // TODO: Remove loading overlay
     // TODO: Show error message to user
   };
+
   return (
     <>
       <Head title="Electricity Maps" />
@@ -230,6 +231,15 @@ export default function MapPage(): ReactElement {
           <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
         </Source>
+        {/* TODO this in a non hacky way */}
+        <NavigationControl
+          style={{
+            marginRight: 13.5,
+            marginTop: 98,
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+          }}
+          showCompass={false}
+        ></NavigationControl>
       </Map>
     </>
   );
