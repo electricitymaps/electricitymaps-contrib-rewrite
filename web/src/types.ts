@@ -27,6 +27,7 @@ export interface ExchangeOverview {
 export interface ExchangeArrowData extends ExchangeOverview {
   rotation: number;
   lonlat: [number, number];
+  key: string;
 }
 
 export interface ZoneResponse {
