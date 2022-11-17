@@ -7,13 +7,13 @@ interface ToggleButtonProperties {
   options: Array<{ value: string; translationKey: string }>;
   selectedOption: string;
   onToggle: (option: string) => void;
-  tooltipText?: string;
+  tooltipKey?: string;
 }
 
 export default function ToggleButton({
   options,
   selectedOption,
-  tooltipText,
+  tooltipKey,
   onToggle,
 }: ToggleButtonProperties): ReactElement {
   const { __ } = useTranslation();
@@ -40,7 +40,7 @@ export default function ToggleButton({
           </ToggleGroupPrimitive.Item>
         ))}
       </ToggleGroupPrimitive.Root>
-      {tooltipText && (
+      {tooltipKey && (
         <Tooltip.Provider>
           <Tooltip.Root delayDuration={0}>
             <Tooltip.Trigger asChild>
@@ -54,7 +54,7 @@ export default function ToggleButton({
                 sideOffset={10}
                 side="bottom"
               >
-                <div dangerouslySetInnerHTML={{ __html: __(tooltipText) }} />
+                <div dangerouslySetInnerHTML={{ __html: __(tooltipKey) }} />
               </Tooltip.Content>
             </Tooltip.Portal>
           </Tooltip.Root>
