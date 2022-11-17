@@ -6,8 +6,8 @@ import { productionConsumptionAtom } from 'utils/state';
 
 export default function ConsumptionProductionToggle(): ReactElement {
   const options = [
-    { value: 'production', translationKey: 'tooltips.production' },
-    { value: 'consumption', translationKey: 'tooltips.consumption' },
+    { value: Mode.PRODUCTION, translationKey: 'tooltips.production' },
+    { value: Mode.CONSUMPTION, translationKey: 'tooltips.consumption' },
   ];
   const [currentMode, setCurrentMode] = useAtom(productionConsumptionAtom);
   const onSetCurrentMode = (option: string) => {

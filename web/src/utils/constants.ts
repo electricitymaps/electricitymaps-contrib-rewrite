@@ -19,3 +19,8 @@ export enum Mode {
   CONSUMPTION = 'consumption',
   PRODUCTION = 'production',
 }
+
+export enum SpatialAggregate {
+  COUNTRY = 'country',
+  ZONE = 'zone',
+}

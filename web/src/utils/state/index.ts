@@ -39,7 +39,7 @@ export const solarLayerAtom = atomWithCustomStorage<ToggleOptions>({
 
 export const productionConsumptionAtom = atomWithCustomStorage<Mode>({
   key: 'mode',
-  initialValue: 'consumption',
+  initialValue: Mode.CONSUMPTION,
   options: {
     syncWithUrl: true,
     syncWithLocalStorage: true,
