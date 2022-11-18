@@ -202,21 +202,13 @@ export default function MapPage(): ReactElement {
     // TODO: Show error message to user
   };
 
-  const onDragStart = () => {
-    setIsMoving(true);
-  };
+ const onDragOrZoomStart = () => {
+   setIsMoving(true);
+ };
 
-  const onDragEnd = () => {
-    setIsMoving(false);
-  };
-
-  const onZoomStart = () => {
-    setIsMoving(true);
-  };
-
-  const onZoomEnd = () => {
-    setIsMoving(false);
-  };
+ const onDragOrZoomEnd = () => {
+   setIsMoving(false);
+ };
 
   return (
     <>
