@@ -15,7 +15,7 @@ interface ExchangeArrowProps {
 function ExchangeArrow({ data, viewportWidth, viewportHeight, map }: ExchangeArrowProps) {
   const mapZoom = map.getZoom();
   const colorBlindModeEnabled = false; // TODO: FIX
-  const absFlow = Math.abs(data.netFlow || 0);
+  const absFlow = Math.abs(data.netFlow ?? 0);
   const { co2intensity, lonlat, netFlow, rotation, key } = data;
 
   if (!lonlat) {
