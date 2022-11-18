@@ -226,11 +226,11 @@ export default function MapPage(): ReactElement {
         onError={onError}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
-        onDragStart={onDragStart}
-        onZoomStart={onZoomStart}
-        onZoomEnd={onZoomEnd}
+        onDragStart={onDragOrZoomStart}
+        onZoomStart={onDragOrZoomStart}
+        onZoomEnd={onDragOrZoomEnd}
         dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
-        onDragEnd={onDragEnd}
+        onDragEnd={onDragOrZoomEnd}
         minZoom={0.7}
         maxBounds={[
           [Number.NEGATIVE_INFINITY, southernLatitudeBound],
