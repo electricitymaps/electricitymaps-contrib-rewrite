@@ -10,12 +10,12 @@ import useGetState from 'api/getState';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import { isDarkMode, selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
 const ZONE_SOURCE = 'zones-clickable';
-const SOUTHERN_LATITUDE_BOUND = -62.947_193;
-const NORTHERN_LATITUDE_BOUND = 84.613_245;
+const SOUTHERN_LATITUDE_BOUND = -66.947_193;
+const NORTHERN_LATITUDE_BOUND = 84.313_245;
 const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 
 type FeatureId = string | number | undefined;
@@ -32,7 +32,7 @@ export default function MapPage(): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
   const createToWithState = (to: string) => `${to}${location.search}${location.hash}`;
-
+  const [isDarkModeEnabled] = useAtom(isDarkMode);
   const theme = useTheme();
   // Calculate layer styles only when the theme changes
   // To keep the stable and prevent excessive rerendering.
@@ -234,9 +234,20 @@ export default function MapPage(): ReactElement {
         {/* TODO this in a non hacky way */}
         <NavigationControl
           style={{
-            marginRight: 13.5,
+            marginRight: 12,
+
             marginTop: 98,
-            backgroundColor: 'rgba(255, 255, 255, 0)',
+            width: '33px',
+            boxShadow: '0px 1px 1px  rgb(0 0 0 / 0.1)',
+            border: 0,
+
+            color: 'white',
+            backgroundColor: `${
+              isDarkModeEnabled ? 'rgb(17,24,39)' : 'rgb(255,255,255)'
+            }`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
           showCompass={false}
         ></NavigationControl>

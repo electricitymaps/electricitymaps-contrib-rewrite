@@ -18,10 +18,10 @@ export default function ToggleButton({
 }: ToggleButtonProperties): ReactElement {
   const { __ } = useTranslation();
   return (
-    <div className="z-10 flex h-9 rounded-full border bg-gray-100 px-[5px] py-1 drop-shadow  dark:border-0 dark:bg-gray-900">
+    <div className="z-10 flex h-9 rounded-full  bg-gray-100 px-[5px] py-1 drop-shadow   dark:bg-gray-900">
       <ToggleGroupPrimitive.Root
         className={
-          'flex-start flex h-6 flex-grow flex-row items-center justify-between  self-center rounded-full border bg-gray-100 drop-shadow  dark:border-0 dark:bg-gray-700'
+          'flex-start flex h-6 flex-grow flex-row items-center justify-between  self-center rounded-full  border-0 bg-gray-100  drop-shadow dark:bg-gray-700'
         }
         type="multiple"
         aria-label="Font settings"
@@ -38,7 +38,7 @@ export default function ToggleButton({
            : 'bg-gray-100 dark:bg-gray-700'
        }`}
           >
-            <p className="sans  flex-grow">{__(option.translationKey)}</p>
+            <p className="sans flex-grow  dark:text-white">{__(option.translationKey)}</p>
           </ToggleGroupPrimitive.Item>
         ))}
       </ToggleGroupPrimitive.Root>
