@@ -1,8 +1,6 @@
 require('colors');
 
-const flatMap = require('lodash.flatmap');
-
-const { languageNames } = require('./locales-config.json');
+const { languageNames } = require('../config/locales.json');
 
 function getAndPrintOutput() {
   const locales = Object.keys(languageNames);
@@ -22,11 +20,15 @@ function getDeepKeysFromJSON(data, prefix = '') {
   if (typeof data === 'string') {
     return [prefix];
   }
-  return flatMap(data, (d, i) => getDeepKeysFromJSON(d, `${prefix}___${i}`));
+
+  const res = Object.keys(data)
+    .map((key) => getDeepKeysFromJSON(data[key], prefix ? `${prefix}___${key}` : key))
+    .reduce((a, b) => a.concat(b), []);
+  return res;
 }
 
 function getTermsForLanguage(language) {
-  return getDeepKeysFromJSON(require(`./public/locales/${language}.json`));
+  return getDeepKeysFromJSON(require(`../public/locales/${language}.json`));
 }
 
 function getTranslationProgressColor(translated) {
@@ -61,9 +63,10 @@ function toText(json) {
   const customPaddings = {
     ja: padding - 3,
     ko: padding - 3,
-    'zh-cn': padding - 2,
-    'zh-tw': padding - 2,
-    'zh-hk': padding - 2,
+    'zh-CN': padding - 2,
+    'zh-TW': padding - 2,
+    'zh-HK': padding - 2,
+    hi: padding + 1,
   };
   const name = `${languageNames[language]} (${language})`;
   const paddedName = name.padEnd(customPaddings[language] || padding);
