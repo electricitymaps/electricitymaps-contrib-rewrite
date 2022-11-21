@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import { useTranslation } from '../translation/translation';
+import { HiOutlineInformationCircle } from 'react-icons/hi2';
 
 interface ToggleButtonProperties {
   options: Array<{ value: string; translationKey: string }>;
@@ -18,10 +19,10 @@ export default function ToggleButton({
 }: ToggleButtonProperties): ReactElement {
   const { __ } = useTranslation();
   return (
-    <div className="z-10 flex h-9 rounded-full  bg-gray-100 px-[5px] py-1 drop-shadow   dark:bg-gray-900">
+    <div className="z-10 flex h-9 rounded-full bg-gray-100  px-[5px] py-1  drop-shadow   dark:bg-gray-900">
       <ToggleGroupPrimitive.Root
         className={
-          'flex-start flex h-6 flex-grow flex-row items-center justify-between  self-center rounded-full  border-0 bg-gray-100  drop-shadow dark:bg-gray-700'
+          ' flex-start flex h-[26px] flex-grow flex-row items-center justify-between self-center rounded-full  border   bg-gray-100 shadow-inner   dark:bg-gray-700'
         }
         type="multiple"
         aria-label="Font settings"
@@ -32,10 +33,10 @@ export default function ToggleButton({
             value={option.value}
             onClick={() => onToggle(option.value)}
             className={`
-       inline-flex h-6 w-full rounded-full px-4 pt-1 text-sm  ${
+       inline-flex h-[26px] w-full rounded-full px-4 pt-1 text-sm  ${
          option.value === selectedOption
-           ? ' bg-white drop-shadow  transition duration-500 ease-in-out dark:bg-gray-500'
-           : 'bg-gray-100 dark:bg-gray-700'
+           ? ' box-shadow bg-white  transition duration-500 ease-in-out dark:bg-gray-500'
+           : ''
        }`}
           >
             <p className="sans flex-grow  dark:text-white">{__(option.translationKey)}</p>

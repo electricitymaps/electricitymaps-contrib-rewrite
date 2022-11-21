@@ -16,7 +16,7 @@ export default function MapButton(properties: MapButtonProperties): ReactElement
     <TooltipWrapper tooltipText={tooltipText}>
       <Toggle.Root
         onClick={onClick}
-        className={`Toggle h-8 w-8 rounded bg-white drop-shadow dark:bg-gray-900 ${className}`}
+        className={`Toggle flex h-8 w-8 items-center justify-center rounded bg-white  drop-shadow dark:bg-gray-900 ${className}`}
         aria-label="Toggle italic"
       >
         <div>{icon}</div>

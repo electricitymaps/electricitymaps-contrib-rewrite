@@ -3,6 +3,9 @@ import type { ReactElement } from 'react';
 import ConsumptionProductionToggle from './ConsumptionProductionToggle';
 import SpatialAggregatesToggle from './SpatialAggregatesToggle';
 import { useTranslation } from 'translation/translation';
+import { HiLanguage } from 'react-icons/hi2';
+import { HiOutlineSun } from 'react-icons/hi';
+import { FiWind } from 'react-icons/fi';
 interface MapControlsProperties {}
 
 export default function MapControls(properties: MapControlsProperties): ReactElement {
@@ -16,7 +19,7 @@ export default function MapControls(properties: MapControlsProperties): ReactEle
         <SpatialAggregatesToggle />
       </div>
       <MapButton
-        icon="EN"
+        icon={<HiLanguage size={21} />}
         tooltipText={__('tooltips.selectLanguage')}
         className="mt-5"
         onClick={() => {
@@ -24,8 +27,8 @@ export default function MapControls(properties: MapControlsProperties): ReactEle
         }}
       />
       <MapButton
-        icon="W"
-        tooltipText={__('tooltips.weather')}
+        icon={<FiWind size={18} />}
+        tooltipText={__('tooltips.wind')}
         className="mt-2"
         onClick={() => {
           console.log('change the toggle weather');
@@ -33,7 +36,7 @@ export default function MapControls(properties: MapControlsProperties): ReactEle
       />
 
       <MapButton
-        icon="S"
+        icon={<HiOutlineSun size={21} />}
         className="mt-2"
         tooltipText={__('tooltips.solar')}
         onClick={() => {
