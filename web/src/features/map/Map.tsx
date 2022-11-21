@@ -11,7 +11,11 @@ import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import {
+  productionConsumptionAtom,
+  selectedDatetimeIndexAtom,
+  timeAverageAtom,
+} from 'utils/state';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
@@ -29,7 +33,8 @@ export default function MapPage(): ReactElement {
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
-  const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
+  const [datetimeIndex, setDatetime] = useAtom(selectedDatetimeIndexAtom);
+  const [mixMode] = useAtom(productionConsumptionAtom);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
@@ -73,9 +78,16 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(timeAverage);
+  const { isError, error, data, isLoading } = useGetState(timeAverage);
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
+
+  useEffect(() => {
+    // TODO handle globally better
+    if (!isLoading && !isError) {
+      setDatetime(data.data.datetimes[0]);
+    }
+  }, [data]);
 
   useEffect(() => {
     // This effect colors the zones based on the co2 intensity
@@ -97,7 +109,7 @@ export default function MapPage(): ReactElement {
 
       const co2intensity =
         zone && zone[datetimeIndex]
-          ? getCO2IntensityByMode(zone[datetimeIndex], 'consumption')
+          ? getCO2IntensityByMode(zone[datetimeIndex], mixMode)
           : undefined;
 
       const fillColor = co2intensity
@@ -121,7 +133,7 @@ export default function MapPage(): ReactElement {
         );
       }
     }
-  }, [mapReference, geometries, data, getCo2colorScale, datetimeIndex]);
+  }, [mapReference, geometries, data, getCo2colorScale, datetimeIndex, mixMode]);
 
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
@@ -146,10 +158,10 @@ export default function MapPage(): ReactElement {
       const zoneId = feature.properties.zoneId;
       // TODO: Open left panel
       // TODO: Consider using flyTo zone?
-      navigate(createToWithState(`/zone/${zoneId}`));
+      // navigate(createToWithState(`/zone/${zoneId}`));
     } else {
       setSelectedFeatureId(undefined);
-      navigate(createToWithState('/map'));
+      // navigate(createToWithState('/map'));
     }
   };
 
@@ -203,13 +215,13 @@ export default function MapPage(): ReactElement {
     // TODO: Show error message to user
   };
 
- const onDragOrZoomStart = () => {
-   setIsMoving(true);
- };
+  const onDragOrZoomStart = () => {
+    setIsMoving(true);
+  };
 
- const onDragOrZoomEnd = () => {
-   setIsMoving(false);
- };
+  const onDragOrZoomEnd = () => {
+    setIsMoving(false);
+  };
 
   return (
     <>

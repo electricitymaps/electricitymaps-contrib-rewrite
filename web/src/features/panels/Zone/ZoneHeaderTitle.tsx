@@ -19,11 +19,11 @@ export default function ZoneHeaderTitle({
 
   return (
     <div className="flex flex-row pl-2">
-      <Link className="mr-4 self-center text-3xl text-gray-400" to="/">
+      <Link className="text-3xl mr-4 self-center text-gray-400" to="/">
         {'❮'}
       </Link>
       <div>
-        <h2 className="text-md mb-0.5 space-x-1.5 text-base font-medium">
+        <h2 className="mb-0.5 space-x-1.5 text-md text-base font-medium">
           <span>{title}</span>
           {countryTag}
         </h2>

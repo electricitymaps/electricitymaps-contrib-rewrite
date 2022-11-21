@@ -15,7 +15,6 @@ export default function TimeController() {
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime, setSelectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const { data, isLoading } = useGetState(timeAverage);
-
   // TODO: Figure out whether we want to work with datetimes as strings
   // or as Date objects. In this case datetimes are easier to work with
   const datetimes = useMemo(
@@ -35,6 +34,8 @@ export default function TimeController() {
     if (!datetimes) {
       return;
     }
+    console.log('datetimeIndex', datetimeIndex);
+
     setSelectedDatetime(dateToDatetimeString(datetimes[datetimeIndex]));
   };
 
@@ -73,4 +74,30 @@ export default function TimeController() {
       />
     </div>
   );
+}
+
+function throttle(callback, delay = 1000) {
+  let shouldWait = false;
+  let waitingArguments;
+  const timeoutFunction = () => {
+    if (waitingArguments == undefined) {
+      shouldWait = false;
+    } else {
+      callback(...waitingArguments);
+      waitingArguments = null;
+      setTimeout(timeoutFunction, delay);
+    }
+  };
+
+  return (...arguments_) => {
+    if (shouldWait) {
+      waitingArguments = arguments_;
+      return;
+    }
+
+    callback(...arguments_);
+    shouldWait = true;
+
+    setTimeout(timeoutFunction, delay);
+  };
 }

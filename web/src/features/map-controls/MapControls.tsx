@@ -6,7 +6,7 @@ interface MapControlsProperties {}
 
 export default function MapControls(properties: MapControlsProperties): ReactElement {
   return (
-    <div className="z-1000 absolute right-10  top-20">
+    <div className="z-1000 absolute right-10  top-5">
       <ConsumptionProductionToggle />
       <div className="mb-1"></div>
       <SpatialAggregatesToggle />

@@ -1,6 +1,7 @@
 import Badge from 'components/Badge';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
+import { getZoneName } from 'translation/translation';
 import { CountryTag } from './CountryTag';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
@@ -15,7 +16,7 @@ export function ZoneHeader({ date, zoneId, isEstimated, isAggregated }: ZoneHead
   return (
     <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
       <ZoneHeaderTitle
-        title="Western Area Power Administration Rocky Mountain Region"
+        title={getZoneName(zoneId)}
         formattedDate={date}
         labels={[
           isEstimated && (
