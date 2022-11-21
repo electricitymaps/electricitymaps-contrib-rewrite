@@ -7,10 +7,12 @@ import { Layer, Map, MapRef, Source, NavigationControl } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
+import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
 import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
 const ZONE_SOURCE = 'zones-clickable';
@@ -28,6 +30,7 @@ export default function MapPage(): ReactElement {
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
+  const [isMoving, setIsMoving] = useState<boolean>(false);
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
   const location = useLocation();
@@ -199,6 +202,14 @@ export default function MapPage(): ReactElement {
     // TODO: Show error message to user
   };
 
+  const onDragOrZoomStart = () => {
+    setIsMoving(true);
+  };
+
+  const onDragOrZoomEnd = () => {
+    setIsMoving(false);
+  };
+
   return (
     <>
       <Head title="Electricity Maps" />
@@ -215,6 +226,11 @@ export default function MapPage(): ReactElement {
         onError={onError}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
+        onDragStart={onDragOrZoomStart}
+        onZoomStart={onDragOrZoomStart}
+        onZoomEnd={onDragOrZoomEnd}
+        dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
+        onDragEnd={onDragOrZoomEnd}
         minZoom={0.7}
         maxBounds={[
           [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],
@@ -245,6 +261,9 @@ export default function MapPage(): ReactElement {
           }}
           showCompass={false}
         ></NavigationControl>
+        <CustomLayer>
+          <ExchangeLayer isMoving={isMoving} />
+        </CustomLayer>
       </Map>
     </>
   );
