@@ -54,7 +54,6 @@ export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
     syncWithLocalStorage: true,
   },
 });
-export const isDarkMode = atom<boolean>(localStorage.theme === 'dark');
 
 export const themeAtom = atomWithStorage<ThemeOptions>('theme', ThemeOptions.LIGHT);
 

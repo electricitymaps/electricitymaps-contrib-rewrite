@@ -4,7 +4,6 @@ const formsPlugin = require('@tailwindcss/forms');
 /** @type {import('tailwindcss/types').Config} */
 const config = {
   content: ['index.html', 'src/**/*.tsx'],
-  darkMode: 'class',
   theme: {
     extend: {
       boxShadow: {
@@ -21,7 +20,6 @@ const config = {
       inter: ['Inter', ...defaultConfig.theme.fontFamily.sans],
     },
     fontSize: {
-      '2xs': '.6rem',
       xs: '0.6rem',
       sm: '0.75rem',
       md: '0.8rem',
