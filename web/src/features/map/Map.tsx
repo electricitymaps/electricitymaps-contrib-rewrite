@@ -261,6 +261,7 @@ export default function MapPage(): ReactElement {
           <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
         </Source>
+        {/* TODO: Get rid of the inline styling here if/when possible */}
         <NavigationControl
           style={{
             marginRight: 12,
