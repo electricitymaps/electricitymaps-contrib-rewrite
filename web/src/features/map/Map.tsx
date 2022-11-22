@@ -1,4 +1,3 @@
-import Head from 'components/Head';
 import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -211,61 +210,58 @@ export default function MapPage(): ReactElement {
   };
 
   return (
-    <>
-      <Head title="Electricity Maps" />
-      <Map
-        ref={mapReference}
-        initialViewState={{
-          latitude: 37.8,
-          longitude: -122.4,
-          zoom: 2,
-        }}
-        interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
-        cursor={cursorType}
-        onClick={onClick}
-        onError={onError}
-        onMouseMove={onMouseMove}
-        onMouseOut={onMouseOut}
-        onDragStart={onDragOrZoomStart}
-        onZoomStart={onDragOrZoomStart}
-        onZoomEnd={onDragOrZoomEnd}
-        dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
-        onDragEnd={onDragOrZoomEnd}
-        minZoom={0.7}
-        maxBounds={[
-          [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],
-          [Number.POSITIVE_INFINITY, NORTHERN_LATITUDE_BOUND],
-        ]}
-        mapLib={maplibregl}
-        style={{ minWidth: '100vw', height: '100vh' }}
-        mapStyle={MAP_STYLE as mapboxgl.Style}
-      >
-        <Layer id="ocean" type="background" paint={styles.ocean} />
-        <Source id="zones-clickable" generateId type="geojson" data={geometries}>
-          <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
-          <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
-          <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
-        </Source>
-        {/* TODO: Get rid of the inline styling here if/when possible */}
-        <NavigationControl
-          style={{
-            marginRight: 12,
+    <Map
+      ref={mapReference}
+      initialViewState={{
+        latitude: 37.8,
+        longitude: -122.4,
+        zoom: 2,
+      }}
+      interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
+      cursor={cursorType}
+      onClick={onClick}
+      onError={onError}
+      onMouseMove={onMouseMove}
+      onMouseOut={onMouseOut}
+      onDragStart={onDragOrZoomStart}
+      onZoomStart={onDragOrZoomStart}
+      onZoomEnd={onDragOrZoomEnd}
+      dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
+      onDragEnd={onDragOrZoomEnd}
+      minZoom={0.7}
+      maxBounds={[
+        [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],
+        [Number.POSITIVE_INFINITY, NORTHERN_LATITUDE_BOUND],
+      ]}
+      mapLib={maplibregl}
+      style={{ minWidth: '100vw', height: '100vh' }}
+      mapStyle={MAP_STYLE as mapboxgl.Style}
+    >
+      <Layer id="ocean" type="background" paint={styles.ocean} />
+      <Source id="zones-clickable" generateId type="geojson" data={geometries}>
+        <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
+        <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
+        <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
+      </Source>
+      {/* TODO: Get rid of the inline styling here if/when possible */}
+      <NavigationControl
+        style={{
+          marginRight: 12,
 
-            marginTop: 98,
-            width: '33px',
-            boxShadow: '0px 1px 1px  rgb(0 0 0 / 0.1)',
-            border: 0,
-            color: 'white',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-          showCompass={false}
-        ></NavigationControl>
-        <CustomLayer>
-          <ExchangeLayer isMoving={isMoving} />
-        </CustomLayer>
-      </Map>
-    </>
+          marginTop: 98,
+          width: '33px',
+          boxShadow: '0px 1px 1px  rgb(0 0 0 / 0.1)',
+          border: 0,
+          color: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+        showCompass={false}
+      ></NavigationControl>
+      <CustomLayer>
+        <ExchangeLayer isMoving={isMoving} />
+      </CustomLayer>
+    </Map>
   );
 }
