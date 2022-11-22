@@ -15,7 +15,7 @@ const getFlagFileName = (zoneId: string) => {
   return 'us.png';
 };
 
-const getFlagUri = function (zoneId: string, flagSize = DEFAULT_FLAG_SIZE) {
+export const getFlagUri = function (zoneId: string, flagSize = DEFAULT_FLAG_SIZE) {
   if (!zoneId) {
     return;
   }

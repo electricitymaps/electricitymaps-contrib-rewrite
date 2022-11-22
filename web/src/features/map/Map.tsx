@@ -227,7 +227,8 @@ export default function MapPage(): ReactElement {
         mousePositionX={mousePositionX}
         mousePositionY={mousePositionY}
         hoveredFeatureId={hoveredFeatureId}
-      ></MapTooltip>
+        isMoving={isMoving}
+      />
       <Map
         ref={mapReference}
         initialViewState={{

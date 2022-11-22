@@ -8,6 +8,7 @@ interface MapTooltipProperties {
   mousePositionX: number;
   mousePositionY: number;
   hoveredFeatureId: string | number | undefined;
+  isMoving: boolean;
 }
 
 const ToolTipFlipBoundary = 100;
@@ -34,10 +35,9 @@ const getTooltipPosition = (
   return mousePosition;
 };
 export default function MapTooltip(properties: MapTooltipProperties): ReactElement {
-  const { mousePositionX, mousePositionY, hoveredFeatureId } = properties;
+  const { mousePositionX, mousePositionY, hoveredFeatureId, isMoving } = properties;
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-
   const mousePosition = getTooltipPosition(
     mousePositionX,
     mousePositionY,
@@ -47,7 +47,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
   return (
     <Portal.Root className="fixed left-5 top-10">
       <Tooltip.Provider>
-        <Tooltip.Root open={Boolean(hoveredFeatureId)} delayDuration={0}>
+        <Tooltip.Root open={Boolean(hoveredFeatureId && !isMoving)} delayDuration={0}>
           <Tooltip.Trigger>
             <div></div>
           </Tooltip.Trigger>
@@ -58,7 +58,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
               side="top"
               style={{ left: mousePosition.x, top: mousePosition.y }}
             >
-              <div>dsss</div>
+              <div>Zone Breakdown</div>
             </Tooltip.Content>
           </Tooltip.Portal>
         </Tooltip.Root>

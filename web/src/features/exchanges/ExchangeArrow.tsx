@@ -1,9 +1,11 @@
 /* eslint-disable unicorn/no-null */
+import TooltipWrapper from 'components/TooltipWrapper';
 import { useMemo } from 'react';
 import { MapboxMap } from 'react-map-gl';
 import { resolvePath } from 'react-router-dom';
 import { ExchangeArrowData } from 'types';
 import { quantizedCo2IntensityScale, quantizedExchangeSpeedScale } from 'utils/scales';
+import ExchangeTooltip from './ExchangeTooltip';
 
 interface ExchangeArrowProps {
   data: ExchangeArrowData;
@@ -66,22 +68,28 @@ function ExchangeArrow({ data, viewportWidth, viewportHeight, map }: ExchangeArr
   }
 
   return (
-    <div
-      id={key}
-      style={{
-        transform: `translateX(${transform.x}px) translateY(${transform.y}px) rotate(${transform.r}deg) scale(${transform.k})`,
-        cursor: 'pointer',
-        overflow: 'hidden',
-        position: 'absolute',
-        pointerEvents: 'all',
-        imageRendering: 'crisp-edges',
-        left: '-25px',
-        top: '-41px',
-      }}
+    <TooltipWrapper
+      tooltipClassName="relative flex max-h-[256px] max-w-[256px] rounded border bg-white p-1 px-3  text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
+      tooltipText={<ExchangeTooltip exchangeData={data} />}
+      side="top"
     >
-      <source srcSet={`${imageSource}.webp`} type="image/webp" />
-      <img src={`${imageSource}.gif`} alt="" />
-    </div>
+      <div
+        id={key}
+        style={{
+          transform: `translateX(${transform.x}px) translateY(${transform.y}px) rotate(${transform.r}deg) scale(${transform.k})`,
+          cursor: 'pointer',
+          overflow: 'hidden',
+          position: 'absolute',
+          pointerEvents: 'all',
+          imageRendering: 'crisp-edges',
+          left: '-25px',
+          top: '-41px',
+        }}
+      >
+        <source srcSet={`${imageSource}.webp`} type="image/webp" />
+        <img src={`${imageSource}.gif`} alt="" />
+      </div>
+    </TooltipWrapper>
   );
 }
 
