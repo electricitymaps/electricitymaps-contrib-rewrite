@@ -4,6 +4,15 @@ import { Navigate, useParams } from 'react-router-dom';
 import { timeAverageAtom } from 'utils/state';
 import { ZoneHeader } from './ZoneHeader';
 
+// export default styled.div`
+//   background: transparent url(${resolvePath('images/electricitymap-loading-icon.svg')})
+//     no-repeat center center;
+//   background-size: 2rem;
+//   display: inline-block;
+//   height: ${(props) => props.height || '100%'};
+//   width: 100%;
+// `;
+
 export default function ZoneDetails(): JSX.Element {
   const { zoneId } = useParams();
   const [timeAverage] = useAtom(timeAverageAtom);
@@ -28,7 +37,12 @@ export default function ZoneDetails(): JSX.Element {
         isEstimated
         isAggregated
       />
-      {status === 'loading' && 'Loading...'}
+      yo
+      <div className="flex h-full flex-col items-center justify-center">
+        <div className="h-2 w-4 bg-gray-100 bg-[url('/loading-icon.svg')] bg-[length:100px] bg-center bg-no-repeat dark:bg-gray-900 dark:bg-[url('/loading-icon-darkmode.svg')]" />
+        <p>xxxfffsLoxcading...</p>
+      </div>
+      {/* {status === 'loading' && 'Loading...'} */}
     </div>
   );
 }
