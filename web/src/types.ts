@@ -82,6 +82,9 @@ export interface ZoneDetail extends ZoneOverview {
   totalImport: number;
   totalDischarge: number;
   storage: { [key in StorageType]: number };
+  price?: {
+    value: number;
+  };
 }
 
 export interface ZoneDetails {

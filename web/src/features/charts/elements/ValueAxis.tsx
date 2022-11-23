@@ -16,9 +16,12 @@ const ValueAxis = React.memo(({ scale, label, width, height }: any) => {
     >
       {label && (
         <text
-          className="label"
           textAnchor="middle"
-          transform={`translate(37, ${height / 2}) rotate(-90)`}
+          stroke="gray"
+          strokeWidth={0.5}
+          fontSize="0.6rem"
+          fill="gray"
+          transform={`translate(38, ${height / 2}) rotate(-90)`}
         >
           {label}
         </text>
