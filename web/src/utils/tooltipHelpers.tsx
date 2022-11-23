@@ -6,12 +6,12 @@ export function CarbonIntensity({ intensity }: { intensity?: number }) {
   const co2ColorScale = useCo2ColorScale();
 
   return (
-    <div className="flex items-center">
+    <div className="flex h-3 items-center">
       <div
         className="mr-1 h-3 w-3"
         style={{ backgroundColor: co2ColorScale(intensity ?? 0) }}
       />
-      <b>{Math.round(intensity ?? 0) || '?'}</b> gCO₂eq/kWh
+      <b className="flex items-center">{Math.round(intensity ?? 0) || '?'}</b> gCO₂eq/kWh
     </div>
   );
 }

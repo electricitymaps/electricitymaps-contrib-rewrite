@@ -22,13 +22,12 @@ export default function ExchangeTooltip(
   return (
     <div className="p-1">
       {__('tooltips.crossborderexport')}:
-      <div className="flex  p-1">
+      <div className="flex items-center p-1">
         <ZoneName zone={zoneFrom} /> <p className="m-2">→</p> <ZoneName zone={zoneTo} />
         <b className="pt-0 text-xs ">:{formatPower(roundedNetFlow)}</b>
       </div>
       {__('tooltips.carbonintensityexport')}:
-      <div className="flex p-1">
-        {' '}
+      <div className="p-1">
         {Boolean(co2intensity) && <CarbonIntensity intensity={co2intensity} />}
       </div>
     </div>
