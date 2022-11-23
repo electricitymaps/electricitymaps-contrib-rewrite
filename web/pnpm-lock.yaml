@@ -38,6 +38,7 @@ specifiers:
   '@vitest/coverage-istanbul': 0.24.3
   autoprefixer: 10.4.12
   css-mediaquery: 0.1.2
+  currency-symbol-map: ^5.1.0
   cypress: 10.10.0
   d3-array: ^3.2.0
   d3-scale: ^4.0.2
@@ -108,6 +109,7 @@ dependencies:
   '@types/d3-selection': 3.0.3
   '@types/d3-shape': 3.1.0
   '@types/sprintf-js': 1.1.2
+  currency-symbol-map: 5.1.0
   d3-array: 3.2.0
   d3-scale: 4.0.2
   d3-selection: 3.0.0
@@ -4812,6 +4814,10 @@ packages:
 
   /csstype/3.1.0:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
+
+  /currency-symbol-map/5.1.0:
+    resolution: {integrity: sha512-LO/lzYRw134LMDVnLyAf1dHE5tyO6axEFkR3TXjQIOmMkAM9YL6QsiUwuXzZAmFnuDJcs4hayOgyIYtViXFrLw==}
+    dev: false
 
   /cypress/10.10.0:
     resolution: {integrity: sha512-bU8r44x1NIYAUNNXt3CwJpLOVth7HUv2hUhYCxZmgZ1IugowDvuHNpevnoZRQx1KKOEisLvIJW+Xen5Pjn41pg==}
