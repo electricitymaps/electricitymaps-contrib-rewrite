@@ -9,6 +9,7 @@ interface MapTooltipProperties {
   mousePositionY: number;
   hoveredFeatureId: string | number | undefined;
   isMoving: boolean;
+
 }
 
 const ToolTipFlipBoundary = 100;
@@ -38,6 +39,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
   const { mousePositionX, mousePositionY, hoveredFeatureId, isMoving } = properties;
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
+
   const mousePosition = getTooltipPosition(
     mousePositionX,
     mousePositionY,
