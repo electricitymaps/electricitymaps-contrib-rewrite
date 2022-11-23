@@ -12,7 +12,6 @@ export default function ExchangeTooltip(
   properties: ExchangeTooltipProperties
 ): ReactElement {
   const { key, netFlow, co2intensity } = properties.exchangeData;
-  console.log('data', key, netFlow, properties.exchangeData);
   const { __ } = useTranslation();
   const isExporting = netFlow > 0;
   const roundedNetFlow = Math.abs(Math.round(netFlow));
