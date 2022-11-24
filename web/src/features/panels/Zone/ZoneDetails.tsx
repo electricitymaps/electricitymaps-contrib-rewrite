@@ -1,5 +1,4 @@
 import useGetZone from 'api/getZone';
-import { data } from 'cypress/types/jquery';
 import BreakdownChart from 'features/charts/BreakdownChart';
 import CarbonChart from 'features/charts/CarbonChart';
 import PriceChart from 'features/charts/PriceChart';
