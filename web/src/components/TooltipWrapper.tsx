@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import * as Tooltip from '@radix-ui/react-tooltip';
 
 interface TooltipWrapperProperties {
-  tooltipText?: string | ReactElement;
+  tooltipContent?: string | ReactElement;
   children: ReactElement;
   side?: 'top' | 'bottom' | 'left' | 'right';
   sideOffset?: number;
@@ -12,8 +12,8 @@ interface TooltipWrapperProperties {
 export default function TooltipWrapper(
   properties: TooltipWrapperProperties
 ): ReactElement {
-  const { tooltipText, children, side, sideOffset, tooltipClassName } = properties;
-  if (!tooltipText) {
+  const { tooltipContent, children, side, sideOffset, tooltipClassName } = properties;
+  if (!tooltipContent) {
     return children;
   }
   return (
@@ -29,7 +29,7 @@ export default function TooltipWrapper(
             sideOffset={sideOffset ?? 3}
             side={side ?? 'left'}
           >
-            <div>{tooltipText}</div>
+            <div>{tooltipContent}</div>
           </Tooltip.Content>
         </Tooltip.Portal>
       </Tooltip.Root>

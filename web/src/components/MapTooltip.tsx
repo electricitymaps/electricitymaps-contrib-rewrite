@@ -25,20 +25,20 @@ const getTooltipPosition = (
   mousePositionX: number,
   mousePositionY: number,
   screenWidth: number,
-  width: number,
-  height: number
+  tooltipWidth: number,
+  tooltipHeight: number
 ) => {
-  const ToolTipFlipBoundaryX = width + 30;
-  const ToolTipFlipBoundaryY = height - 40;
+  const ToolTipFlipBoundaryX = tooltipWidth + 30;
+  const ToolTipFlipBoundaryY = tooltipHeight - 40;
   const xOffset = 10;
-  const yOffset = height - 40;
+  const yOffset = tooltipHeight - 40;
 
   const tooltipPosition = {
     x: mousePositionX + xOffset,
     y: mousePositionY - yOffset,
   };
   if (screenWidth - mousePositionX < ToolTipFlipBoundaryX) {
-    tooltipPosition.x = mousePositionX - width;
+    tooltipPosition.x = mousePositionX - tooltipWidth;
   }
   if (mousePositionY < ToolTipFlipBoundaryY) {
     tooltipPosition.y = mousePositionY;
