@@ -1,8 +1,7 @@
-import { ReactElement } from 'react';
 import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group';
 import * as Tooltip from '@radix-ui/react-tooltip';
+import { ReactElement } from 'react';
 import { useTranslation } from '../translation/translation';
-import { HiOutlineInformationCircle } from 'react-icons/hi2';
 
 interface ToggleButtonProperties {
   options: Array<{ value: string; translationKey: string }>;
