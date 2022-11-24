@@ -24,11 +24,13 @@ export function MetricRatio({ value, total, format }: any) {
   );
 }
 
-export function ZoneName({ zone }: { zone: string }) {
+export function ZoneName({ zone, textStyle }: { zone: string; textStyle?: string }) {
   return (
-    <>
+    <div className="flex items-center">
       <img className="mr-1 h-4 w-4" alt={`flag-${zone}`} src={getFlagUri(zone)} />
-      <p className="text-xs">{getShortenedZoneNameWithCountry(zone)}</p>
-    </>
+      <p className={`truncate text-xs ${textStyle}`}>
+        {getShortenedZoneNameWithCountry(zone)}
+      </p>
+    </div>
   );
 }

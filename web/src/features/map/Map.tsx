@@ -179,7 +179,6 @@ export default function MapPage(): ReactElement {
         { hover: false }
       );
     }
-
     if (feature && feature.id) {
       setCursorType('pointer');
       setHoveredFeature({ featureId: feature.id, zoneId: feature.properties?.zoneId });
@@ -227,12 +226,13 @@ export default function MapPage(): ReactElement {
   return (
     <>
       <Head title="Electricity Maps" />
-      <MapTooltip
-        mousePositionX={mousePositionX}
-        mousePositionY={mousePositionY}
-        hoveredFeature={hoveredFeature}
-        isMoving={isMoving}
-      />
+      {hoveredFeature && !isMoving && (
+        <MapTooltip
+          mousePositionX={mousePositionX}
+          mousePositionY={mousePositionY}
+          hoveredFeature={hoveredFeature}
+        />
+      )}
       <Map
         ref={mapReference}
         initialViewState={{
