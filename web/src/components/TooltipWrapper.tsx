@@ -17,7 +17,7 @@ export default function TooltipWrapper(
     return children;
   }
   return (
-    <Tooltip.Provider>
+    <Tooltip.Provider disableHoverableContent>
       <Tooltip.Root delayDuration={0}>
         <Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
         <Tooltip.Portal>
