@@ -3,7 +3,7 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import RankingPanel from './ranking-panel/RankingPanel';
 
-import ZoneDetails from './zone/ZoneDetails';
+import ZoneDetails from './Zone/ZoneDetails';
 
 function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }) {
   const { zoneId } = useParams();
@@ -34,7 +34,7 @@ function CollapseButton({ isCollapsed, onCollapse }: CollapseButtonProps) {
 }
 
 function OuterPanel({ children }: { children: React.ReactNode }) {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
   const onCollapse = () => setOpen(!isOpen);
 
   return (
@@ -53,7 +53,6 @@ export default function LeftPanel() {
   return (
     <OuterPanel>
       <Routes>
-        <Route path="/" element={<RankingPanel />} />
         <Route
           path="/zone/:zoneId"
           element={
@@ -64,7 +63,7 @@ export default function LeftPanel() {
         />
         <Route path="/faq" element={<p>FAQ</p>} />
         {/* Alternative: add /map here and have a NotFound component for anything else*/}
-        <Route path="*" element={<p>Ranking Panel</p>} />
+        <Route path="*" element={<RankingPanel />} />
       </Routes>
     </OuterPanel>
   );

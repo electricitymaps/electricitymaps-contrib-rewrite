@@ -1,20 +1,20 @@
-import Head from 'components/Head';
 import mapboxgl from 'mapbox-gl';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Layer, Map, MapRef, Source, NavigationControl } from 'react-map-gl';
+import { Layer, Map, MapRef, NavigationControl, Source } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 
 import useGetState from 'api/getState';
+import MapTooltip from 'components/MapTooltip';
 import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import { loadingMapAtom, selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
-import MapTooltip from 'components/MapTooltip';
+import Head from 'components/Head';
 
 const ZONE_SOURCE = 'zones-clickable';
 const SOUTHERN_LATITUDE_BOUND = -66.947_193;
@@ -35,6 +35,7 @@ export default function MapPage(): ReactElement {
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
+  const [_, updateIsLoadingMap] = useAtom(loadingMapAtom);
   const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [{ mousePositionX, mousePositionY }, setMousePosition] = useState({
@@ -211,8 +212,14 @@ export default function MapPage(): ReactElement {
 
   const onError = (event: mapboxgl.ErrorEvent) => {
     console.error(event.error);
-    // TODO: Remove loading overlay
+    updateIsLoadingMap(false);
     // TODO: Show error message to user
+    // TODO: Send to Sentry
+    // TODO: Handle the "no webgl" error gracefully
+  };
+
+  const onLoad = () => {
+    updateIsLoadingMap(false);
   };
 
   const onDragOrZoomStart = () => {
@@ -236,6 +243,7 @@ export default function MapPage(): ReactElement {
       <Map
         ref={mapReference}
         initialViewState={{
+          // TODO: Make these dynamic depending on callerLocation from v6/state
           latitude: 37.8,
           longitude: -122.4,
           zoom: 2,
@@ -243,6 +251,7 @@ export default function MapPage(): ReactElement {
         interactiveLayerIds={['zones-clickable-layer', 'zones-hoverable-layer']}
         cursor={cursorType}
         onClick={onClick}
+        onLoad={onLoad}
         onError={onError}
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
