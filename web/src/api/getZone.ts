@@ -21,9 +21,8 @@ const getZone = async (
 
   if (response.ok) {
     const { data } = (await response.json()) as { data: ZoneDetails };
-    // TODO: app-backend should not return array
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // TODO: Fix this in app-backend
+    // @ts-ignore: app-backend should not return array
     return data.length > 0 ? data[0] : data;
   }
 
