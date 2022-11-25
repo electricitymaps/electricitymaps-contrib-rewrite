@@ -88,7 +88,7 @@ function ExchangeArrow({ data, viewportWidth, viewportHeight, map }: ExchangeArr
         }}
       >
         <source srcSet={`${imageSource}.webp`} type="image/webp" />
-        <img src={`${imageSource}.gif`} alt="" />
+        <img src={`${imageSource}.gif`} alt="" draggable={false} />
       </div>
     </TooltipWrapper>
   );
