@@ -20,8 +20,8 @@ export function ZoneHeader({ date, zoneId, isEstimated, isAggregated }: ZoneHead
       />
       <div className="flex flex-row justify-evenly">
         <CarbonIntensitySquare co2intensity={60} withSubtext />
-        <CircularGauge name="Low-carbon" percentage={78} />
-        <CircularGauge name="Renewable" percentage={65} />
+        <CircularGauge name="Low-carbon" ratio={0.78} />
+        <CircularGauge name="Renewable" ratio={0.65} />
       </div>
     </div>
   );
