@@ -1,5 +1,6 @@
 import Badge from 'components/Badge';
 import { CountryFlag } from 'components/Flag';
+import { TimeDisplay } from 'components/TimeDisplay';
 import { HiArrowLeft } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { getZoneName } from 'translation/translation';
@@ -7,7 +8,6 @@ import { CountryTag } from './CountryTag';
 
 interface ZoneHeaderTitleProps {
   zoneId: string;
-  formattedDate: string;
   isEstimated?: boolean;
   isAggregated?: boolean;
 }
@@ -16,7 +16,6 @@ export default function ZoneHeaderTitle({
   zoneId,
   isAggregated,
   isEstimated,
-  formattedDate,
 }: ZoneHeaderTitleProps) {
   const title = getZoneName(zoneId);
   const isSubZone = zoneId.includes('-');
@@ -47,7 +46,7 @@ export default function ZoneHeaderTitle({
             </Badge>
           )}
           {isAggregated && <Badge key={'badge-agg'}>Aggregated</Badge>}
-          <p className="whitespace-nowrap text-xs">{formattedDate}</p>
+          <TimeDisplay className="whitespace-nowrap text-xs" />
         </div>
       </div>
     </div>

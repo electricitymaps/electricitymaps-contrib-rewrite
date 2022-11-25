@@ -32,12 +32,7 @@ export default function ZoneDetails(): JSX.Element {
 
   return (
     <div>
-      <ZoneHeader
-        zoneId={zoneId}
-        date="November 9, 2022 at 8:00"
-        isEstimated
-        isAggregated
-      />
+      <ZoneHeader zoneId={zoneId} isEstimated isAggregated />
       <CarbonChart
         electricityMixMode="production"
         displayByEmissions={false}
