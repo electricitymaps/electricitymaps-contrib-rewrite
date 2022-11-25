@@ -14,7 +14,6 @@ import { getCO2IntensityByMode } from 'utils/helpers';
 import { loadingMapAtom, selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
-import Head from 'components/Head';
 
 const ZONE_SOURCE = 'zones-clickable';
 const SOUTHERN_LATITUDE_BOUND = -66.947_193;
@@ -232,7 +231,6 @@ export default function MapPage(): ReactElement {
 
   return (
     <>
-      <Head title="Electricity Maps" />
       {hoveredFeature && !isMoving && (
         <MapTooltip
           mousePositionX={mousePositionX}
