@@ -14,30 +14,33 @@ export default function LanguageSelector(
   const { setLanguageSelectorOpen } = properties;
   const { __, i18n } = useTranslation();
   const languageKeys = Object.keys(languageNames) as Array<LanguageNamesKey>;
-  const currentLanguage = i18n.language as LanguageNamesKey;
+  const currentLanguageKey = i18n.language as LanguageNamesKey;
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    languageNames[currentLanguageKey] ?? 'English'
+  );
 
-  const [selectedLanguage, setSelectedLanguage] = useState('English');
-
-  const handleLanguageSelect = (
-    languageKey: LanguageNamesKey,
-    preferredLanguage: string
-  ) => {
+  const handleLanguageSelect = (languageKey: LanguageNamesKey) => {
     i18n.changeLanguage(languageKey);
-    setSelectedLanguage(preferredLanguage);
+    setSelectedLanguage(languageKey);
     setLanguageSelectorOpen(false);
   };
   const languageOptions = languageKeys.map((key) => {
-    console.log('ley', currentLanguage, key);
     return (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-      <div
+      <button
         key={key}
-        onClick={() => handleLanguageSelect(key, languageNames[key])}
-        className={`${key === selectedLanguage && 'bg-gray-500'}`}
+        onKeyDown={() => handleLanguageSelect(key)}
+        onClick={() => handleLanguageSelect(key)}
+        className={`w-full cursor-pointer px-2 py-1 text-start text-sm ${
+          languageNames[key] === selectedLanguage && 'bg-gray-200   dark:bg-gray-500'
+        }`}
       >
         {languageNames[key]}
-      </div>
+      </button>
     );
   });
-  return <div className="bg-white">{languageOptions}</div>;
+  return (
+    <div className="absolute top-[160px] right-10 h-[256px] w-[140px] overflow-auto rounded bg-white py-1 dark:bg-gray-900 dark:[color-scheme:dark]">
+      {languageOptions}
+    </div>
+  );
 }
