@@ -1,19 +1,19 @@
-import type { ReactElement } from 'react';
 import * as Portal from '@radix-ui/react-portal';
 import { useAtom } from 'jotai';
+import type { ReactElement } from 'react';
 
+import useGetState from 'api/getState';
+import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
+import { CircularGauge } from 'components/CircularGauge';
+import { ZoneName } from 'components/ZoneName';
+import { useTranslation } from 'translation/translation';
+import { Mode } from 'utils/constants';
+import { formatDate } from 'utils/formatting';
 import {
   productionConsumptionAtom,
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state';
-import { ZoneName } from 'utils/tooltipHelpers';
-import useGetState from 'api/getState';
-import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
-import { CircularGauge } from 'components/CircularGauge';
-import { Mode } from 'utils/constants';
-import { formatDate } from 'utils/formatting';
-import { useTranslation } from 'translation/translation';
 
 interface MapTooltipProperties {
   mousePositionX: number;

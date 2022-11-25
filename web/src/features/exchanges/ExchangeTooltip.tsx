@@ -1,8 +1,23 @@
+import { ZoneName } from 'components/ZoneName';
+import { useCo2ColorScale } from 'hooks/theme';
 import type { ReactElement } from 'react';
 import { useTranslation } from 'translation/translation';
 import { ExchangeArrowData } from 'types';
 import { formatPower } from 'utils/formatting';
-import { CarbonIntensity, ZoneName } from 'utils/tooltipHelpers';
+
+export function CarbonIntensity({ intensity }: { intensity?: number }) {
+  const co2ColorScale = useCo2ColorScale();
+
+  return (
+    <div className="flex h-3 items-center">
+      <div
+        className="mr-1 h-3 w-3"
+        style={{ backgroundColor: co2ColorScale(intensity ?? 0) }}
+      />
+      <b className="flex items-center">{Math.round(intensity ?? 0) || '?'}</b> gCO₂eq/kWh
+    </div>
+  );
+}
 
 interface ExchangeTooltipProperties {
   exchangeData: ExchangeArrowData;
