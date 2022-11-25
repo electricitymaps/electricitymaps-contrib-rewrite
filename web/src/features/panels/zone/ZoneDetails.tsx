@@ -21,6 +21,7 @@ export default function ZoneDetails(): JSX.Element {
 
   // TODO: Handle error state
   // TODO: Handle loading state nicely (let's keep country name in the header)
+  // TODO: Show zone title while data is loading
 
   if (!data) {
     return <div>none</div>;
