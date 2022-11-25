@@ -10,7 +10,6 @@ export interface CircularGaugeProps {
 export function CircularGauge({ ratio, name }: CircularGaugeProps) {
   // TODO: To improve performance, the background pie does not
   // need to rerender on percentage change
-  const percentageLabel = (ratio * 100).toFixed(0);
   const data = [{ value: ratio }];
   const percentageAsAngle = ratio * 360;
   const endAngle = PIE_START_ANGLE - percentageAsAngle;
@@ -34,8 +33,8 @@ export function CircularGauge({ ratio, name }: CircularGaugeProps) {
             className="select-none fill-gray-900 text-sm font-bold dark:fill-gray-300"
             position="center"
             offset={0}
-            formatter={(value: number) => `${value}%`}
-            value={percentageLabel}
+            formatter={(value: number) => `${Math.round(value * 100)}%`}
+            value={ratio}
           />
         </Pie>
         <Pie

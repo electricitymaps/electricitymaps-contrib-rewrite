@@ -1,5 +1,4 @@
 import useGetZone from 'api/getZone';
-import { data } from 'cypress/types/jquery';
 import BreakdownChart from 'features/charts/BreakdownChart';
 import CarbonChart from 'features/charts/CarbonChart';
 import PriceChart from 'features/charts/PriceChart';
@@ -13,7 +12,7 @@ export default function ZoneDetails(): JSX.Element {
   const { zoneId } = useParams();
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
-  const { error, data, status } = useGetZone(timeAverage, zoneId, {
+  const { data } = useGetZone({
     enabled: Boolean(zoneId),
   });
 
@@ -28,8 +27,6 @@ export default function ZoneDetails(): JSX.Element {
   if (!data) {
     return <div>none</div>;
   }
-  const breakdownData = Object.values(data.zoneStates);
-  const exchangeKeys: any[] = []; // TODO: Get exchange keys from data
 
   const datetimes = Object.keys(data.zoneStates).map((key) => new Date(key));
 
@@ -55,36 +52,9 @@ export default function ZoneDetails(): JSX.Element {
         lowCarbonRatio={lowCarbonRatio}
         renewableRatio={renewableRatio}
       />
-      <CarbonChart
-        electricityMixMode="production"
-        displayByEmissions={false}
-        isMobile={false}
-        isOverlayEnabled={false}
-        historyData={breakdownData}
-        exchangeKeys={exchangeKeys}
-        datetimes={datetimes}
-        timeAverage={timeAverage}
-      />
-      <BreakdownChart
-        displayByEmissions={false}
-        electricityMixMode="production"
-        isMobile={false}
-        isOverlayEnabled={false}
-        historyData={breakdownData}
-        exchangeKeys={exchangeKeys}
-        timeAverage={timeAverage}
-        datetimes={datetimes}
-      />
-      <PriceChart
-        electricityMixMode="production"
-        displayByEmissions={false}
-        isMobile={false}
-        isOverlayEnabled={false}
-        historyData={breakdownData}
-        exchangeKeys={exchangeKeys}
-        datetimes={datetimes}
-        timeAverage={timeAverage}
-      />
+      <CarbonChart datetimes={datetimes} timeAverage={timeAverage} />
+      <BreakdownChart timeAverage={timeAverage} datetimes={datetimes} />
+      <PriceChart datetimes={datetimes} timeAverage={timeAverage} />
     </div>
   );
 }
