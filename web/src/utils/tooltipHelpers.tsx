@@ -1,6 +1,6 @@
 import { getShortenedZoneNameWithCountry } from '../translation/translation';
 import { useCo2ColorScale } from '../hooks/theme';
-import { getFlagUri } from '../components/Flag';
+import { CountryFlag } from '../components/Flag';
 
 export function CarbonIntensity({ intensity }: { intensity?: number }) {
   const co2ColorScale = useCo2ColorScale();
@@ -27,8 +27,8 @@ export function MetricRatio({ value, total, format }: any) {
 export function ZoneName({ zone, textStyle }: { zone: string; textStyle?: string }) {
   return (
     <div className="flex items-center">
-      <img className="mr-1 h-4 w-4" alt={`flag-${zone}`} src={getFlagUri(zone)} />
-      <p className={`truncate text-xs ${textStyle}`}>
+      <CountryFlag zoneId={zone} />
+      <p className={`truncate pl-1 text-xs ${textStyle}`}>
         {getShortenedZoneNameWithCountry(zone)}
       </p>
     </div>
