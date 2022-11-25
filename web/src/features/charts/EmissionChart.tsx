@@ -19,8 +19,6 @@ function EmissionChart({ timeAverage, datetimes }: EmissionChartProps) {
 
   const { chartData, layerFill, layerKeys } = data;
 
-  console.log(chartData);
-
   return (
     <div className="ml-3">
       <AreaGraph
