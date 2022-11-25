@@ -23,7 +23,12 @@ export default function RankingPanel(properties: RankingPanelProperties): ReactE
   };
 
   const { isLoading, isSuccess, isError, error, data } = useGetState(timeAverage);
-  const rankedList = getRankedState(data, getCo2colorScale, 'asc', selectedDatetime);
+  const rankedList = getRankedState(
+    data,
+    getCo2colorScale,
+    'asc',
+    selectedDatetime.datetimeString
+  );
   const filteredList = rankedList.filter((zone) => {
     if (zone.countryName && zone.countryName.toLowerCase().includes(searchTerm)) {
       return true;

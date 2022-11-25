@@ -3,8 +3,10 @@
 import { scaleLinear } from 'd3-scale';
 import { stack, stackOffsetDiverging } from 'd3-shape';
 import TimeAxis from 'features/time/TimeAxis'; // TODO: Move to a shared folder
+import { useAtom } from 'jotai';
 import React, { useMemo, useState } from 'react';
 import { TimeAverages } from 'utils/constants';
+import { selectedDatetimeIndexAtom } from 'utils/state';
 import { useRefWidthHeightObserver } from 'utils/viewport';
 import { getTimeScale, isEmpty } from '../graphUtils';
 import { AreaGraphElement } from '../types';
@@ -46,7 +48,7 @@ const getLayers = (
 
   const stackedData = stack<AreaGraphElement>()
     .offset(stackOffsetDiverging)
-    .value((d: AreaGraphElement, key: string) => d.layerData[key])
+    .value((d: AreaGraphElement, key: string) => d.layerData[key] || 0) // Assign 0 if no data
     .keys(layerKeys)(data);
 
   return layerKeys.map((key: string, index: number) => ({
@@ -71,8 +73,7 @@ interface AreagraphProps {
   isMobile: boolean;
   isOverlayEnabled: boolean;
   height: string;
-  datetimes: any;
-  selectedZoneTimeIndex: number; // TODO: Graph should not know about this
+  datetimes: Date[];
   selectedTimeAggregate: TimeAverages; // TODO: Graph does not need to know about this
 }
 
@@ -90,16 +91,16 @@ function AreaGraph({
   height = '10em',
   isOverlayEnabled,
   selectedTimeAggregate,
-  selectedZoneTimeIndex,
   datetimes,
 }: AreagraphProps) {
-  // TODO: incorporate https://github.com/electricitymaps/electricitymaps-contrib/pull/4748
   const {
     ref,
     width: containerWidth,
     height: containerHeight,
     node,
   } = useRefWidthHeightObserver(Y_AXIS_WIDTH, X_AXIS_HEIGHT);
+
+  const [selectedDate] = useAtom(selectedDatetimeIndexAtom);
 
   // Build layers
   const layers = useMemo(
@@ -132,7 +133,7 @@ function AreaGraph({
   const [graphIndex, setGraphIndex] = useState(null);
   const [selectedLayerIndex, setSelectedLayerIndex] = useState<number | null>(null);
 
-  const hoverLineTimeIndex = graphIndex ?? selectedZoneTimeIndex;
+  const hoverLineTimeIndex = graphIndex ?? selectedDate.index;
 
   // Mouse action handlers
   const mouseMoveHandler = useMemo(
@@ -160,6 +161,8 @@ function AreaGraph({
   if (isEmpty(layers)) {
     return null;
   }
+
+  console.log('layers', layers[0].datapoints);
 
   return (
     <svg

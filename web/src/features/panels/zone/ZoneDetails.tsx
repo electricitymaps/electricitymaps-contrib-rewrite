@@ -40,13 +40,13 @@ export default function ZoneDetails(): JSX.Element {
         isEstimated
         isAggregated
       />
-      <DisplayByEmissionToggle />
+      {/* <DisplayByEmissionToggle />
       {displayByEmissions ? (
         <EmissionChart datetimes={datetimes} timeAverage={timeAverage} />
       ) : (
         <CarbonChart datetimes={datetimes} timeAverage={timeAverage} />
       )}
-      <BreakdownChart datetimes={datetimes} timeAverage={timeAverage} />
+      <BreakdownChart datetimes={datetimes} timeAverage={timeAverage} /> */}
       <PriceChart datetimes={datetimes} timeAverage={timeAverage} />
     </div>
   );

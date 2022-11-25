@@ -20,11 +20,31 @@ function PriceChart({ datetimes, timeAverage }: PriceChartProps) {
   const { chartData, layerFill, layerKeys, layerStroke, valueAxisLabel, markerFill } =
     data;
 
+  // sporadically missing data
+  const spreadMissing = [chartData[2], chartData[3], chartData[22], chartData[23]];
+
+  const firstN = chartData.slice(0, 2);
+
+  const lastN = [
+    chartData[chartData.length - 4],
+    chartData[chartData.length - 3],
+    chartData[chartData.length - 2],
+    chartData[chartData.length - 1],
+  ];
+
+  const nullValues = chartData;
+  nullValues[3] = {
+    ...chartData[3],
+    layerData: {
+      price: Number.NaN,
+    },
+  };
+
   return (
     <div className="ml-3">
       <AreaGraph
         testId="history-prices-graph"
-        data={chartData}
+        data={nullValues}
         layerKeys={layerKeys}
         layerStroke={layerStroke}
         layerFill={layerFill}
@@ -36,7 +56,6 @@ function PriceChart({ datetimes, timeAverage }: PriceChartProps) {
         height="6em"
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
-        selectedZoneTimeIndex={0}
         isOverlayEnabled={false}
       />
     </div>

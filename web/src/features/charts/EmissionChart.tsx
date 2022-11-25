@@ -33,7 +33,6 @@ function EmissionChart({ timeAverage, datetimes }: EmissionChartProps) {
         markerHideHandler={noop}
         isOverlayEnabled={false}
         datetimes={datetimes}
-        selectedZoneTimeIndex={0}
         isMobile={false}
         selectedTimeAggregate={timeAverage}
         height="8em"

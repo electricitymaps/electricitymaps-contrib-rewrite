@@ -3,6 +3,7 @@ import TimeAverageToggle from 'components/TimeAverageToggle';
 import TimeSlider from 'components/TimeSlider';
 import { useAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
+import i18n from 'translation/i18n';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
@@ -26,16 +27,22 @@ export default function TimeController() {
   useEffect(() => {
     if (datetimes) {
       // Reset the selected datetime when data changes
-      setSelectedDatetime(dateToDatetimeString(datetimes[0]));
+      setSelectedDatetime({
+        datetimeString: dateToDatetimeString(datetimes[0]),
+        index: 0,
+      });
     }
   }, [data]);
 
-  const onTimeSliderChange = (datetimeIndex: number) => {
+  const onTimeSliderChange = (index: number) => {
     // TODO: Does this work properly missing values?
     if (!datetimes) {
       return;
     }
-    setSelectedDatetime(dateToDatetimeString(datetimes[datetimeIndex]));
+    setSelectedDatetime({
+      datetimeString: dateToDatetimeString(datetimes[index]),
+      index,
+    });
   };
 
   const onToggleGroupClick = (timeAverage: TimeAverages) => {
@@ -52,7 +59,11 @@ export default function TimeController() {
         <p className="mb-2 text-base font-bold">{__('time-controller.title')}</p>
         <div className="mb-2 rounded-full bg-brand-green/10 py-2 px-3 text-xs text-brand-green dark:bg-gray-700 dark:text-white">
           {!isLoading &&
-            formatDate(new Date(selectedDatetime), i18n.language, timeAverage)}
+            formatDate(
+              new Date(selectedDatetime.datetimeString),
+              i18n.language,
+              timeAverage
+            )}
         </div>
       </div>
       <TimeAverageToggle
@@ -62,9 +73,7 @@ export default function TimeController() {
       <TimeSlider
         onChange={onTimeSliderChange}
         numberOfEntries={datetimes ? datetimes.length - 1 : 0}
-        selectedIndex={datetimes?.findIndex(
-          (d) => dateToDatetimeString(d) === selectedDatetime
-        )}
+        selectedIndex={selectedDatetime.index}
       />
       <TimeAxis
         datetimes={datetimes}

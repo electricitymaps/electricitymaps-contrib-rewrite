@@ -89,3 +89,8 @@ export function getTotalElectricity(zoneData: ZoneDetail, displayByEmissions: bo
     ? productionValue + zoneData.totalCo2Discharge + zoneData.totalCo2Import // gCO₂eq/h
     : productionValue + zoneData.totalDischarge + zoneData.totalImport;
 }
+
+export const getNextDatetime = (datetimes: Date[], currentDate: Date) => {
+  const index = datetimes.findIndex((d) => d.getTime() === currentDate.getTime());
+  return datetimes[index + 1];
+};
