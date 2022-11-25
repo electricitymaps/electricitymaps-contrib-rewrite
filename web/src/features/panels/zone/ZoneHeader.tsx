@@ -1,7 +1,5 @@
-import Badge from 'components/Badge';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import { CountryTag } from './CountryTag';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
 interface ZoneHeaderProps {
@@ -15,17 +13,10 @@ export function ZoneHeader({ date, zoneId, isEstimated, isAggregated }: ZoneHead
   return (
     <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
       <ZoneHeaderTitle
-        title="Western Area Power Administration Rocky Mountain Region"
+        zoneId={zoneId}
         formattedDate={date}
-        labels={[
-          isEstimated && (
-            <Badge type="warning" key={'badge-est'}>
-              Estimated
-            </Badge>
-          ),
-          isAggregated && <Badge key={'badge-agg'}>Aggregated</Badge>,
-        ]}
-        countryTag={<CountryTag zoneId={'US-MISO'} />}
+        isEstimated={isEstimated}
+        isAggregated={isAggregated}
       />
       <div className="flex flex-row justify-evenly">
         <CarbonIntensitySquare co2intensity={60} withSubtext />
