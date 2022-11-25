@@ -6,9 +6,19 @@ interface ZoneHeaderProps {
   zoneId: string;
   isEstimated?: boolean;
   isAggregated?: boolean;
+  co2intensity: number;
+  lowCarbonRatio: number;
+  renewableRatio: number;
 }
 
-export function ZoneHeader({ zoneId, isEstimated, isAggregated }: ZoneHeaderProps) {
+export function ZoneHeader({
+  zoneId,
+  isEstimated,
+  isAggregated,
+  co2intensity,
+  lowCarbonRatio,
+  renewableRatio,
+}: ZoneHeaderProps) {
   return (
     <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
       <ZoneHeaderTitle
@@ -17,9 +27,9 @@ export function ZoneHeader({ zoneId, isEstimated, isAggregated }: ZoneHeaderProp
         isAggregated={isAggregated}
       />
       <div className="flex flex-row justify-evenly">
-        <CarbonIntensitySquare co2intensity={60} withSubtext />
-        <CircularGauge name="Low-carbon" ratio={0.78} />
-        <CircularGauge name="Renewable" ratio={0.65} />
+        <CarbonIntensitySquare co2intensity={co2intensity} withSubtext />
+        <CircularGauge name="Low-carbon" ratio={lowCarbonRatio} />
+        <CircularGauge name="Renewable" ratio={renewableRatio} />
       </div>
     </div>
   );
