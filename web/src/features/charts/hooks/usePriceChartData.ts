@@ -16,14 +16,10 @@ export function usePriceChartData() {
 
   for (const [datetimeString, value] of Object.entries(zoneData.zoneStates)) {
     const datetime = new Date(datetimeString);
-    if (!value.price?.value) {
-      // TODO: should there still be a point in the graph?
-      continue;
-    }
     chartData.push({
       datetime,
       layerData: {
-        price: value.price?.value,
+        price: value.price?.value ?? Number.NaN,
       },
       meta: {},
     });

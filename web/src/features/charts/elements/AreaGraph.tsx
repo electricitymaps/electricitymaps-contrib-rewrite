@@ -159,10 +159,17 @@ function AreaGraph({
 
   // Don't render the graph at all if no layers are present
   if (isEmpty(layers)) {
+    console.error('No layers present in AreaGraph');
     return null;
   }
 
-  console.log('layers', layers[0].datapoints);
+  // Don't render the graph if datetimes and datapoints are not in sync
+  for (const layer of layers) {
+    if (layer.datapoints.length !== datetimes.length) {
+      console.error('Datetimes and datapoints are not in sync');
+      return null;
+    }
+  }
 
   return (
     <svg

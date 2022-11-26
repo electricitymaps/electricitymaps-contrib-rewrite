@@ -68,7 +68,6 @@ export default function useBreakdownChartData() {
         !exchangeKeys.includes(key) && exchangeKeys.push(key);
       }
     }
-
     chartData.push(entry);
   }
 
@@ -111,7 +110,7 @@ function getGenerationValue(
 ) {
   const generationKey = getGenerationTypeKey(key);
   if (generationKey === undefined) {
-    return 0;
+    return Number.NaN;
   }
 
   const modeProduction = value.production[generationKey];
@@ -121,7 +120,7 @@ function getGenerationValue(
     temporary *= value.productionCo2Intensities[generationKey] / 1e3 / 60;
   }
 
-  return temporary || 0;
+  return temporary || Number.NaN;
 }
 
 interface ValuesInfo {

@@ -66,8 +66,7 @@ function AreaGraphLayers({
   return (
     <g>
       {layers.map((layer, ind) => {
-        // const isGradient = typeof layer.fill === 'function';
-        const isGradient = false;
+        const isGradient = typeof layer.fill === 'function';
         const gradientId = `areagraph-gradient-${layer.key}`;
         // A datapoint valid until the next one
         // However, for the last point (or for missing points),
@@ -97,9 +96,6 @@ function AreaGraphLayers({
             },
           ]),
         ].flat();
-
-        console.log('datapoints', datapoints);
-        console.log('layer', layers[0].datapoints);
 
         return (
           <React.Fragment key={layer.key}>
