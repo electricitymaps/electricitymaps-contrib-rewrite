@@ -103,7 +103,7 @@ export interface ZoneDetails {
   zoneStates: { [key: string]: ZoneDetail };
 }
 
-export type StorageType = 'battery' | 'hydro';
+export type StorageType = 'battery storage' | 'hydro storage';
 
 export interface MapGeometries extends FeatureCollection<Geometry> {
   features: Array<MapGeometry>;
