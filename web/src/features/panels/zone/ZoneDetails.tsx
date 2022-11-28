@@ -32,14 +32,14 @@ export default function ZoneDetails(): JSX.Element {
   // TODO: Show zone title while data is loading
 
   if (!data) {
-    return <div>none</div>;
+    return <div>No data</div>;
   }
 
   const datetimes = Object.keys(data.zoneStates).map((key) => new Date(key));
 
   // TODO: Consider if we should move the items relying on this data to its own component instead
   // TODO: Fix rendering issue where this is shortly unavailable for some reason
-  const selectedData = data.zoneStates[selectedDatetime.index];
+  const selectedData = data.zoneStates[selectedDatetime.datetimeString];
   if (!selectedData) {
     return <div></div>;
   }
@@ -54,12 +54,12 @@ export default function ZoneDetails(): JSX.Element {
       className="mb-60" // Adding room to scroll past the time controller
     >
       <ZoneHeader
+        zoneId={zoneId}
+        isEstimated={isEstimated}
+        isAggregated={isAggregated}
         co2intensity={co2intensity}
         lowCarbonRatio={lowCarbonRatio}
         renewableRatio={renewableRatio}
-        isAggregated={isAggregated}
-        isEstimated={isEstimated}
-        zoneId={zoneId}
       />
       <DisplayByEmissionToggle />
       {displayByEmissions ? (

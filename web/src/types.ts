@@ -55,6 +55,9 @@ export interface ZoneOverview {
   colorBlindConsumptionColour?: string;
   colorBlindProductionColour?: string;
   stateDatetime: string;
+  fossilFuelRatio: number;
+  renewableRatio: number;
+  estimationMethod: string;
 }
 
 export type GenerationType =
@@ -97,7 +100,7 @@ export interface ZoneDetail extends ZoneOverview {
 export interface ZoneDetails {
   hasData: boolean;
   stateAggregation: 'daily' | 'hourly' | 'monthly' | 'yearly';
-  zoneStates: ZoneDetail[];
+  zoneStates: { [key: string]: ZoneDetail };
 }
 
 export type StorageType = 'battery' | 'hydro';

@@ -3,7 +3,6 @@ import TimeAverageToggle from 'components/TimeAverageToggle';
 import TimeSlider from 'components/TimeSlider';
 import { useAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
-import i18n from 'translation/i18n';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
@@ -15,7 +14,7 @@ export default function TimeController() {
   const { __, i18n } = useTranslation();
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime, setSelectedDatetime] = useAtom(selectedDatetimeIndexAtom);
-  const { data, isLoading } = useGetState(timeAverage);
+  const { data, isLoading } = useGetState();
 
   // TODO: Figure out whether we want to work with datetimes as strings
   // or as Date objects. In this case datetimes are easier to work with

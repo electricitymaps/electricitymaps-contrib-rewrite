@@ -1,6 +1,6 @@
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import ZoneHeaderTitle from './ZoneHeaderTitle';
+import ZoneHeaderTitle from 'features/panels/zone/ZoneHeaderTitle';
 
 interface ZoneHeaderProps {
   zoneId: string;
