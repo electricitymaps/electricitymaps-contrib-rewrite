@@ -8,9 +8,7 @@ import { getRankedState } from './getRankingPanelData';
 import SearchBar from './SearchBar';
 import ZoneList from './ZoneList';
 
-interface RankingPanelProperties {}
-
-export default function RankingPanel(properties: RankingPanelProperties): ReactElement {
+export default function RankingPanel(): ReactElement {
   const { __ } = useTranslation();
   const getCo2colorScale = useCo2ColorScale();
   const [timeAverage] = useAtom(timeAverageAtom);
