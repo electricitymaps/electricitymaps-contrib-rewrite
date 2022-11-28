@@ -20,7 +20,7 @@ export default function RankingPanel(): ReactElement {
     setSearchTerm(lowerCase);
   };
 
-  const { isLoading, isSuccess, isError, error, data } = useGetState(timeAverage);
+  const { isLoading, isSuccess, isError, error, data } = useGetState();
   const rankedList = getRankedState(
     data,
     getCo2colorScale,
