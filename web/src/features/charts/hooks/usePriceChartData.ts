@@ -5,6 +5,25 @@ import { scaleLinear } from 'd3-scale';
 import { ZoneDetail } from 'types';
 import { AreaGraphElement } from '../types';
 
+export function getFills(data: AreaGraphElement[]) {
+  const priceMaxValue =
+    d3Max<number>(Object.values(data).map((d) => d.layerData.price || 0)) || 0;
+  const priceMinValue =
+    d3Min<number>(Object.values(data).map((d) => d.layerData.price || 0)) || 0;
+
+  const priceColorScale = scaleLinear<string>()
+    .domain([priceMinValue, 0, priceMaxValue])
+    .range(['brown', 'lightgray', '#616161']);
+
+  const layerFill = (key: string) => (d: { data: AreaGraphElement }) =>
+    priceColorScale(d.data.layerData[key]);
+
+  const markerFill = (key: string) => (d: { data: AreaGraphElement }) =>
+    priceColorScale(d.data.layerData[key]);
+
+  return { layerFill, markerFill };
+}
+
 export function usePriceChartData() {
   const { data: zoneData, isLoading, isError } = useGetZone();
 
@@ -30,26 +49,9 @@ export function usePriceChartData() {
   );
   const valueAxisLabel = `${currencySymbol || '?'} / MWh`;
 
-  const priceMaxValue =
-    d3Max<number>(
-      Object.values(zoneData.zoneStates).map((d: ZoneDetail) => d.price?.value || 0)
-    ) || 0;
-  const priceMinValue =
-    d3Min<number>(
-      Object.values(zoneData.zoneStates).map((d: ZoneDetail) => d.price?.value || 0)
-    ) || 0;
-
-  const priceColorScale = scaleLinear<string>()
-    .domain([priceMinValue, 0, priceMaxValue])
-    .range(['brown', 'lightgray', '#616161']);
+  const { layerFill, markerFill } = getFills(chartData);
 
   const layerKeys = ['price'];
-
-  const layerFill = (key: string) => (d: { data: AreaGraphElement }) =>
-    priceColorScale(d.data.layerData[key]);
-
-  const markerFill = (key: string) => (d: { data: AreaGraphElement }) =>
-    priceColorScale(d.data.layerData[key]);
 
   const result = {
     chartData,

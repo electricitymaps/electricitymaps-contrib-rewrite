@@ -82,6 +82,7 @@
     "@storybook/addon-links": "^7.0.0-alpha.47",
     "@storybook/addon-measure": "7.0.0-alpha.47",
     "@storybook/addon-outline": "7.0.0-alpha.47",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^7.0.0-alpha.47",
     "@storybook/react-vite": "^7.0.0-alpha.47",
     "@storybook/testing-library": "^0.0.13",
