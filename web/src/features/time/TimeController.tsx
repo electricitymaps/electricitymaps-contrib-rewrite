@@ -27,8 +27,8 @@ export default function TimeController() {
     if (datetimes) {
       // Reset the selected datetime when data changes
       setSelectedDatetime({
-        datetimeString: dateToDatetimeString(datetimes[0]),
-        index: 0,
+        datetimeString: dateToDatetimeString(datetimes[datetimes.length - 1]),
+        index: datetimes.length - 1,
       });
     }
   }, [data]);
