@@ -3,11 +3,11 @@ import { useState, ReactElement } from 'react';
 import { useTranslation } from 'translation/translation';
 import { HiCheck, HiChevronLeft, HiChevronRight, HiXMark } from 'react-icons/hi2';
 
-interface view {
+interface Page {
   headerImage: { pathname: string };
   isMainTitle?: boolean;
-  renderContent: (argument0: any) => ReactElement;
-  title?: (argument0: any) => string;
+  renderContent: (translator: any) => ReactElement;
+  title?: (translator: any) => ReactElement;
 }
 
 function Modal({
@@ -17,7 +17,7 @@ function Modal({
   onDismiss,
 }: {
   modalName: string;
-  views: view[];
+  views: Page[];
   visible: boolean;
   onDismiss: () => void;
 }) {
@@ -111,7 +111,7 @@ function Modal({
           </div>
         </div>
         <div className="absolute bottom-[-60px] left-auto h-[40px] self-center  ">
-          {views.map((view: view, index: number) => (
+          {views.map((view: Page, index: number) => (
             <div
               key={`modal-step-item-${index}`}
               className={`mx-2 inline-block h-[14px] w-[14px] rounded-xl bg-white ${

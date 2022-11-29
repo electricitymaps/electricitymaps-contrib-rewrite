@@ -1,8 +1,9 @@
 import React from 'react';
 import { resolvePath, useParams } from 'react-router-dom';
-import { saveKey } from '../../utils/localStorage';
+import { hasOnboardingBeenSeenAtom } from 'utils/state/atoms';
 
 import Modal from './OnboardingModalInner';
+import { useAtom } from 'jotai';
 
 const views = [
   {
@@ -56,17 +57,18 @@ const views = [
 
 export function OnboardingModal() {
   const { skipOnboarding } = useParams();
-  const [isVisible, setIsVisible] = React.useState(
-    localStorage.getItem('onboardingSeen') !== 'true' && !skipOnboarding
+  const [hasOnboardingBeenSeen, setHasOnboardingBeenSeen] = useAtom(
+    hasOnboardingBeenSeenAtom
   );
+  const visible = !hasOnboardingBeenSeen && !skipOnboarding;
+
   const handleDismiss = () => {
-    saveKey('onboardingSeen', 'true');
-    setIsVisible(false);
+    setHasOnboardingBeenSeen('true');
   };
   return (
     <Modal
       modalName="onboarding"
-      visible={isVisible}
+      visible={visible}
       onDismiss={handleDismiss}
       views={views}
     />
