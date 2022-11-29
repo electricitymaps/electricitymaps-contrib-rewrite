@@ -4,6 +4,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Layer, Map, MapRef, NavigationControl, Source } from 'react-map-gl';
 import { useCo2ColorScale, useTheme } from '../../hooks/theme';
+import Toast from '../../components/Toast';
 
 import useGetState from 'api/getState';
 import MapTooltip from 'components/tooltips/MapTooltip';
@@ -231,6 +232,7 @@ export default function MapPage(): ReactElement {
 
   return (
     <>
+      <Toast />
       {hoveredFeature && !isMoving && (
         <MapTooltip
           mousePositionX={mousePositionX}

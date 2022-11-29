@@ -5,6 +5,7 @@ import MapControls from 'features/map-controls/MapControls';
 import TimeController from 'features/time/TimeController';
 import type { ReactElement } from 'react';
 import { lazy, Suspense } from 'react';
+import { ToastProvider } from '@radix-ui/react-toast';
 
 const Map = lazy(async () => import('features/map/Map'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
@@ -13,16 +14,18 @@ export default function App(): ReactElement {
   return (
     <Suspense fallback={<div />}>
       <main className="fixed flex h-screen w-screen flex-col">
-        <Header />
-        <div className="relative flex flex-auto items-stretch">
-          <ErrorBoundary>
-            <LoadingOverlay />
-            <LeftPanel />
-            <Map />
-            <TimeController />
-            <MapControls />
-          </ErrorBoundary>
-        </div>
+        <ToastProvider>
+          <Header />
+          <div className="relative flex flex-auto items-stretch">
+            <ErrorBoundary>
+              <LoadingOverlay />
+              <LeftPanel />
+              <Map />
+              <TimeController />
+              <MapControls />
+            </ErrorBoundary>
+          </div>
+        </ToastProvider>
       </main>
     </Suspense>
   );
