@@ -28,7 +28,6 @@
     "deploy": "pnpm build && sh scripts/deploy.sh"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-navigation-menu": "^1.1.1",
     "@radix-ui/react-portal": "^1.0.1",
     "@radix-ui/react-slider": "^1.1.0",
