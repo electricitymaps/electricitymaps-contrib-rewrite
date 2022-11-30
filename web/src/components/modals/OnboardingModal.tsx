@@ -23,12 +23,12 @@ const views = [
   {
     headerImage: resolvePath('onboarding/mapExtract.png'),
     renderContent: (__: (translationKey: string) => string) => (
-      <React.Fragment>
+      <>
         <div>
           <h2 className="text-xl">{__('onboarding-modal.view2.header')}</h2>
         </div>
         <div>{__('onboarding-modal.view2.text')}</div>
-      </React.Fragment>
+      </>
     ),
   },
   {
