@@ -1,45 +1,64 @@
-import * as React from 'react';
-import * as RadixToast from '@radix-ui/react-toast';
+import * as ToastPrimitive from '@radix-ui/react-toast';
+import { useState } from 'react';
 
-function Toast() {
-  const [open, setOpen] = React.useState(false);
-  const eventDateReference = React.useRef(new Date());
-  const timerReference = React.useRef(0);
+type Props = {
+  title: string;
+  description?: string;
+  isCloseable?: boolean;
+  toastAction?: () => void;
+  toastActionText?: string;
+};
 
-  React.useEffect(() => {
-    return () => clearTimeout(timerReference.current);
-  }, []);
+function Toast(props: Props) {
+  const { title, description, toastAction, toastActionText } = props;
+  const [open, setOpen] = useState(true);
+  const handleToastAction = () => {
+    toastAction && toastAction();
+    setOpen(false);
+  };
 
   return (
-    // <Toast.Provider swipeDirection="right">
-    //   <button
-    //     className="Button large violet"
-    //     onClick={() => {
-    //       setOpen(false);
-    //       window.clearTimeout(timerRef.current);
-    //       timerRef.current = window.setTimeout(() => {
-    //         eventDateRef.current = oneWeekAway();
-    //         setOpen(true);
-    //       }, 100);
-    //     }}
-    //   >
-    //     Add to calendar
-    //   </button>
-
-    <RadixToast.Root className="ToastRoot" open={true} onOpenChange={setOpen}>
-      <RadixToast.Title className="ToastTitle">Scheduled: Catch up</RadixToast.Title>
-      <RadixToast.Description asChild>
-        <time
-          className="ToastDescription"
-          dateTime={eventDateReference.current.toISOString()}
-        >
-          12:00pm on {eventDateReference.current.toLocaleDateString()}
-        </time>
-      </RadixToast.Description>
-      <RadixToast.Action className="ToastAction" asChild altText="Goto schedule to undo">
-        <button className="Button small green">Undo</button>
-      </RadixToast.Action>
-    </RadixToast.Root>
+    <>
+      <ToastPrimitive.Root
+        open={open}
+        onOpenChange={setOpen}
+        className="radix-state-open:animate-toast-slide-in-right radix-swipe-end:animate-toast-swipe-out translate-x-radix-toast-swipe-move-x radix-swipe-cancel:translate-x-0 radix-swipe-cancel:duration-200 radix-swipe-cancel:ease-[ease] radix-state-closed:animate-toast-hide fixed top-16 left-1/2  z-50 w-1/4 self-center rounded-lg bg-white shadow dark:bg-gray-900"
+      >
+        <div className="flex">
+          <div className="flex w-0 flex-1 items-start p-4">
+            <div className="radix w-full">
+              <ToastPrimitive.Title className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {title}
+              </ToastPrimitive.Title>
+              <ToastPrimitive.Description className="mt-1 text-sm text-gray-700 dark:text-gray-400">
+                {description}
+              </ToastPrimitive.Description>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex flex-col space-y-1 px-3 py-2">
+              <div className="flex h-0 flex-1">
+                {toastAction && (
+                  <ToastPrimitive.Action
+                    altText="view now"
+                    className="flex h-6 w-full items-center justify-center rounded border border-transparent px-3 py-2 text-sm font-medium shadow"
+                    onClick={handleToastAction}
+                  >
+                    {toastActionText}
+                  </ToastPrimitive.Action>
+                )}
+              </div>
+              <div className="flex h-0 flex-1 ">
+                <ToastPrimitive.Close className="flex h-6 w-full items-center justify-center rounded border border-transparent px-3 py-2 text-sm font-medium shadow">
+                  Dismiss
+                </ToastPrimitive.Close>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ToastPrimitive.Root>
+      <ToastPrimitive.Viewport />
+    </>
   );
 }
 
