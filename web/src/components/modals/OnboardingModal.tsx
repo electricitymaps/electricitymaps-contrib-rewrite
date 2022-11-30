@@ -10,14 +10,14 @@ const views = [
     headerImage: resolvePath('electricitymaps-icon.svg'),
     isMainTitle: true,
     renderContent: (__: (translationKey: string) => string) => (
-      <React.Fragment>
+      <>
         <div>
           <h1 className="text-2xl">Electricity Maps</h1>
         </div>
         <div className=" py-6 text-xl">
           <h2>{__('onboarding-modal.view1.subtitle')}</h2>
         </div>
-      </React.Fragment>
+      </>
     ),
   },
   {
