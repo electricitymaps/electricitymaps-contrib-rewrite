@@ -6,9 +6,9 @@ import { AreaGraphElement } from '../types';
 
 export function getFills(data: AreaGraphElement[]) {
   const priceMaxValue =
-    d3Max<number>(Object.values(data).map((d) => d.layerData.price || 0)) || 0;
+    d3Max<number>(Object.values(data).map((d) => d.layerData.price || 0)) ?? 0;
   const priceMinValue =
-    d3Min<number>(Object.values(data).map((d) => d.layerData.price || 0)) || 0;
+    d3Min<number>(Object.values(data).map((d) => d.layerData.price || 0)) ?? 0;
 
   const priceColorScale = scaleLinear<string>()
     .domain([priceMinValue, 0, priceMaxValue])

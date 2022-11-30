@@ -48,7 +48,9 @@ const getLayers = (
 
   const stackedData = stack<AreaGraphElement>()
     .offset(stackOffsetDiverging)
-    .value((d: AreaGraphElement, key: string) => d.layerData[key] || 0) // Assign 0 if no data
+    .value((d: AreaGraphElement, key: string) =>
+      Number.isNaN(d.layerData[key]) ? 0 : d.layerData[key]
+    ) // Assign 0 if no data
     .keys(layerKeys)(data);
 
   return layerKeys.map((key: string, index: number) => ({

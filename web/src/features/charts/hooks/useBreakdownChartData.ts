@@ -2,7 +2,7 @@ import useGetZone from 'api/getZone';
 import { max as d3Max } from 'd3-array';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
-import { StorageType, ZoneDetail } from 'types';
+import { ElectricityStorageType, ZoneDetail } from 'types';
 
 import { Mode, modeColor, modeOrder } from 'utils/constants';
 import { scalePower } from 'utils/formatting';
@@ -110,14 +110,14 @@ function getStorageValue(
   valueFactor: number,
   displayByEmissions: boolean
 ) {
-  const storageKey = key.replace(' storage', '') as StorageType;
-  let temporary = (-1 * Math.min(0, (value.storage || {})[storageKey])) / valueFactor;
+  const storageKey = key.replace(' storage', '') as ElectricityStorageType;
+  let scaledValue = (-1 * Math.min(0, (value.storage || {})[storageKey])) / valueFactor;
 
   if (displayByEmissions) {
-    temporary *= value.dischargeCo2Intensities[storageKey] / 1e3 / 60;
+    scaledValue *= value.dischargeCo2Intensities[storageKey] / 1e3 / 60;
   }
 
-  return temporary || Number.NaN;
+  return scaledValue ?? Number.NaN;
 }
 
 function getGenerationValue(
@@ -132,13 +132,14 @@ function getGenerationValue(
   }
 
   const modeProduction = value.production[generationKey];
-  let temporary = modeProduction !== undefined ? modeProduction / valueFactor : undefined;
+  let scaledValue =
+    modeProduction !== undefined ? modeProduction / valueFactor : undefined;
 
-  if (displayByEmissions && temporary !== undefined) {
-    temporary *= value.productionCo2Intensities[generationKey] / 1e3 / 60;
+  if (displayByEmissions && scaledValue !== undefined) {
+    scaledValue *= value.productionCo2Intensities[generationKey] / 1e3 / 60;
   }
 
-  return temporary || Number.NaN;
+  return scaledValue ?? Number.NaN;
 }
 
 interface ValuesInfo {
