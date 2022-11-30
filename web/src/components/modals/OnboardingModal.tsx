@@ -45,12 +45,12 @@ const views = [
   {
     headerImage: resolvePath('onboarding/splitLayers.png'),
     renderContent: (__: (translationKey: string) => string) => (
-      <React.Fragment>
+      <>
         <div>
           <h2 className="text-xl">{__('onboarding-modal.view4.header')}</h2>
         </div>
         <div>{__('onboarding-modal.view4.text')}</div>
-      </React.Fragment>
+      </>
     ),
   },
 ];
