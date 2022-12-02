@@ -153,7 +153,6 @@ export default function MapPage(): ReactElement {
       map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
 
       const zoneId = feature.properties.zoneId;
-      // TODO: Open left panel
       // TODO: Consider using flyTo zone?
       navigate(createToWithState(`/zone/${zoneId}`));
     } else {

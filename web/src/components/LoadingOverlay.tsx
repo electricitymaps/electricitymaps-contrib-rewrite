@@ -1,7 +1,6 @@
 import { animated, useTransition } from '@react-spring/web';
 import useGetState from 'api/getState';
 import { useAtom } from 'jotai';
-import { TimeAverages } from 'utils/constants';
 import { loadingMapAtom } from 'utils/state';
 
 // TODO: Consider splitting up the icon and the overlay into two different components.
@@ -26,7 +25,7 @@ function FadingOverlay({ isVisible }: { isVisible: boolean }) {
 }
 
 export default function LoadingOverlay() {
-  const { isLoading, isError } = useGetState(TimeAverages.HOURLY);
+  const { isLoading, isError } = useGetState();
   const [isLoadingMap] = useAtom(loadingMapAtom);
 
   const showLoadingOverlay = !isError && (isLoading || isLoadingMap);
