@@ -2,11 +2,7 @@ import useGetState from 'api/getState';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { ReactElement, useState } from 'react';
-import {
-  productionConsumptionAtom,
-  selectedDatetimeIndexAtom,
-  timeAverageAtom,
-} from 'utils/state';
+import { selectedDatetimeIndexAtom, productionConsumptionAtom, timeAverageAtom } from 'utils/state/atoms';
 import { useTranslation } from '../../../translation/translation';
 import { getRankedState } from './getRankingPanelData';
 import SearchBar from './SearchBar';
