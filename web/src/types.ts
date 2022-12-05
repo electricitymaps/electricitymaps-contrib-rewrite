@@ -32,7 +32,7 @@ export interface ExchangeArrowData extends ExchangeOverview {
 
 export interface ZoneResponse {
   [key: string]: {
-    co2intensity: number; //Non camel case sad face
+    co2intensity: number; //TODO https://linear.app/electricitymaps/issue/ELE-1495/update-app-backend-variable-naming-to-use-camel-case-update-the
     co2intensityProduction: number;
     countryCode: string;
     fossilFuelRatio: number;
@@ -55,6 +55,9 @@ export interface ZoneOverview {
   colorBlindConsumptionColour?: string;
   colorBlindProductionColour?: string;
   stateDatetime: string;
+  fossilFuelRatio: number;
+  renewableRatio: number;
+  estimationMethod: string;
 }
 
 export type GenerationType =
@@ -84,10 +87,10 @@ export interface ZoneDetail extends ZoneOverview {
   totalProduction: number;
   totalImport: number;
   totalDischarge: number;
-  dischargeCo2Intensities: { [key in StorageType]: number };
+  dischargeCo2Intensities: { [key in ElectricityStorageType]: number };
   productionCo2Intensities: { [key in GenerationType]: number };
   exchangeCo2Intensities: { [key: string]: number };
-  storage: { [key in StorageType]: number };
+  storage: { [key in ElectricityStorageType]: number };
   price?: {
     value: number;
     currency: string;
@@ -97,10 +100,10 @@ export interface ZoneDetail extends ZoneOverview {
 export interface ZoneDetails {
   hasData: boolean;
   stateAggregation: 'daily' | 'hourly' | 'monthly' | 'yearly';
-  zoneStates: ZoneDetail[];
+  zoneStates: { [key: string]: ZoneDetail };
 }
 
-export type StorageType = 'battery' | 'hydro';
+export type ElectricityStorageType = 'battery storage' | 'hydro storage';
 
 export interface MapGeometries extends FeatureCollection<Geometry> {
   features: Array<MapGeometry>;
