@@ -94,7 +94,7 @@ function BarBreakdownProductionChart({
   };
 
   return (
-    <svg className="w-full" height={height} style={{ overflow: 'visible' }}>
+    <svg className="w-full overflow-visible" height={height}>
       <Axis formatTick={formatTick} height={height} scale={powerScale} />
       <g transform={`translate(0, ${productionY})`}>
         {productionData.map((d, index) => (

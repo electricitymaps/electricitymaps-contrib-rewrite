@@ -3,7 +3,7 @@ import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import RankingPanel from './ranking-panel/RankingPanel';
 
-import ZoneDetails from './Zone/ZoneDetails';
+import ZoneDetails from './zone/ZoneDetails';
 
 function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }) {
   const { zoneId } = useParams();
@@ -43,7 +43,7 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
         !isOpen && '-translate-x-full'
       }`}
     >
-      <section className="w-full overflow-y-scroll p-2">{children}</section>
+      <section className="w-full overflow-y-scroll p-6">{children}</section>
       <CollapseButton isCollapsed={!isOpen} onCollapse={onCollapse} />
     </aside>
   );
