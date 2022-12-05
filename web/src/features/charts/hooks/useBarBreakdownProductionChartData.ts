@@ -12,8 +12,8 @@ export default function useBarBreakdownChartData() {
   const { data: zoneData, isLoading } = useGetZone();
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [mixMode] = useAtom(productionConsumptionAtom);
-
-  if (isLoading || !zoneData || !selectedDatetime.datetimeString) {
+  const currentData = zoneData?.zoneStates?.[selectedDatetime.datetimeString];
+  if (isLoading || !zoneData || !selectedDatetime.datetimeString || !currentData) {
     return {
       height: 0,
       data: {},
@@ -23,8 +23,6 @@ export default function useBarBreakdownChartData() {
     };
   }
 
-  const currentData = zoneData?.zoneStates[selectedDatetime.datetimeString];
-  console.log(currentData);
   const exchangeKeys = []; // TODO: Fix
   const productionData = getProductionData(currentData); // TODO: Consider memoing this
   const exchangeData = getExchangeData(currentData, exchangeKeys, mixMode); // TODO: Consider memoing this
