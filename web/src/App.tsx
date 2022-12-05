@@ -1,4 +1,5 @@
 import LoadingOverlay from 'components/LoadingOverlay';
+import { OnboardingModal } from 'components/modals/OnboardingModal';
 import ErrorBoundary from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
@@ -36,6 +37,7 @@ export default function App(): ReactElement {
                 />
               )}
               <LoadingOverlay />
+              <OnboardingModal />
               <LeftPanel />
               <Map />
               <TimeController />

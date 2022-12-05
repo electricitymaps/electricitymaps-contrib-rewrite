@@ -1,10 +1,9 @@
 import { scaleLinear } from 'd3-scale';
 import { useMemo } from 'react';
-
-import { Theme } from 'types';
+import { MapTheme } from 'types';
 import { themes } from './oldThemes';
 // TODO: Convert this to a Jotai atom and consider if we want to do things differently now with new setup
-export function useTheme(): Theme {
+export function useTheme() {
   const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
   const brightModeEnabled = darkThemeMediaQuery.matches; //useSelector((state) => state.application.brightModeEnabled);
   const colorBlindModeEnabled = false; //useSelector((state) => state.application.colorBlindModeEnabled);
@@ -20,14 +19,13 @@ export function useTheme(): Theme {
 
 export function useCo2ColorScale() {
   const theme = useTheme();
+  return useMemo(() => getCo2ColorScale(theme), [theme]);
+}
 
-  return useMemo(
-    () =>
-      scaleLinear<number, string>()
-        .domain(theme.co2Scale.steps)
-        .range(theme.co2Scale.colors)
-        .unknown(theme.clickableFill)
-        .clamp(true), //TODO
-    [theme]
-  );
+export function getCo2ColorScale(theme: MapTheme) {
+  return scaleLinear<string>()
+    .domain(theme.co2Scale.steps)
+    .range(theme.co2Scale.colors)
+    .unknown(theme.clickableFill)
+    .clamp(true);
 }

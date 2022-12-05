@@ -3,7 +3,7 @@ import { max as d3Max } from 'd3-array';
 import { scaleLinear } from 'd3-scale';
 import { useAtom } from 'jotai';
 import { Mode } from 'utils/constants';
-import { productionConsumptionAtom } from 'utils/state';
+import { productionConsumptionAtom } from 'utils/state/atoms';
 import { getTotalElectricity, tonsPerHourToGramsPerMinute } from '../graphUtils';
 import { AreaGraphElement } from '../types';
 
@@ -35,8 +35,6 @@ export function useEmissionChartData() {
   const emissionsColorScale = scaleLinear<string>()
     .domain([0, maxEmissions])
     .range(['yellow', 'brown']);
-
-  console.log(maxEmissions, emissionsColorScale(0), emissionsColorScale(maxEmissions));
 
   const layerKeys = ['emissions'];
   const layerFill = (key: string) => (d: { data: AreaGraphElement }) =>

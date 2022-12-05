@@ -6,7 +6,6 @@ import atomWithCustomStorage from './atomWithCustomStorage';
 export const loadingMapAtom = atom(true);
 loadingMapAtom.debugLabel = 'loadingMap';
 
-// TODO: Fix typing such that we don't need to cast to TimeAverage
 // TODO: Ensure it works as intended without URL params
 export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
   key: 'average',
@@ -18,7 +17,7 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
 });
 
 // TODO consider another initial value
-export const selectedDatetimeIndexAtom = atom('');
+export const selectedDatetimeIndexAtom = atom({ datetimeString: '', index: 0 });
 selectedDatetimeIndexAtom.debugLabel = 'selectedDatetimeIndex';
 
 /** Some example atoms that are not currently used */
@@ -67,3 +66,11 @@ export const isLeftPanelOpenAtom = atomWithStorage(
   false,
   createJSONStorage(() => sessionStorage)
 );
+
+export const hasOnboardingBeenSeenAtom = atomWithCustomStorage({
+  key: 'onboardingSeen',
+  initialValue: 'false',
+  options: {
+    syncWithLocalStorage: true,
+  },
+});

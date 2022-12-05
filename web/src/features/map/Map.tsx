@@ -11,7 +11,11 @@ import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
-import { loadingMapAtom, selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import {
+  loadingMapAtom,
+  selectedDatetimeIndexAtom,
+  timeAverageAtom,
+} from 'utils/state/atoms';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
@@ -35,7 +39,7 @@ export default function MapPage(): ReactElement {
   const [cursorType, setCursorType] = useState<string>('grab');
   const [timeAverage] = useAtom(timeAverageAtom);
   const [_, updateIsLoadingMap] = useAtom(loadingMapAtom);
-  const [datetimeIndex] = useAtom(selectedDatetimeIndexAtom);
+  const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [{ mousePositionX, mousePositionY }, setMousePosition] = useState({
     mousePositionX: 0,
@@ -105,8 +109,8 @@ export default function MapPage(): ReactElement {
       const zone = data.data?.zones[zoneId];
 
       const co2intensity =
-        zone && zone[datetimeIndex]
-          ? getCO2IntensityByMode(zone[datetimeIndex], 'consumption')
+        zone && zone[selectedDatetime.datetimeString]
+          ? getCO2IntensityByMode(zone[selectedDatetime.datetimeString], 'consumption')
           : undefined;
 
       const fillColor = co2intensity
@@ -130,7 +134,7 @@ export default function MapPage(): ReactElement {
         );
       }
     }
-  }, [mapReference, geometries, data, getCo2colorScale, datetimeIndex]);
+  }, [mapReference, geometries, data, getCo2colorScale, selectedDatetime]);
 
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
@@ -151,9 +155,8 @@ export default function MapPage(): ReactElement {
     if (feature && feature.properties) {
       setSelectedFeatureId(feature.id);
       map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
-
+      //TODO If panel is closed and user clicks on zone, reopen panel
       const zoneId = feature.properties.zoneId;
-      // TODO: Open left panel
       // TODO: Consider using flyTo zone?
       navigate(createToWithState(`/zone/${zoneId}`));
     } else {
