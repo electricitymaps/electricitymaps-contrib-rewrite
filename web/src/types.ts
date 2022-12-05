@@ -74,16 +74,18 @@ export type StorageKeyType = 'battery' | 'hydro';
 
 export type ElectricityModeType = GenerationType | StorageType;
 
+export type Exchange = { [key: string]: number };
+
 export interface ZoneDetail extends ZoneOverview {
   _isFinestGranularity: boolean;
   capacity: { [key in ElectricityModeType]: Maybe<number> };
   dischargeCo2Intensities: { [key in StorageKeyType]: number };
   dischargeCo2IntensitySources: { [key in StorageKeyType]: string };
-  exchange: { [key: string]: number };
+  exchange: Exchange;
   exchangeCapacities?: {
     [key: string]: number[]; // TODO: Why can I not use [number, number] here?
   };
-  exchangeCo2Intensities: { [key: string]: number };
+  exchangeCo2Intensities: Exchange;
   fossilFuelRatio: number;
   fossilFuelRatioProduction: number;
   isValid: boolean;

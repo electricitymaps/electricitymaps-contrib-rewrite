@@ -46,7 +46,10 @@ function BarBreakdownProductionChart({
 }: BarBreakdownProductionChartProps) {
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
-  const { productionY, exchangeY } = getDataBlockPositions(5, exchangeData);
+  const { productionY, exchangeY } = getDataBlockPositions(
+    productionData.length,
+    exchangeData
+  );
 
   // Use the whole history to determine the min/max values in order to avoid
   // graph jumping while sliding through the time range.

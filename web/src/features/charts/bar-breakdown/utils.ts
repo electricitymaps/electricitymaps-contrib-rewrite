@@ -1,6 +1,7 @@
 import { max as d3Max } from 'd3-array';
 import {
   ElectricityModeType,
+  Exchange,
   GenerationType,
   Maybe,
   StorageKeyType,
@@ -9,6 +10,7 @@ import {
 } from 'types';
 import { Mode, modeOrder } from 'utils/constants';
 import { getCO2IntensityByMode } from 'utils/helpers';
+import exchangesToExclude from '../../../../config/excludedAggregatedExchanges.json'; // TODO: do something globally
 
 const LABEL_MAX_WIDTH = 102;
 const ROW_HEIGHT = 13;
@@ -156,3 +158,30 @@ export const getExchangeData = (
       tCo2eqPerMin,
     };
   });
+
+export const getExchangesToDisplay = (
+  currentZoneKey: ZoneKey,
+  isAggregatedToggled: boolean,
+  exchangeZoneKeysForCurrentZone: Exchange
+): ZoneKey[] => {
+  const exchangeKeysToRemove = isAggregatedToggled
+    ? exchangesToExclude.exchangesToExcludeCountryView
+    : exchangesToExclude.exchangesToExcludeZoneView;
+
+  const exchangeZoneKeysToRemove = new Set(
+    exchangeKeysToRemove.flatMap((exchangeKey) => {
+      const split = exchangeKey.split('->');
+      if (split.includes(currentZoneKey)) {
+        return split.filter((exchangeKey) => exchangeKey !== currentZoneKey);
+      }
+      return [];
+    })
+  );
+
+  const currentExchanges = Object.keys(exchangeZoneKeysForCurrentZone);
+  return currentExchanges
+    ? currentExchanges.filter(
+        (exchangeZoneKey) => !exchangeZoneKeysToRemove.has(exchangeZoneKey)
+      )
+    : [];
+};
