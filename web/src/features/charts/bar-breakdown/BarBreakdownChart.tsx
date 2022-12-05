@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { PulseLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages } from 'utils/constants';
-import { displayByEmissionsAtom } from 'utils/state';
+import { displayByEmissionsAtom } from 'utils/state/atoms';
 import { useRefWidthHeightObserver } from 'utils/viewport';
 import useBarBreakdownChartData from '../hooks/useBarBreakdownProductionChartData';
 import BarBreakdownEmissionsChart from './BarBreakdownEmissionsChart';

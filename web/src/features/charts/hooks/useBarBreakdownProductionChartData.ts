@@ -6,7 +6,7 @@ import {
   productionConsumptionAtom,
   selectedDatetimeIndexAtom,
   spatialAggregateAtom,
-} from 'utils/state';
+} from 'utils/state/atoms';
 import {
   getDataBlockPositions,
   getExchangeData,

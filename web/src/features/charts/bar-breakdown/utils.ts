@@ -1,10 +1,10 @@
 import { max as d3Max } from 'd3-array';
 import {
   ElectricityModeType,
+  ElectricityStorageKeyType,
   Exchange,
   GenerationType,
   Maybe,
-  StorageKeyType,
   ZoneDetail,
   ZoneKey,
 } from 'types';
@@ -30,11 +30,11 @@ export function getProductionCo2Intensity(
     return zoneData.productionCo2Intensities?.[generationMode];
   }
 
-  const storage = zoneData.storage?.[generationMode as StorageKeyType];
+  const storage = zoneData.storage?.[generationMode as ElectricityStorageKeyType];
   // TODO: Find out how this worked before if the data is never available
   const storageCo2Intensity = zoneData.storageCo2Intensities?.[generationMode];
   const dischargeCo2Intensity =
-    zoneData.dischargeCo2Intensities?.[generationMode as StorageKeyType];
+    zoneData.dischargeCo2Intensities?.[generationMode as ElectricityStorageKeyType];
 
   return storage && storage > 0 ? storageCo2Intensity : dischargeCo2Intensity;
 }
@@ -67,7 +67,7 @@ export const getProductionData = (data: ZoneDetail): ProductionDataType[] =>
 
     const capacity = data.capacity?.[mode];
     const production = data.production?.[generationMode];
-    const storage = data.storage?.[generationMode as StorageKeyType];
+    const storage = data.storage?.[generationMode as ElectricityStorageKeyType];
 
     // Production CO₂ intensity
     const gCo2eqPerkWh = getProductionCo2Intensity(mode, data);
