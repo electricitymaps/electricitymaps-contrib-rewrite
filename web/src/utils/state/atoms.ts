@@ -18,7 +18,7 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
 });
 
 // TODO consider another initial value
-export const selectedDatetimeIndexAtom = atom('');
+export const selectedDatetimeIndexAtom = atom({ datetimeString: '', index: 0 });
 selectedDatetimeIndexAtom.debugLabel = 'selectedDatetimeIndex';
 
 /** Some example atoms that are not currently used */
@@ -67,3 +67,11 @@ export const isLeftPanelOpenAtom = atomWithStorage(
   false,
   createJSONStorage(() => sessionStorage)
 );
+
+export const hasOnboardingBeenSeenAtom = atomWithCustomStorage({
+  key: 'onboardingSeen',
+  initialValue: 'false',
+  options: {
+    syncWithLocalStorage: true,
+  },
+});
