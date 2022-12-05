@@ -6,7 +6,12 @@ import invariant from 'tiny-invariant';
 import type { ZoneDetails } from 'types';
 import { TimeAverages } from 'utils/constants';
 import { timeAverageAtom } from 'utils/state';
-import { getBasePath, getHeaders, QUERY_KEYS, REFETCH_INTERVAL_MS } from './helpers';
+import {
+  getBasePath,
+  getHeaders,
+  QUERY_KEYS,
+  REFETCH_INTERVAL_FIVE_MINUTES,
+} from './helpers';
 
 const getZone = async (
   timeAverage: TimeAverages,
@@ -40,7 +45,7 @@ const useGetZone = (
     [QUERY_KEYS.ZONE, zoneId, timeAverage],
     async () => getZone(timeAverage, zoneId),
     {
-      staleTime: REFETCH_INTERVAL_MS,
+      staleTime: REFETCH_INTERVAL_FIVE_MINUTES,
       ...options,
     }
   );

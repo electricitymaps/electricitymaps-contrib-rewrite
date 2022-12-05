@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => ({
     APP_VERSION: JSON.stringify(process.env.npm_package_version),
   },
   build: {
+    sourcemap: true,
     commonjsOptions: {
       include: [],
     },
@@ -40,6 +41,9 @@ export default defineConfig(({ mode }) => ({
           eslintPlugin(),
           VitePWA({
             registerType: 'autoUpdate',
+            workbox: {
+              maximumFileSizeToCacheInBytes: 3_500_000,
+            },
             includeAssets: [
               'favicon.png',
               'robots.txt',

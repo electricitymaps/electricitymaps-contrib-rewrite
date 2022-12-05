@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { resolvePath } from 'react-router-dom';
+import { REFETCH_INTERVAL_ONE_HOUR } from './helpers';
 
 async function getVersion(): Promise<{ version: string }> {
   const response = await fetch(resolvePath('client-version.json').pathname).then(
@@ -12,6 +13,6 @@ async function getVersion(): Promise<{ version: string }> {
 
 export const useGetAppVersion = () =>
   useQuery<{ version: string }>([], async () => getVersion(), {
-    refetchInterval: 10_000,
+    refetchInterval: REFETCH_INTERVAL_ONE_HOUR,
     refetchOnWindowFocus: false,
   });
