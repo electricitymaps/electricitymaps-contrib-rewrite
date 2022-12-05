@@ -3,6 +3,7 @@ import BreakdownChart from 'features/charts/BreakdownChart';
 import CarbonChart from 'features/charts/CarbonChart';
 import EmissionChart from 'features/charts/EmissionChart';
 import PriceChart from 'features/charts/PriceChart';
+import useSelectedData from 'hooks/selectedData';
 import { useAtom } from 'jotai';
 import { Navigate, useParams } from 'react-router-dom';
 import { TimeAverages } from 'utils/constants';
@@ -18,7 +19,7 @@ export default function ZoneDetails(): JSX.Element {
   const { zoneId } = useParams();
   const [timeAverage] = useAtom(timeAverageAtom);
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
-  const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
+  const { currentData } = useSelectedData();
   const { data } = useGetZone({
     enabled: Boolean(zoneId),
   });
@@ -31,7 +32,7 @@ export default function ZoneDetails(): JSX.Element {
   // TODO: Handle loading state nicely (let's keep country name in the header)
   // TODO: Show zone title while data is loading
 
-  if (!data) {
+  if (!data || !currentData) {
     return <div>No data</div>;
   }
 
@@ -39,12 +40,7 @@ export default function ZoneDetails(): JSX.Element {
 
   // TODO: Consider if we should move the items relying on this data to its own component instead
   // TODO: Fix rendering issue where this is shortly unavailable for some reason
-  const selectedData = data.zoneStates[selectedDatetime.datetimeString];
-  if (!selectedData) {
-    return <div></div>;
-  }
-  const { estimationMethod, co2intensity, fossilFuelRatio, renewableRatio } =
-    selectedData;
+  const { estimationMethod, co2intensity, fossilFuelRatio, renewableRatio } = currentData;
   const lowCarbonRatio = 1 - fossilFuelRatio; // TODO: Handle null values
   const isAggregated = timeAverage !== TimeAverages.HOURLY;
   const isEstimated = Boolean(estimationMethod);

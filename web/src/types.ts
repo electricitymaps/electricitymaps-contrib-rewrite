@@ -47,8 +47,8 @@ export interface ZoneOverviewForTimePeriod {
   [dateTimeKey: string]: ZoneOverview;
 }
 export interface ZoneOverview {
-  countryCode: string;
-  co2intensity?: number;
+  zoneKey: string;
+  co2intensity: number;
   co2intensityProduction?: number;
   consumptionColour?: string;
   productionColour?: string;
