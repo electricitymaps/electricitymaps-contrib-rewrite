@@ -1,5 +1,6 @@
 import { scaleLinear } from 'd3-scale';
 import { useMemo } from 'react';
+import { MapTheme } from 'types';
 import { themes } from './oldThemes';
 // TODO: Convert this to a Jotai atom and consider if we want to do things differently now with new setup
 export function useTheme() {
@@ -21,8 +22,8 @@ export function useCo2ColorScale() {
   return useMemo(() => getCo2ColorScale(theme), [theme]);
 }
 
-export function getCo2ColorScale(theme: any) {
-  return scaleLinear<number, string>()
+export function getCo2ColorScale(theme: MapTheme) {
+  return scaleLinear<string>()
     .domain(theme.co2Scale.steps)
     .range(theme.co2Scale.colors)
     .unknown(theme.clickableFill)
