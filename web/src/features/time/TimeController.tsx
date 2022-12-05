@@ -8,14 +8,14 @@ import { useTranslation } from 'translation/translation';
 import { TimeAverages } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
 import { dateToDatetimeString } from 'utils/helpers';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state/atoms';
 import TimeAxis from './TimeAxis';
 
 export default function TimeController() {
   const { __, i18n } = useTranslation();
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime, setSelectedDatetime] = useAtom(selectedDatetimeIndexAtom);
-  const { data, isLoading } = useGetState(timeAverage);
+  const { data, isLoading } = useGetState();
 
   // TODO: Figure out whether we want to work with datetimes as strings
   // or as Date objects. In this case datetimes are easier to work with
@@ -28,8 +28,8 @@ export default function TimeController() {
     if (datetimes) {
       // Reset the selected datetime when data changes
       setSelectedDatetime({
-        datetimeString: dateToDatetimeString(datetimes[0]),
-        index: 0,
+        datetimeString: dateToDatetimeString(datetimes[datetimes.length - 1]),
+        index: datetimes.length - 1,
       });
     }
   }, [data]);

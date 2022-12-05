@@ -2,7 +2,11 @@ import useGetState from 'api/getState';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { ReactElement, useState } from 'react';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state';
+import {
+  productionConsumptionAtom,
+  selectedDatetimeIndexAtom,
+  timeAverageAtom,
+} from 'utils/state/atoms';
 import { useTranslation } from '../../../translation/translation';
 import { getRankedState } from './getRankingPanelData';
 import SearchBar from './SearchBar';
@@ -14,18 +18,19 @@ export default function RankingPanel(): ReactElement {
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [electricityMode] = useAtom(productionConsumptionAtom);
   const inputHandler = (inputEvent: any) => {
     const lowerCase = inputEvent.target.value.toLowerCase();
     setSearchTerm(lowerCase);
   };
 
-  const { isLoading, isSuccess, isError, error, data } = useGetState(timeAverage);
+  const { isLoading, isSuccess, isError, error, data } = useGetState();
   const rankedList = getRankedState(
     data,
     getCo2colorScale,
     'asc',
-    selectedDatetime.datetimeString
+    selectedDatetime.datetimeString,
+    electricityMode
   );
   const filteredList = rankedList.filter((zone) => {
     if (zone.countryName && zone.countryName.toLowerCase().includes(searchTerm)) {

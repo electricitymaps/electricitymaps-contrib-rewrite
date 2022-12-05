@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import TooltipWrapper from 'components/TooltipWrapper';
+import TooltipWrapper from 'components/tooltips/TooltipWrapper';
 import { useMemo } from 'react';
 import { MapboxMap } from 'react-map-gl';
 import { resolvePath } from 'react-router-dom';
@@ -16,7 +16,7 @@ interface ExchangeArrowProps {
 
 function ExchangeArrow({ data, viewportWidth, viewportHeight, map }: ExchangeArrowProps) {
   const mapZoom = map.getZoom();
-  const colorBlindModeEnabled = false; // TODO: FIX
+  const colorBlindModeEnabled = false; // TODO: FIX https://linear.app/electricitymaps/issue/ELE-1384/set-up-colorblind-mode-that-changes-co2-scale
   const absFlow = Math.abs(data.netFlow ?? 0);
   const { co2intensity, lonlat, netFlow, rotation, key } = data;
 
@@ -69,7 +69,7 @@ function ExchangeArrow({ data, viewportWidth, viewportHeight, map }: ExchangeArr
 
   return (
     <TooltipWrapper
-      tooltipClassName="relative flex max-h-[256px] max-w-[512px] top-[-76px] rounded border bg-white p-1 px-1  text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
+      tooltipClassName="relative flex max-h-[256px] max-w-[512px] top-[-76px] rounded border bg-gray-100 p-1 px-1  text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
       tooltipContent={<ExchangeTooltip exchangeData={data} />}
       side="right"
       sideOffset={10}

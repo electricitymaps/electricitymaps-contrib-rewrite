@@ -5,10 +5,11 @@ import { useMemo } from 'react';
 import { ExchangeArrowData, ExchangeResponse } from 'types';
 import { TimeAverages, ToggleOptions } from 'utils/constants';
 import {
+  productionConsumptionAtom,
   selectedDatetimeIndexAtom,
   spatialAggregateAtom,
   timeAverageAtom,
-} from 'utils/state';
+} from 'utils/state/atoms';
 import exchangesConfigJSON from '../../config/exchanges.json'; // do something globally
 import exchangesToExclude from '../../config/excludedAggregatedExchanges.json'; // do something globally
 
@@ -18,9 +19,10 @@ const exchangesConfig: Record<string, any> = exchangesConfigJSON;
 export function useExchangeArrowsData(): ExchangeArrowData[] {
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
-  const [aggregateToggle] = useAtom(spatialAggregateAtom); // TODO: get from somewhere
-  const { data, isError, isLoading } = useGetState(timeAverage);
-  const isConsumption = true; // TODO: get from somewhere
+  const [aggregateToggle] = useAtom(spatialAggregateAtom);
+  const { data, isError, isLoading } = useGetState();
+  const [mode] = useAtom(productionConsumptionAtom);
+  const isConsumption = mode === 'consumption';
   const isHourly = timeAverage === TimeAverages.HOURLY;
 
   const exchangesToUse: { [key: string]: ExchangeResponse } = useMemo(() => {
@@ -54,9 +56,9 @@ export function useExchangeArrowsData(): ExchangeArrowData[] {
   const exchanges = data?.data.exchanges;
 
   const currentExchanges: ExchangeArrowData[] = Object.entries(exchangesToUse)
-    .filter(([key]) => exchanges[key][selectedDatetime] !== undefined)
+    .filter(([key]) => exchanges[key][selectedDatetime.datetimeString] !== undefined)
     .map(([key, value]) => ({
-      ...value[selectedDatetime],
+      ...value[selectedDatetime.datetimeString],
       ...exchangesConfig[key],
       key: key,
     }));

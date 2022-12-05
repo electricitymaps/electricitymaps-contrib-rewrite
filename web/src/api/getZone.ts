@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import invariant from 'tiny-invariant';
 import type { ZoneDetails } from 'types';
 import { TimeAverages } from 'utils/constants';
-import { timeAverageAtom } from 'utils/state';
+import { timeAverageAtom } from 'utils/state/atoms';
 import { getBasePath, getHeaders, QUERY_KEYS, REFETCH_INTERVAL_MS } from './helpers';
 
 const getZone = async (
@@ -23,8 +23,9 @@ const getZone = async (
 
   if (response.ok) {
     const { data } = (await response.json()) as { data: ZoneDetails };
-    // TODO: Fix this in app-backend
-    // @ts-ignore: app-backend should not return array
+    // TODO: app-backend should not return array https://linear.app/electricitymaps/issue/ELE-1496/v6details-api-should-return-an-object-not-array
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return data.length > 0 ? data[0] : data;
   }
 

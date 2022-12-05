@@ -100,7 +100,7 @@ function AreaGraphLayers({
         return (
           <React.Fragment key={layer.key}>
             <path
-              className={`area layer ${layer.key}`}
+              className={layers.length > 1 ? 'hover:opacity-75' : ''}
               style={{ cursor: 'pointer' }}
               stroke={layer.stroke}
               fill={isGradient ? `url(#${gradientId})` : layer.fill}

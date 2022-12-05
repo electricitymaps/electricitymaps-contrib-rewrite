@@ -2,13 +2,27 @@ import useGetZone from 'api/getZone';
 import { max as d3Max } from 'd3-array';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
-import { ZoneDetail } from 'types';
+import { ElectricityStorageType, ZoneDetail } from 'types';
 
 import { Mode, modeColor, modeOrder } from 'utils/constants';
 import { scalePower } from 'utils/formatting';
-import { displayByEmissionsAtom, productionConsumptionAtom } from 'utils/state';
-import { getGenerationTypeKey, getStorageKey } from '../graphUtils';
+import { displayByEmissionsAtom, productionConsumptionAtom } from 'utils/state/atoms';
+import { getGenerationTypeKey } from '../graphUtils';
 import { AreaGraphElement } from '../types';
+
+export const getLayerFill = (exchangeKeys: string[], co2ColorScale: any) => {
+  const layerFill = (key: string) => {
+    // If exchange layer, set the horizontal gradient by using a different fill for each datapoint.
+    if (exchangeKeys.includes(key)) {
+      return (d: { data: AreaGraphElement }) =>
+        co2ColorScale((d.data.meta.exchangeCo2Intensities || {})[key]);
+    }
+    // Otherwise use regular production fill.
+    return modeColor[key];
+  };
+
+  return layerFill;
+};
 
 export default function useBreakdownChartData() {
   const { data: zoneData, isLoading, isError } = useGetZone();
@@ -42,7 +56,12 @@ export default function useBreakdownChartData() {
       const isStorage = mode.includes('storage');
 
       if (isStorage) {
-        entry.layerData[mode] = 0;
+        entry.layerData[mode] = getStorageValue(
+          mode,
+          value,
+          valueFactor,
+          displayByEmissions
+        );
         // TODO: handle storage
       } else {
         entry.layerData[mode] = getGenerationValue(
@@ -71,22 +90,12 @@ export default function useBreakdownChartData() {
     chartData.push(entry);
   }
 
-  const layerFill = (key: string) => {
-    // If exchange layer, set the horizontal gradient by using a different fill for each datapoint.
-    if (exchangeKeys.includes(key)) {
-      return (d: { data: AreaGraphElement }) =>
-        co2ColorScale((d.data.meta.exchangeCo2Intensities || {})[key]);
-    }
-    // Otherwise use regular production fill.
-    return modeColor[key];
-  };
-
   const layerKeys: string[] = [...modeOrder, ...exchangeKeys];
 
   const result = {
     chartData,
     layerKeys,
-    layerFill,
+    layerFill: getLayerFill(exchangeKeys, co2ColorScale),
     // markerFill,
     valueAxisLabel,
     layerStroke: undefined,
@@ -95,11 +104,20 @@ export default function useBreakdownChartData() {
   return { data: result, isLoading, isError };
 }
 
-function getStorageValue(key: string, value: ZoneDetail) {
-  const storageKey = getStorageKey(key);
-  if (storageKey !== undefined) {
-    return -1 * Math.min(0, (value.storage || {})[storageKey]);
+function getStorageValue(
+  key: string,
+  value: ZoneDetail,
+  valueFactor: number,
+  displayByEmissions: boolean
+) {
+  const storageKey = key.replace(' storage', '') as ElectricityStorageType;
+  let scaledValue = (-1 * Math.min(0, (value.storage || {})[storageKey])) / valueFactor;
+
+  if (displayByEmissions) {
+    scaledValue *= value.dischargeCo2Intensities[storageKey] / 1e3 / 60;
   }
+
+  return scaledValue ?? Number.NaN;
 }
 
 function getGenerationValue(
@@ -114,13 +132,14 @@ function getGenerationValue(
   }
 
   const modeProduction = value.production[generationKey];
-  let temporary = modeProduction !== undefined ? modeProduction / valueFactor : undefined;
+  let scaledValue =
+    modeProduction !== undefined ? modeProduction / valueFactor : undefined;
 
-  if (displayByEmissions) {
-    temporary *= value.productionCo2Intensities[generationKey] / 1e3 / 60;
+  if (displayByEmissions && scaledValue !== undefined) {
+    scaledValue *= value.productionCo2Intensities[generationKey] / 1e3 / 60;
   }
 
-  return temporary || Number.NaN;
+  return scaledValue ?? Number.NaN;
 }
 
 interface ValuesInfo {

@@ -6,7 +6,7 @@ import TimeAxis from 'features/time/TimeAxis'; // TODO: Move to a shared folder
 import { useAtom } from 'jotai';
 import React, { useMemo, useState } from 'react';
 import { TimeAverages } from 'utils/constants';
-import { selectedDatetimeIndexAtom } from 'utils/state';
+import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import { useRefWidthHeightObserver } from 'utils/viewport';
 import { getTimeScale, isEmpty } from '../graphUtils';
 import { AreaGraphElement } from '../types';
@@ -48,7 +48,9 @@ const getLayers = (
 
   const stackedData = stack<AreaGraphElement>()
     .offset(stackOffsetDiverging)
-    .value((d: AreaGraphElement, key: string) => d.layerData[key] || 0) // Assign 0 if no data
+    .value((d: AreaGraphElement, key: string) =>
+      Number.isNaN(d.layerData[key]) ? 0 : d.layerData[key]
+    ) // Assign 0 if no data
     .keys(layerKeys)(data);
 
   return layerKeys.map((key: string, index: number) => ({

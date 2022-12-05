@@ -5,7 +5,7 @@ import { bisectLeft } from 'd3-array';
 
 import { scaleTime } from 'd3-scale';
 import { pointer } from 'd3-selection';
-import { GenerationType, StorageType, ZoneDetail } from 'types';
+import { ElectricityStorageType, GenerationType, ZoneDetail } from 'types';
 import { modeOrder } from 'utils/constants';
 
 export const detectHoveredDatapointIndex = (
@@ -49,7 +49,7 @@ export const getTimeScale = (width: number, startTime: Date, endTime: Date) =>
     .domain([new Date(startTime), new Date(endTime)])
     .range([0, width]);
 
-export const getStorageKey = (name: string): StorageType | undefined => {
+export const getStorageKey = (name: ElectricityStorageType): string | undefined => {
   switch (name) {
     case 'hydro storage': {
       return 'hydro';

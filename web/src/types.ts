@@ -36,7 +36,7 @@ export interface ExchangeArrowData extends ExchangeOverview {
 
 export interface ZoneResponse {
   [key: string]: {
-    co2intensity: number; //Non camel case sad face
+    co2intensity: number; //TODO https://linear.app/electricitymaps/issue/ELE-1495/update-app-backend-variable-naming-to-use-camel-case-update-the
     co2intensityProduction: number;
     countryCode: string;
     fossilFuelRatio: number;
@@ -55,6 +55,9 @@ export interface ZoneOverview {
   co2intensity?: number;
   co2intensityProduction?: number;
   stateDatetime: string;
+  fossilFuelRatio: number;
+  renewableRatio: number;
+  estimationMethod: string;
 }
 
 export type GenerationType =
@@ -69,18 +72,18 @@ export type GenerationType =
   | 'geothermal'
   | 'wind';
 
-export type StorageType = 'hydro storage' | 'battery storage';
-export type StorageKeyType = 'battery' | 'hydro';
+export type ElectricityStorageType = 'hydro storage' | 'battery storage';
+export type ElectricityStorageKeyType = 'battery' | 'hydro';
 
-export type ElectricityModeType = GenerationType | StorageType;
+export type ElectricityModeType = GenerationType | ElectricityStorageType;
 
 export type Exchange = { [key: string]: number };
 
 export interface ZoneDetail extends ZoneOverview {
   _isFinestGranularity: boolean;
   capacity: { [key in ElectricityModeType]: Maybe<number> };
-  dischargeCo2Intensities: { [key in StorageKeyType]: number };
-  dischargeCo2IntensitySources: { [key in StorageKeyType]: string };
+  dischargeCo2Intensities: { [key in ElectricityStorageKeyType]: number };
+  dischargeCo2IntensitySources: { [key in ElectricityStorageKeyType]: string };
   exchange: Exchange;
   exchangeCapacities?: {
     [key: string]: number[]; // TODO: Why can I not use [number, number] here?
@@ -108,7 +111,7 @@ export interface ZoneDetail extends ZoneOverview {
   renewableRatio: number;
   renewableRatioProduction: number;
   source: string;
-  storage: { [key in StorageKeyType]: Maybe<number> };
+  storage: { [key in ElectricityStorageKeyType]: Maybe<number> };
   totalCo2Discharge: number;
   totalCo2Export: number;
   totalCo2Import: number;
@@ -144,15 +147,13 @@ export interface MapGeometry extends Feature<Polygon | MultiPolygon> {
 }
 
 export interface MapTheme {
-  co2Scale: CO2Scale;
-  clickableFill: string;
-  nonClickableFill: string;
+  co2Scale: {
+    steps: number[];
+    colors: Array<string>;
+  };
   oceanColor: string;
   strokeWidth: number;
   strokeColor: string;
-}
-
-export interface CO2Scale {
-  steps: number[];
-  colors: string[];
+  clickableFill: string;
+  nonClickableFill: string;
 }
