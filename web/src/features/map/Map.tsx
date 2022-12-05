@@ -155,7 +155,7 @@ export default function MapPage(): ReactElement {
     if (feature && feature.properties) {
       setSelectedFeatureId(feature.id);
       map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
-
+      //TODO If panel is closed and user clicks on zone, reopen panel
       const zoneId = feature.properties.zoneId;
       // TODO: Consider using flyTo zone?
       navigate(createToWithState(`/zone/${zoneId}`));
