@@ -7,7 +7,11 @@ import PriceChart from 'features/charts/PriceChart';
 import { useAtom } from 'jotai';
 import { Navigate, useParams } from 'react-router-dom';
 import { TimeAverages } from 'utils/constants';
-import { displayByEmissionsAtom, timeAverageAtom } from 'utils/state/atoms';
+import {
+  displayByEmissionsAtom,
+  selectedDatetimeIndexAtom,
+  timeAverageAtom,
+} from 'utils/state/atoms';
 import DisplayByEmissionToggle from './DisplayByEmissionToggle';
 import { ZoneHeader } from './ZoneHeader';
 
@@ -15,6 +19,7 @@ export default function ZoneDetails(): JSX.Element {
   const { zoneId } = useParams();
   const [timeAverage] = useAtom(timeAverageAtom);
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
+  const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const { data } = useGetZone({
     enabled: Boolean(zoneId),
   });
@@ -51,9 +56,11 @@ export default function ZoneDetails(): JSX.Element {
     >
       <ZoneHeader
         zoneId={zoneId}
-        date="November 9, 2022 at 8:00"
-        isEstimated
-        isAggregated
+        isEstimated={isEstimated}
+        isAggregated={isAggregated}
+        co2intensity={co2intensity}
+        lowCarbonRatio={lowCarbonRatio}
+        renewableRatio={renewableRatio}
       />
       <DisplayByEmissionToggle />
       <BarBreakdownChart timeAverage={timeAverage} />
