@@ -20,7 +20,7 @@ export function ZoneHeader({
   renewableRatio,
 }: ZoneHeaderProps) {
   return (
-    <div className="mt-1 grid w-full gap-y-5">
+    <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
       <ZoneHeaderTitle
         zoneId={zoneId}
         isEstimated={isEstimated}
