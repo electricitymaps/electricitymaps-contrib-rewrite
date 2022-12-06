@@ -4,12 +4,14 @@ import { scaleLinear } from 'd3-scale';
 import { stack, stackOffsetDiverging } from 'd3-shape';
 import TimeAxis from 'features/time/TimeAxis'; // TODO: Move to a shared folder
 import { useAtom } from 'jotai';
-import React, { useMemo, useState } from 'react';
+import React, { ReactElement, useMemo, useState } from 'react';
+import { ZoneDetail } from 'types';
 import { TimeAverages } from 'utils/constants';
 import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import { useRefWidthHeightObserver } from 'utils/viewport';
+import AreaGraphTooltip from '../../../components/tooltips/AreaGraphTooltip';
 import { getTimeScale, isEmpty } from '../graphUtils';
-import { AreaGraphElement } from '../types';
+import { AreaGraphElement, InnerAreaGraphTooltipProps } from '../types';
 import AreaGraphLayers from './AreaGraphLayers';
 import GraphBackground from './GraphBackground';
 import GraphHoverLine from './GraphHoverline';
@@ -77,6 +79,12 @@ interface AreagraphProps {
   height: string;
   datetimes: Date[];
   selectedTimeAggregate: TimeAverages; // TODO: Graph does not need to know about this
+  tooltip: (props: InnerAreaGraphTooltipProps) => ReactElement;
+}
+
+interface TooltipData {
+  position: { x: number; y: number };
+  zoneDetail: ZoneDetail;
 }
 
 function AreaGraph({
@@ -87,13 +95,12 @@ function AreaGraph({
   layerFill,
   markerFill,
   valueAxisLabel,
-  markerUpdateHandler,
-  markerHideHandler,
   isMobile,
   height = '10em',
   isOverlayEnabled,
   selectedTimeAggregate,
   datetimes,
+  tooltip,
 }: AreagraphProps) {
   const {
     ref,
@@ -103,6 +110,7 @@ function AreaGraph({
   } = useRefWidthHeightObserver(Y_AXIS_WIDTH, X_AXIS_HEIGHT);
 
   const [selectedDate] = useAtom(selectedDatetimeIndexAtom);
+  const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
 
   // Build layers
   const layers = useMemo(
@@ -136,6 +144,23 @@ function AreaGraph({
   const [selectedLayerIndex, setSelectedLayerIndex] = useState<number | null>(null);
 
   const hoverLineTimeIndex = graphIndex ?? selectedDate.index;
+
+  // Graph update handlers. Used for tooltip data.
+  const markerUpdateHandler = useMemo(
+    () => (position: { x: number; y: number }, dataPoint: AreaGraphElement) => {
+      setTooltipData({
+        position,
+        zoneDetail: dataPoint.meta,
+      });
+    },
+    [setTooltipData]
+  );
+  const markerHideHandler = useMemo(
+    () => () => {
+      setTooltipData(null);
+    },
+    [setTooltipData]
+  );
 
   // Mouse action handlers
   const mouseMoveHandler = useMemo(
@@ -226,6 +251,14 @@ function AreaGraph({
         selectedTimeIndex={hoverLineTimeIndex}
         svgNode={node}
       />
+      <AreaGraphTooltip
+        {...tooltipData}
+        selectedLayerKey={
+          selectedLayerIndex !== null ? layerKeys[selectedLayerIndex] : undefined
+        }
+      >
+        {(props) => tooltip(props)}
+      </AreaGraphTooltip>
     </svg>
   );
 }
