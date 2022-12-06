@@ -3,6 +3,7 @@ import { TimeAverages } from 'utils/constants';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';
 import { usePriceChartData } from './hooks/usePriceChartData';
+import PriceChartTooltip from './tooltips/PriceChartTooltip';
 
 interface PriceChartProps {
   datetimes: Date[];
@@ -37,6 +38,7 @@ function PriceChart({ datetimes, timeAverage }: PriceChartProps) {
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
         isOverlayEnabled={false}
+        tooltip={PriceChartTooltip}
       />
     </div>
   );

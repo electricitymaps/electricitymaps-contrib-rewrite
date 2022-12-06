@@ -3,6 +3,7 @@ import { TimeAverages } from 'utils/constants';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';
 import { useCarbonChartData } from './hooks/useCarbonChartData';
+import CarbonChartTooltip from './tooltips/CarbonChartTooltip';
 
 interface CarbonChartProps {
   datetimes: Date[];
@@ -33,6 +34,7 @@ function CarbonChart({ datetimes, timeAverage }: CarbonChartProps) {
         height="8em"
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
+        tooltip={CarbonChartTooltip}
       />
     </div>
   );

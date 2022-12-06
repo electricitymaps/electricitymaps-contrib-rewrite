@@ -3,6 +3,8 @@ import { TimeAverages } from 'utils/constants';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';
 import useBreakdownChartData from './hooks/useBreakdownChartData';
+import BreakdownChartTooltip from './tooltips/BreakdownChartTooltip';
+
 interface BreakdownChartProps {
   datetimes: Date[];
   timeAverage: TimeAverages;
@@ -32,6 +34,7 @@ function BreakdownChart({ datetimes, timeAverage }: BreakdownChartProps) {
         isOverlayEnabled={false} // TODO: create overlay https://linear.app/electricitymaps/issue/ELE-1499/implement-chart-overlay-for-unavailable-data
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
+        tooltip={BreakdownChartTooltip}
       />
     </div>
   );
