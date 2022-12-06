@@ -46,9 +46,7 @@ export default function useBreakdownChartData() {
     const datetime = new Date(datetimeString);
     const entry: AreaGraphElement = {
       datetime,
-      meta: {
-        exchangeCo2Intensities: value.exchangeCo2Intensities,
-      },
+      meta: value,
       layerData: {},
     };
 
