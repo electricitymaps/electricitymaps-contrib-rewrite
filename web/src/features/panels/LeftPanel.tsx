@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import FAQPanel from './faq/FAQPanel';
 import RankingPanel from './ranking-panel/RankingPanel';
 
 import ZoneDetails from './zone/ZoneDetails';
@@ -62,7 +63,7 @@ export default function LeftPanel() {
             </ValidZoneIdGuardWrapper>
           }
         />
-        <Route path="/faq" element={<p>FAQ</p>} />
+        <Route path="/faq" element={<FAQPanel />} />
         {/* Alternative: add /map here and have a NotFound component for anything else*/}
         <Route path="*" element={<RankingPanel />} />
       </Routes>
