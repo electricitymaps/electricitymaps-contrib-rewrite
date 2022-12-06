@@ -15,7 +15,7 @@ function BarBreakdownChart({ timeAverage }: { timeAverage: TimeAverages }) {
   const { ref, width } = useRefWidthHeightObserver();
   const { __ } = useTranslation();
 
-  if (isLoading) {
+  if (isLoading || !data) {
     // TODO: Replace with skeleton graph (maybe full graph with no data?)
     return <PulseLoader />;
   }

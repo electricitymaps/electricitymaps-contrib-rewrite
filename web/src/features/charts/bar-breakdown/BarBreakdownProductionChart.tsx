@@ -5,7 +5,7 @@ import { scaleLinear } from 'd3-scale';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
-import { ZoneDetails } from 'types';
+import { ZoneDetail } from 'types';
 import { modeColor } from 'utils/constants';
 import { LABEL_MAX_WIDTH, PADDING_X } from './constants';
 import Axis from './elements/Axis';
@@ -21,14 +21,13 @@ import {
 interface BarBreakdownProductionChartProps {
   height: number;
   width: number;
-  data: ZoneDetails;
+  data: ZoneDetail;
   exchangeData: ExchangeDataType[];
   productionData: ProductionDataType[];
-  isLoading: boolean;
   isMobile: boolean;
-  onProductionRowMouseOver: (production: ProductionDataType) => void;
+  onProductionRowMouseOver: (data: ZoneDetail) => void;
   onProductionRowMouseOut: () => void;
-  onExchangeRowMouseOver: (exchange: ExchangeDataType) => void;
+  onExchangeRowMouseOver: (data: ZoneDetail) => void;
   onExchangeRowMouseOut: () => void;
 }
 
