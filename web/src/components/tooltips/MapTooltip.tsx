@@ -1,6 +1,5 @@
 import * as Portal from '@radix-ui/react-portal';
 import { useAtom } from 'jotai';
-import type { ReactElement } from 'react';
 
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
@@ -101,14 +100,14 @@ function TooltipInner({
   );
 }
 
-export default function MapTooltip(properties: MapTooltipProperties): ReactElement {
+export default function MapTooltip(properties: MapTooltipProperties) {
   const { mousePositionX, mousePositionY, hoveredFeature, enabled } = properties;
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   const { i18n } = useTranslation();
   const { data } = useGetState();
   if (!enabled || !hoveredFeature) {
-    return null;
+    return undefined;
   }
 
 
