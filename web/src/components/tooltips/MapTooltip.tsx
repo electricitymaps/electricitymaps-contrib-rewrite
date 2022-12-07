@@ -1,6 +1,5 @@
 import * as Portal from '@radix-ui/react-portal';
 import { useAtom } from 'jotai';
-import type { ReactElement } from 'react';
 
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
@@ -18,7 +17,8 @@ import {
 interface MapTooltipProperties {
   mousePositionX: number;
   mousePositionY: number;
-  hoveredFeature: { featureId: string | number | undefined; zoneId: string };
+  hoveredFeature?: { featureId: string | number | undefined; zoneId: string };
+  enabled: boolean;
 }
 
 const getTooltipPosition = (
@@ -100,11 +100,17 @@ function TooltipInner({
   );
 }
 
-export default function MapTooltip(properties: MapTooltipProperties): ReactElement {
-  const { mousePositionX, mousePositionY, hoveredFeature } = properties;
+export default function MapTooltip(properties: MapTooltipProperties) {
+  const { mousePositionX, mousePositionY, hoveredFeature, enabled } = properties;
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   const { data } = useGetState();
+  const { i18n } = useTranslation();
+
+  if (!enabled || !hoveredFeature) {
+    return undefined;
+  }
+
   const hoveredZoneData = data?.data?.zones[hoveredFeature.zoneId] ?? undefined;
   const zoneData = hoveredZoneData
     ? data?.data?.zones[hoveredFeature.zoneId][selectedDatetime.datetimeString]
@@ -125,7 +131,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
     176,
     80
   );
-  const { i18n } = useTranslation();
+
   const formattedDate = formatDate(
     new Date(selectedDatetime.datetimeString),
     i18n.language,
