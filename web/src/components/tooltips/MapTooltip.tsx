@@ -104,9 +104,8 @@ export default function MapTooltip(properties: MapTooltipProperties) {
   const { mousePositionX, mousePositionY, hoveredFeature, enabled } = properties;
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
-  const { data } = useGetState();
   const { i18n } = useTranslation();
-
+  const { data } = useGetState();
   if (!enabled || !hoveredFeature) {
     return undefined;
   }
