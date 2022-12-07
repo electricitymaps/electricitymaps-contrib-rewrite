@@ -8,6 +8,7 @@ import { ReactElement, lazy, Suspense } from 'react';
 import { ToastProvider } from '@radix-ui/react-toast';
 import { useGetAppVersion } from 'api/getAppVersion';
 import Toast from 'components/Toast';
+import Legend from 'components/legend/Legend';
 
 const isProduction = import.meta.env.PROD;
 
@@ -46,6 +47,7 @@ export default function App(): ReactElement {
               <Map />
               <TimeController />
               <MapControls />
+              <Legend />
             </ErrorBoundary>
           </div>
         </ToastProvider>
