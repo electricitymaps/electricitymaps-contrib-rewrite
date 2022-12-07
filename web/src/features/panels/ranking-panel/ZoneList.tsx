@@ -24,6 +24,7 @@ function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRowType)
       className="group my-1 flex h-11 w-full items-center overflow-hidden rounded bg-gray-100 pl-3  text-left hover:bg-gray-200 dark:bg-gray-700"
       key={ranking}
       to={`/zone/${zoneId}`}
+      data-test-id="zone-list-link"
     >
       <p className=" flex w-4 justify-end pr-2 text-sm">{ranking}</p>
       <div
@@ -57,7 +58,7 @@ function ZoneRow({ zoneId, color, ranking, countryName, zoneName }: ZoneRowType)
 
 export default function Zonelist(properties: ZonelistProperties): ReactElement {
   return (
-    <div>
+    <div className="h-80 overflow-y-scroll">
       {properties.data.map((rowProps, index) => {
         return <ZoneRow key={index} {...rowProps} ranking={index + 1} />;
       })}

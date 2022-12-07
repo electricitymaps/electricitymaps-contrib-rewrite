@@ -1,4 +1,5 @@
 import useGetZone from 'api/getZone';
+import BarBreakdownChart from 'features/charts/bar-breakdown/BarBreakdownChart';
 import BreakdownChart from 'features/charts/BreakdownChart';
 import CarbonChart from 'features/charts/CarbonChart';
 import EmissionChart from 'features/charts/EmissionChart';
@@ -50,9 +51,7 @@ export default function ZoneDetails(): JSX.Element {
   const isEstimated = Boolean(estimationMethod);
 
   return (
-    <div
-      className="mb-60" // Adding room to scroll past the time controller
-    >
+    <>
       <ZoneHeader
         zoneId={zoneId}
         isEstimated={isEstimated}
@@ -62,13 +61,16 @@ export default function ZoneDetails(): JSX.Element {
         renewableRatio={renewableRatio}
       />
       <DisplayByEmissionToggle />
-      {displayByEmissions ? (
-        <EmissionChart datetimes={datetimes} timeAverage={timeAverage} />
-      ) : (
-        <CarbonChart datetimes={datetimes} timeAverage={timeAverage} />
-      )}
-      <BreakdownChart datetimes={datetimes} timeAverage={timeAverage} />
-      <PriceChart datetimes={datetimes} timeAverage={timeAverage} />
-    </div>
+      <div className="h-[calc(100%-290px)] overflow-y-scroll pb-48">
+        <BarBreakdownChart timeAverage={timeAverage} />
+        {displayByEmissions ? (
+          <EmissionChart datetimes={datetimes} timeAverage={timeAverage} />
+        ) : (
+          <CarbonChart datetimes={datetimes} timeAverage={timeAverage} />
+        )}
+        <BreakdownChart datetimes={datetimes} timeAverage={timeAverage} />
+        <PriceChart datetimes={datetimes} timeAverage={timeAverage} />
+      </div>
+    </>
   );
 }

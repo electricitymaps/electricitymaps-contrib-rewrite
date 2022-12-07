@@ -11,6 +11,7 @@ function SearchBar({ placeholder, searchHandler, value }: any) {
     <div className="mb-2 flex h-12 flex-row items-center rounded bg-gray-100 p-3 dark:bg-slate-700">
       <HiMagnifyingGlass />
       <input
+        data-test-id="zone-search-bar"
         className="font w-full bg-inherit pl-2 text-base "
         placeholder={placeholder}
         onChange={onHandleInput}
