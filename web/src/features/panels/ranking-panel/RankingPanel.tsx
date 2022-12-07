@@ -43,14 +43,12 @@ export default function RankingPanel(): ReactElement {
   });
 
   return (
-    <div className="p-5">
+    <div className="py-5 pl-5 pr-1">
       <div className="pb-5">
-        <div className="title poppins text-lg font-medium">
+        <div className="font-poppins text-lg font-medium">
           {__('left-panel.zone-list-header-title')}
         </div>
-        <div className="subtitle inter text-xs">
-          {__('left-panel.zone-list-header-subtitle')}
-        </div>
+        <div className="text-xs">{__('left-panel.zone-list-header-subtitle')}</div>
       </div>
 
       <SearchBar
