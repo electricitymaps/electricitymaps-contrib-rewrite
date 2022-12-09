@@ -6,6 +6,27 @@ import RankingPanel from './ranking-panel/RankingPanel';
 
 import ZoneDetails from './zone/ZoneDetails';
 
+function HandleLegacyRoutes() {
+  const [searchParameters] = useSearchParams();
+
+  const page = (searchParameters.get('page') || 'map')
+    .replace('country', 'zone')
+    .replace('highscore', 'ranking');
+  searchParameters.delete('page');
+
+  const zoneId = searchParameters.get('countryCode');
+  searchParameters.delete('countryCode');
+
+  return (
+    <Navigate
+      to={{
+        pathname: zoneId ? `/zone/${zoneId}` : `/${page}`,
+        search: searchParameters.toString(),
+      }}
+    />
+  );
+}
+
 function ValidZoneIdGuardWrapper({ children }: { children: JSX.Element }) {
   const { zoneId } = useParams();
 
@@ -54,6 +75,7 @@ export default function LeftPanel() {
   return (
     <OuterPanel>
       <Routes>
+        <Route path="/" element={<HandleLegacyRoutes />} />
         <Route
           path="/zone/:zoneId"
           element={
