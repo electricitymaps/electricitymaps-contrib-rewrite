@@ -62,6 +62,12 @@
   transform: translateX(var(--radix-toast-swipe-end-x));
 }
 
+@media screen and (max-width: 768px) {
+  .maplibregl-ctrl {
+    display: none !important;
+  }
+}
+
 button.maplibregl-ctrl-zoom-in.mapboxgl-ctrl-zoom-in {
   width: 33px;
   height: 32px;
