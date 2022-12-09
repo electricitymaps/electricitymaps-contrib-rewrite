@@ -14,6 +14,7 @@ const GFS_STEP_ORIGIN = 6; // hours
 const GFS_STEP_HORIZON = 1; // hours
 
 export function getGfsTargetTimeBefore(datetime) {
+  // TODO: we should not introduce moment again!
   let horizon = moment(datetime).utc().startOf('hour');
   while (horizon.hour() % GFS_STEP_HORIZON !== 0) {
     horizon = horizon.subtract(1, 'hour');
