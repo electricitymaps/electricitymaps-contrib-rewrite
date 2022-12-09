@@ -11,13 +11,11 @@ import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import { useAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getCO2IntensityByMode } from 'utils/helpers';
-import {
-  loadingMapAtom,
-  selectedDatetimeIndexAtom,
-  timeAverageAtom,
-} from 'utils/state/atoms';
+import { loadingMapAtom, selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
+import { useGetWind } from 'api/getWeatherData';
+import WindLayer from 'features/weather-layers/wind-layer/WindLayer';
 
 const ZONE_SOURCE = 'zones-clickable';
 const SOUTHERN_LATITUDE_BOUND = -66.947_193;
@@ -34,10 +32,20 @@ interface Feature {
 // TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
 // We could even consider not changing it hear, but always reading it from the path parameter?
 export default function MapPage(): ReactElement {
+  // const [viewPortState, setViewPortState] = useState({
+  //   project: null,
+  //   unproject: null,
+  // });
+
+  // useEffect(() => {
+  //   setViewPortState({
+  //     project: _context.viewport.project,
+  //     unproject: this._context.viewport.unproject,
+  //   });
+  // }, []);
   const [hoveredFeature, setHoveredFeature] = useState<Feature>();
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
-  const [timeAverage] = useAtom(timeAverageAtom);
   const [_, updateIsLoadingMap] = useAtom(loadingMapAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [isMoving, setIsMoving] = useState<boolean>(false);
@@ -50,6 +58,7 @@ export default function MapPage(): ReactElement {
   const location = useLocation();
   const createToWithState = (to: string) => `${to}${location.search}${location.hash}`;
   const theme = useTheme();
+
   // Calculate layer styles only when the theme changes
   // To keep the stable and prevent excessive rerendering.
   const styles = useMemo(
@@ -86,7 +95,9 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(timeAverage);
+  const { isLoading, isError, error, data } = useGetState();
+  const { data: windData } = useGetWind(selectedDatetime.datetimeString);
+  console.log('windData', windData);
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
@@ -290,6 +301,9 @@ export default function MapPage(): ReactElement {
           }}
           showCompass={false}
         ></NavigationControl>
+        <CustomLayer>
+          <WindLayer isMoving={isMoving} />
+        </CustomLayer>
         <CustomLayer>
           <ExchangeLayer isMoving={isMoving} />
         </CustomLayer>

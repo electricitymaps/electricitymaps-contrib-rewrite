@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@mapbox/point-geometry': ^0.1.0
   '@mdx-js/react': ^2.1.5
   '@nabla/vite-plugin-eslint': 1.4.1
   '@radix-ui/react-accordion': ^1.0.1
@@ -39,6 +40,7 @@ specifiers:
   '@types/d3': ^7.4.0
   '@types/d3-array': ^3.0.3
   '@types/d3-format': ^3.0.1
+  '@types/d3-interpolate': ^3.0.1
   '@types/d3-scale': ^4.0.2
   '@types/d3-selection': ^3.0.3
   '@types/d3-shape': ^3.1.0
@@ -47,6 +49,7 @@ specifiers:
   '@types/react': 18.0.22
   '@types/react-dom': 18.0.7
   '@types/react-router-dom': 5.3.3
+  '@types/react-transition-group': ^4.4.5
   '@types/sprintf-js': ^1.1.2
   '@types/testing-library__jest-dom': 5.14.5
   '@types/topojson': ^3.2.3
@@ -63,9 +66,11 @@ specifiers:
   cypress: 10.10.0
   d3-array: ^3.2.0
   d3-format: ^3.1.0
+  d3-interpolate: ^3.0.1
   d3-scale: ^4.0.2
   d3-selection: ^3.0.0
   d3-shape: ^3.1.0
+  date-fns: ^2.29.3
   eslint: 8.26.0
   eslint-config-airbnb: 19.0.4
   eslint-config-airbnb-base: 15.0.0
@@ -90,6 +95,7 @@ specifiers:
   lint-staged: 13.0.3
   mapbox-gl: npm:empty-npm-package@1.0.0
   maplibre-gl: ^2.4.0
+  moment: ^2.29.4
   msw: 0.47.4
   npm-run-all: 4.1.5
   postcss: 8.4.18
@@ -102,6 +108,7 @@ specifiers:
   react-map-gl: ^7.0.19
   react-router-dom: 6.3.0
   react-spinners: ^0.13.6
+  react-transition-group: ^4.4.5
   readline-sync: ^1.4.10
   recharts: ^2.1.16
   sprintf-js: ^1.1.2
@@ -121,6 +128,7 @@ specifiers:
   workbox-window: 6.5.4
 
 dependencies:
+  '@mapbox/point-geometry': 0.1.0
   '@radix-ui/react-accordion': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-navigation-menu': 1.1.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-portal': 1.0.1_biqbaboplfbrettd7655fr4n2y
@@ -143,9 +151,11 @@ dependencies:
   currency-symbol-map: 5.1.0
   d3-array: 3.2.0
   d3-format: 3.1.0
+  d3-interpolate: 3.0.1
   d3-scale: 4.0.2
   d3-selection: 3.0.0
   d3-shape: 3.1.0
+  date-fns: 2.29.3
   geojson: 0.5.0
   i18next: 22.0.5
   i18next-browser-languagedetector: 7.0.1
@@ -153,6 +163,7 @@ dependencies:
   jotai: 1.9.1_react@18.2.0
   mapbox-gl: /empty-npm-package/1.0.0
   maplibre-gl: 2.4.0
+  moment: 2.29.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-i18next: 12.0.0_e52s5leb62x5eudkmfoztpifde
@@ -160,6 +171,7 @@ dependencies:
   react-map-gl: 7.0.19_6eczaga5xxiwzxtfiyk6fioasq
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   react-spinners: 0.13.6_biqbaboplfbrettd7655fr4n2y
+  react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
   recharts: 2.1.16_biqbaboplfbrettd7655fr4n2y
   sprintf-js: 1.1.2
   tailwindcss: 3.1.8_postcss@8.4.18
@@ -191,12 +203,14 @@ devDependencies:
   '@testing-library/user-event': 14.4.3_aaq3sbffpfe3jnxzm2zngsddei
   '@types/css-mediaquery': 0.1.1
   '@types/d3-format': 3.0.1
+  '@types/d3-interpolate': 3.0.1
   '@types/d3-scale': 4.0.2
   '@types/geojson': 7946.0.10
   '@types/mapbox-gl': 2.7.7
   '@types/react': 18.0.22
   '@types/react-dom': 18.0.7
   '@types/react-router-dom': 5.3.3
+  '@types/react-transition-group': 4.4.5
   '@types/testing-library__jest-dom': 5.14.5
   '@types/topojson': 3.2.3
   '@types/topojson-client': 3.1.1
@@ -3987,7 +4001,7 @@ packages:
       '@storybook/csf-plugin': 7.0.0-alpha.47
       '@storybook/csf-tools': 7.0.0-alpha.47
       '@storybook/docs-tools': 7.0.0-alpha.47_yalvw3r2waubxycyb7k7qsruca
-      '@storybook/mdx2-csf': 0.1.0-next.7
+      '@storybook/mdx2-csf': 0.1.0-next.8
       '@storybook/node-logger': 7.0.0-alpha.47
       '@storybook/postinstall': 7.0.0-alpha.47
       '@storybook/preview-web': 7.0.0-alpha.47_biqbaboplfbrettd7655fr4n2y
@@ -4026,7 +4040,7 @@ packages:
       '@storybook/components': 7.0.0-alpha.54_biqbaboplfbrettd7655fr4n2y
       '@storybook/csf-plugin': 7.0.0-alpha.54
       '@storybook/csf-tools': 7.0.0-alpha.54
-      '@storybook/mdx2-csf': 0.1.0-next.7
+      '@storybook/mdx2-csf': 0.1.0-next.8
       '@storybook/node-logger': 7.0.0-alpha.54
       '@storybook/postinstall': 7.0.0-alpha.54
       '@storybook/preview-api': 7.0.0-alpha.54
@@ -4533,7 +4547,7 @@ packages:
       '@storybook/client-api': 7.0.0-alpha.54
       '@storybook/client-logger': 7.0.0-alpha.54
       '@storybook/core-common': 7.0.0-alpha.54_yalvw3r2waubxycyb7k7qsruca
-      '@storybook/mdx2-csf': 0.1.0-next.7
+      '@storybook/mdx2-csf': 0.1.0-next.8
       '@storybook/node-logger': 7.0.0-alpha.54
       '@storybook/preview': 7.0.0-alpha.54
       '@storybook/preview-api': 7.0.0-alpha.54
@@ -5053,8 +5067,8 @@ packages:
     resolution: {integrity: sha512-lMRKO083NQSSvO/FgOETzn0sf6eZ5YPirvp1+KD+sWkwzPTib8p+g14fbbH/88MV1GpMaXIHP/FD/pEc1jf4Cw==}
     dev: true
 
-  /@storybook/mdx2-csf/0.1.0-next.7:
-    resolution: {integrity: sha512-ahwV2A4aS/D79WWum8fmrFhhbC28/f4XlEKtNG1s0EkCVwCSU17bthEBRY5/Y3IBR5jfeN/oApizNQMLh7mqAA==}
+  /@storybook/mdx2-csf/0.1.0-next.8:
+    resolution: {integrity: sha512-fl8BxHzkypAaFYjBkbYfiDUy/3bzPaSXsDTCuPTBIVu8CwkVntpFrjSujZH/pgJig8/9P4VdUJw0H+beMXpktg==}
     dependencies:
       loader-utils: 2.0.4
     dev: true
@@ -6678,7 +6692,6 @@ packages:
 
   /@types/d3-color/2.0.3:
     resolution: {integrity: sha512-+0EtEjBfKEDtH9Rk3u3kLOUXM5F+iZK+WvASPb0MhIZl8J8NUvGeZRwKCXl+P3HkYx5TdU4YtcibpqHkSR9n7w==}
-    dev: false
 
   /@types/d3-contour/3.0.1:
     resolution: {integrity: sha512-C3zfBrhHZvrpAAK3YXqLWVAGo87A4SvJ83Q/zVJ8rFWJdKejUnDYaWZPkA8K84kb2vDA/g90LTQAz7etXcgoQQ==}
@@ -6737,6 +6750,11 @@ packages:
     dependencies:
       '@types/d3-color': 2.0.3
     dev: false
+
+  /@types/d3-interpolate/3.0.1:
+    resolution: {integrity: sha512-jx5leotSeac3jr0RePOH1KdR9rISG91QIE4Q2PYTu4OymLTZfA3SrnURSLzKH48HmXVUru50b8nje4E79oQSQw==}
+    dependencies:
+      '@types/d3-color': 2.0.3
 
   /@types/d3-path/2.0.2:
     resolution: {integrity: sha512-3YHpvDw9LzONaJzejXLOwZ3LqwwkoXb9LI2YN7Hbd6pkGo5nIlJ09ul4bQhBN4hQZJKmUpX8HkVqbzgUKY48cg==}
@@ -6809,7 +6827,7 @@ packages:
   /@types/d3-zoom/3.0.1:
     resolution: {integrity: sha512-7s5L9TjfqIYQmQQEUcpMAcBOahem7TRoSO/+Gkz02GbMVuULiZzjF2BOdw291dbO2aNon4m2OdFsRGaCq2caLQ==}
     dependencies:
-      '@types/d3-interpolate': 2.0.2
+      '@types/d3-interpolate': 3.0.1
       '@types/d3-selection': 3.0.3
     dev: false
 
@@ -6832,7 +6850,7 @@ packages:
       '@types/d3-format': 3.0.1
       '@types/d3-geo': 3.0.2
       '@types/d3-hierarchy': 3.1.0
-      '@types/d3-interpolate': 2.0.2
+      '@types/d3-interpolate': 3.0.1
       '@types/d3-path': 2.0.2
       '@types/d3-polygon': 3.0.0
       '@types/d3-quadtree': 3.0.2
@@ -7070,6 +7088,12 @@ packages:
     resolution: {integrity: sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g==}
     dependencies:
       '@types/history': 4.7.11
+      '@types/react': 18.0.22
+    dev: true
+
+  /@types/react-transition-group/4.4.5:
+    resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
+    dependencies:
       '@types/react': 18.0.22
     dev: true
 
@@ -9082,6 +9106,11 @@ packages:
       whatwg-url: 11.0.0
     dev: true
 
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
+
   /dayjs/1.11.5:
     resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
     dev: true
@@ -9368,6 +9397,13 @@ packages:
     resolution: {integrity: sha512-LnuPJ+dwqKDIyotW1VzmOZ5TONUN7CwkCR5hrgawTUbkBGYdeoNLZo6nNfGkCrjtE1nXXaj7iMMpDa8/d9WoIA==}
     dependencies:
       '@babel/runtime': 7.20.1
+    dev: false
+
+  /dom-helpers/5.2.1:
+    resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
+    dependencies:
+      '@babel/runtime': 7.20.1
+      csstype: 3.1.0
     dev: false
 
   /dom-walk/0.1.2:
@@ -12955,6 +12991,10 @@ packages:
     hasBin: true
     dev: true
 
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
+
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -14207,6 +14247,20 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-lifecycles-compat: 3.0.4
+    dev: false
+
+  /react-transition-group/4.4.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
+    peerDependencies:
+      react: '>=16.6.0'
+      react-dom: '>=16.6.0'
+    dependencies:
+      '@babel/runtime': 7.20.1
+      dom-helpers: 5.2.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:
