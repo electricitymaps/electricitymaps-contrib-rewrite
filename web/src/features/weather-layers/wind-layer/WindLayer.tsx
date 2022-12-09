@@ -1,14 +1,14 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { useRefWidthHeightObserver as useReferenceWidthHeightObserver } from './hooks';
 
-import Windy from './windy';
-import { useInterpolatedWindData } from '../hooks';
-import { useAtom } from 'jotai';
-import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import { useGetWind } from 'api/getWeatherData';
+import { useAtom } from 'jotai';
 import { MapboxMap } from 'react-map-gl';
+import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
+import { useInterpolatedWindData } from '../hooks';
+import Windy from './windy';
 
 export default function WindLayer({
   map,
@@ -20,12 +20,11 @@ export default function WindLayer({
   const [windy, setWindy] = useState(null);
   const { ref, width, height, node } = useReferenceWidthHeightObserver();
   if (!map || !map.unproject || !map.project) {
-    return null;
+    // TODO: handle
   }
   map.on('click', function (e) {
     // When the map is clicked, get the geographic coordinate.
     const coordinate = map.unproject(e.point);
-    console.log('Does this work?', coordinate);
   });
 
   const viewport = useMemo(() => {
@@ -46,33 +45,33 @@ export default function WindLayer({
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const { data: windData, isSuccess } = useGetWind(selectedDatetime.datetimeString);
   if (!isSuccess) {
-    return null;
+    // TODO: handle
   }
   const interpolatedData = isSuccess ? useInterpolatedWindData(windData) : undefined;
-  console.log('interpolatedData', interpolatedData);
   const enabled = true;
 
   const isMapLoaded = map?.loaded();
-  const isVisible = isSuccess; //enabled && isMapLoaded && !isMoving;
+  const isVisible = isSuccess && !isMoving; //enabled && isMapLoaded && !isMoving;
 
-  if (!windy && isVisible && node && interpolatedData) {
-    console.log('viewport', viewport);
-    const w = new Windy({
-      canvas: node,
-      data: interpolatedData,
-      map,
-    });
-    w.start(...viewport);
-    // Set in the next render cycle.
+  useEffect(() => {
+    if (!windy && isVisible && node && interpolatedData) {
+      const w = new Windy({
+        canvas: node,
+        data: interpolatedData,
+        map,
+      });
+      w.start(...viewport);
+      // Set in the next render cycle.
 
-    setWindy(w);
-    setTimeout(() => {
       setWindy(w);
-    }, 0);
-  } else if (windy && !isVisible) {
-    windy.stop();
-    setWindy(null);
-  }
+      setTimeout(() => {
+        setWindy(w);
+      }, 0);
+    } else if (windy && !isVisible) {
+      windy.stop();
+      setWindy(null);
+    }
+  }, [windy, isVisible, map, interpolatedData, viewport, isMoving]);
 
   // const { ref, width, height, node } = useReferenceWidthHeightObserver();
 
@@ -113,14 +112,17 @@ export default function WindLayer({
   //   windy.stop();
   //   setWindy(null);
   // }
-  console.log('windy', windy);
+
   return (
-    <CSSTransition in={true} timeout={300}>
+    <CSSTransition in={true} timeout={600}>
       <canvas
-        className="pointer-none z-500 absolute top-0 left-0 flex h-full w-full"
+        className="pointer-events-none absolute h-full w-full"
+        style={{
+          display: isVisible ? 'block' : 'none',
+        }}
         id="wind"
-        width="100%"
-        height="100%"
+        width={width}
+        height={height}
         ref={ref}
       />
     </CSSTransition>

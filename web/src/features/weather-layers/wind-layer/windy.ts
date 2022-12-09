@@ -265,7 +265,6 @@ var Windy = function (params) {
 
   var project = function (lat, lon, windy) {
     // both in radians, use deg2rad if neccessary
-    console.log('project result', params.map.project([lon, lat]));
     const projected = params.map.project([lon, lat]);
     return [projected.x, projected.y];
   };
@@ -469,10 +468,6 @@ var Windy = function (params) {
   var windy;
 
   var start = function (bounds, width, height, extent) {
-    console.log('bounds', bounds);
-    console.log('width', width);
-    console.log('height', height);
-    console.log('extent', extent);
     var mapBounds = {
       south: deg2rad(extent[0][1]),
       north: deg2rad(extent[1][1]),
