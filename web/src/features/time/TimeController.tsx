@@ -9,7 +9,7 @@ import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state/atoms';
 import TimeAxis from './TimeAxis';
 import TimeHeader from './TimeHeader';
 
-export default function TimeController() {
+export default function TimeController({ className }: { className?: string }) {
   const [timeAverage, setTimeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime, setSelectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const { data, isLoading } = useGetState();
@@ -47,11 +47,7 @@ export default function TimeController() {
   };
 
   return (
-    <div
-      className={
-        'bottom-0 z-20 w-full rounded-t-xl bg-white p-5 shadow-md dark:bg-gray-900 sm:fixed sm:bottom-3 sm:left-3 sm:w-[calc(14vw_+_16rem)] sm:rounded-xl md:w-[calc((14vw_+_16rem)_-_30px)]'
-      }
-    >
+    <div className={className}>
       <TimeHeader
         // Hide the header on mobile as it is loaded directly into the BottomSheet header section
         className="hidden sm:flex"
