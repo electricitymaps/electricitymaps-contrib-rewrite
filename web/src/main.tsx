@@ -9,6 +9,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { createConsoleGreeting } from 'utils/createConsoleGreeting';
 import enableErrorsInOverlay from 'utils/errorOverlay';
 import { registerSW } from 'virtual:pwa-register';
+
+// Init CSS
+import 'react-spring-bottom-sheet/dist/style.css';
 import './index.css';
 
 /**
