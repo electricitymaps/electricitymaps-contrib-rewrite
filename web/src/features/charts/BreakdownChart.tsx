@@ -44,7 +44,7 @@ function BreakdownChart({
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
         tooltip={BreakdownChartTooltip}
-        tooltipSize="large"
+        tooltipSize={displayByEmissions ? 'small' : 'large'}
       />
     </div>
   );

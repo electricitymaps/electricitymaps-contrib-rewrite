@@ -1,4 +1,4 @@
-export const getTooltipPosition = (
+export const getSafeTooltipPosition = (
   mousePositionX: number,
   mousePositionY: number,
   screenWidth: number,
@@ -20,5 +20,22 @@ export const getTooltipPosition = (
   if (mousePositionY < ToolTipFlipBoundaryY) {
     tooltipPosition.y = mousePositionY;
   }
+
+  return tooltipPosition;
+};
+
+export const getOffsetTooltipPosition = (
+  mousePositionX: number,
+  mousePositionY: number,
+  tooltipHeight: number
+) => {
+  const xOffset = 10;
+  const yOffset = tooltipHeight - 40;
+
+  const tooltipPosition = {
+    x: mousePositionX + xOffset,
+    y: mousePositionY - yOffset,
+  };
+
   return tooltipPosition;
 };

@@ -13,7 +13,7 @@ import {
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state/atoms';
-import { getTooltipPosition } from './utilities';
+import { getSafeTooltipPosition } from './utilities';
 
 interface MapTooltipProperties {
   mousePositionX: number;
@@ -92,14 +92,14 @@ export default function MapTooltip(properties: MapTooltipProperties) {
     : undefined;
 
   const screenWidth = window.innerWidth;
-  const tooltipWithDataPositon = getTooltipPosition(
+  const tooltipWithDataPositon = getSafeTooltipPosition(
     mousePositionX,
     mousePositionY,
     screenWidth,
     290,
     176
   );
-  const emptyTooltipPosition = getTooltipPosition(
+  const emptyTooltipPosition = getSafeTooltipPosition(
     mousePositionX,
     mousePositionY,
     screenWidth,
