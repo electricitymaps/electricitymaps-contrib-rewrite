@@ -4,6 +4,7 @@ import AreaGraph from './elements/AreaGraph';
 
 import { noop } from './graphUtils';
 import { useEmissionChartData } from './hooks/useEmissionChartData';
+import EmissionChartTooltip from './tooltips/EmissionChartTooltip';
 
 interface EmissionChartProps {
   datetimes: Date[];
@@ -34,6 +35,7 @@ function EmissionChart({ timeAverage, datetimes }: EmissionChartProps) {
         isMobile={false}
         selectedTimeAggregate={timeAverage}
         height="8em"
+        tooltip={EmissionChartTooltip}
       />
     </div>
   );
