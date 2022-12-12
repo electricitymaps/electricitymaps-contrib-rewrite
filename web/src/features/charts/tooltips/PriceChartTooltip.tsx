@@ -14,7 +14,7 @@ export default function PriceChartTooltip(props: InnerAreaGraphTooltipProps) {
 
   const priceIsDefined = price && typeof price.value === 'number';
   const currency = priceIsDefined ? getSymbolFromCurrency(price?.currency) : '?';
-  const value = priceIsDefined ? price?.value : '?';
+  const value = priceIsDefined ? price?.value : '';
 
   return (
     <div className="w-[250px] rounded-md bg-white p-3 shadow-xl">
