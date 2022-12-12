@@ -8,21 +8,19 @@ import {
 } from '../../features/charts/types';
 import { getTooltipPosition } from './utilities';
 
-const TOOLTIP_WIDTH = 250;
-const TOOLTIP_HEIGHT = 140;
-
 interface AreaGraphTooltipProperties {
   children: (props: InnerAreaGraphTooltipProps) => ReactElement;
   selectedLayerKey?: string;
   zoneDetail?: ZoneDetail;
   dataPoint?: AreaGraphElement;
   position?: { x: number; y: number } | undefined;
+  tooltipSize?: 'small' | 'large';
 }
 
 export default function AreaGraphTooltip(
   properties: AreaGraphTooltipProperties
 ): ReactElement | null {
-  const { children, zoneDetail, selectedLayerKey, position } = properties;
+  const { children, zoneDetail, selectedLayerKey, position, tooltipSize } = properties;
 
   if (
     children === undefined ||
@@ -32,13 +30,15 @@ export default function AreaGraphTooltip(
     return null;
   }
 
+  console.log(tooltipSize);
+
   const screenWidth = window.innerWidth;
   const tooltipWithDataPositon = getTooltipPosition(
     position?.x || 0,
     position?.y || 0,
     screenWidth,
-    TOOLTIP_WIDTH,
-    TOOLTIP_HEIGHT
+    tooltipSize === 'large' ? 700 : 300,
+    tooltipSize === 'large' ? 350 : 160
   );
 
   return (

@@ -4,7 +4,7 @@ import { scaleLinear } from 'd3-scale';
 import { stack, stackOffsetDiverging } from 'd3-shape';
 import TimeAxis from 'features/time/TimeAxis'; // TODO: Move to a shared folder
 import { useAtom } from 'jotai';
-import React, { ReactElement, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ZoneDetail } from 'types';
 import { TimeAverages } from 'utils/constants';
 import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
@@ -80,6 +80,7 @@ interface AreagraphProps {
   datetimes: Date[];
   selectedTimeAggregate: TimeAverages; // TODO: Graph does not need to know about this
   tooltip: (props: InnerAreaGraphTooltipProps) => JSX.Element;
+  tooltipSize?: 'small' | 'large';
 }
 
 interface TooltipData {
@@ -101,6 +102,7 @@ function AreaGraph({
   selectedTimeAggregate,
   datetimes,
   tooltip,
+  tooltipSize,
 }: AreagraphProps) {
   const {
     ref,
@@ -257,6 +259,7 @@ function AreaGraph({
           selectedLayerKey={
             selectedLayerIndex !== null ? layerKeys[selectedLayerIndex] : undefined
           }
+          tooltipSize={tooltipSize}
         >
           {(props) => tooltip(props)}
         </AreaGraphTooltip>
