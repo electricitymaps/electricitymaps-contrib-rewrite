@@ -1,6 +1,5 @@
 import * as Portal from '@radix-ui/react-portal';
 import { useAtom } from 'jotai';
-import type { ReactElement } from 'react';
 
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
@@ -19,7 +18,8 @@ import { getTooltipPosition } from './utilities';
 interface MapTooltipProperties {
   mousePositionX: number;
   mousePositionY: number;
-  hoveredFeature: { featureId: string | number | undefined; zoneId: string };
+  hoveredFeature?: { featureId: string | number | undefined; zoneId: string };
+  enabled: boolean;
 }
 
 function TooltipInner({
@@ -76,11 +76,16 @@ function TooltipInner({
   );
 }
 
-export default function MapTooltip(properties: MapTooltipProperties): ReactElement {
-  const { mousePositionX, mousePositionY, hoveredFeature } = properties;
+export default function MapTooltip(properties: MapTooltipProperties) {
+  const { mousePositionX, mousePositionY, hoveredFeature, enabled } = properties;
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
+  const { i18n } = useTranslation();
   const { data } = useGetState();
+  if (!enabled || !hoveredFeature) {
+    return undefined;
+  }
+
   const hoveredZoneData = data?.data?.zones[hoveredFeature.zoneId] ?? undefined;
   const zoneData = hoveredZoneData
     ? data?.data?.zones[hoveredFeature.zoneId][selectedDatetime.datetimeString]
@@ -101,7 +106,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
     176,
     80
   );
-  const { i18n } = useTranslation();
+
   const formattedDate = formatDate(
     new Date(selectedDatetime.datetimeString),
     i18n.language,
@@ -112,7 +117,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
     return (
       <Portal.Root className="absolute left-0 top-0 h-0 w-0">
         <div
-          className="relative h-[176px] w-[276px] rounded border bg-white  text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
+          className="relative h-[176px] w-[276px] rounded border bg-gray-100  text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
           style={{ left: tooltipWithDataPositon.x, top: tooltipWithDataPositon.y }}
         >
           <div>
@@ -129,7 +134,7 @@ export default function MapTooltip(properties: MapTooltipProperties): ReactEleme
   return (
     <Portal.Root className="absolute left-0 top-0 h-0 w-0">
       <div
-        className="relative h-[80px] w-[176px] rounded border bg-white p-3 text-center text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
+        className="relative h-[80px] w-[176px] rounded border bg-gray-100 p-3 text-center text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
         style={{ left: emptyTooltipPosition.x, top: emptyTooltipPosition.y }}
       >
         <div>

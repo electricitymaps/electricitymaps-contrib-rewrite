@@ -108,7 +108,7 @@ export default function useBreakdownChartData() {
     layerStroke: undefined,
   };
 
-  return { data: result, isLoading, isError };
+  return { data: result, mixMode, isLoading, isError };
 }
 
 function getStorageValue(

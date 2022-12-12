@@ -1,5 +1,9 @@
 import { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from '@turf/turf';
 
+export type Maybe<T> = T | null | undefined;
+
+export type ZoneKey = string;
+
 export interface GridState {
   callerLocation?: [number, number];
   data: {
@@ -50,10 +54,6 @@ export interface ZoneOverview {
   zoneKey: string;
   co2intensity?: number;
   co2intensityProduction?: number;
-  consumptionColour?: string;
-  productionColour?: string;
-  colorBlindConsumptionColour?: string;
-  colorBlindProductionColour?: string;
   stateDatetime: string;
   fossilFuelRatio: number;
   renewableRatio: number;
@@ -70,47 +70,69 @@ export type GenerationType =
   | 'solar'
   | 'unknown'
   | 'geothermal'
-  | 'hydro storage' // storage should perhaps be separated
-  | 'battery storage' // storage should perhaps be separated
   | 'wind';
 
+export type ElectricityStorageType = 'hydro storage' | 'battery storage';
+export type ElectricityStorageKeyType = 'battery' | 'hydro';
+
+export type ElectricityModeType = GenerationType | ElectricityStorageType;
+
+export type Exchange = { [key: string]: number };
+
 export interface ZoneDetail extends ZoneOverview {
-  production: { [key in GenerationType]: number }; // TODO: this assumes all modes are present
-  capacity: { [key in GenerationType]: number };
-  exchange: { [key: string]: number };
-  co2intensity: number;
-  co2intensityProduction: number;
-  totalco2intensity: number;
-  totalCo2Import: number;
-  totalCo2Discharge: number;
-  totalCo2Production: number;
-  totalProduction: number;
-  totalImport: number;
-  totalDischarge: number;
+  _isFinestGranularity: boolean;
+  capacity: { [key in ElectricityModeType]: Maybe<number> };
+  dischargeCo2Intensities: { [key in ElectricityStorageKeyType]: number };
+  dischargeCo2IntensitySources: { [key in ElectricityStorageKeyType]: string };
+  exchange: Exchange;
+  exchangeCapacities?: {
+    [key: string]: number[]; // TODO: Why can I not use [number, number] here?
+  };
+  exchangeCo2Intensities: Exchange;
   fossilFuelRatio: number;
-  renewableRatio: number;
   fossilFuelRatioProduction: number;
-  renewableRatioProduction: number;
-  dischargeCo2Intensities: { [key in ElectricityStorageType]: number };
-  productionCo2Intensities: { [key in GenerationType]: number };
-  exchangeCo2Intensities: { [key: string]: number };
-  storage: { [key in ElectricityStorageType]: number };
+  isValid: boolean;
+  maxCapacity: number;
+  maxDischarge: number;
+  maxExport: number;
+  maxExportCapacity: number;
+  maxImport: number;
+  maxImportCapacity: number;
+  maxProduction: number;
+  maxStorage: number;
+  maxStorageCapacity: number;
   price?: {
     value: number;
     currency: string;
   };
-  dischargeCo2IntensitySources: { [key: string]: string };
-  productionCo2IntensitySources: { [key: string]: string };
-  exchangeCapacities?: { [key: string]: [number, number] };
+  production: { [key in GenerationType]: Maybe<number> };
+  productionCo2Intensities: { [key in GenerationType]: number };
+  productionCo2IntensitySources: { [key in GenerationType]: string };
+  renewableRatio: number;
+  renewableRatioProduction: number;
+  source: string;
+  storage: { [key in ElectricityStorageKeyType]: Maybe<number> };
+  totalCo2Discharge: number;
+  totalCo2Export: number;
+  totalCo2Import: number;
+  totalCo2NetExchange: number;
+  totalCo2Production: number;
+  totalCo2Storage: number;
+  totalConsumption: number;
+  totalDischarge: number;
+  totalExport: number;
+  totalImport: number;
+  totalProduction: number;
+  totalStorage: number;
 }
 
 export interface ZoneDetails {
   hasData: boolean;
   stateAggregation: 'daily' | 'hourly' | 'monthly' | 'yearly';
-  zoneStates: { [key: string]: ZoneDetail };
+  zoneStates: {
+    [key: string]: ZoneDetail;
+  };
 }
-
-export type ElectricityStorageType = 'battery storage' | 'hydro storage';
 
 export interface MapGeometries extends FeatureCollection<Geometry> {
   features: Array<MapGeometry>;
@@ -125,15 +147,13 @@ export interface MapGeometry extends Feature<Polygon | MultiPolygon> {
 }
 
 export interface MapTheme {
-  co2Scale: CO2Scale;
-  clickableFill: string;
-  nonClickableFill: string;
+  co2Scale: {
+    steps: number[];
+    colors: Array<string>;
+  };
   oceanColor: string;
   strokeWidth: number;
   strokeColor: string;
-}
-
-export interface CO2Scale {
-  steps: number[];
-  colors: string[];
+  clickableFill: string;
+  nonClickableFill: string;
 }
