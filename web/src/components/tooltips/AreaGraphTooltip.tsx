@@ -30,8 +30,6 @@ export default function AreaGraphTooltip(
     return null;
   }
 
-  console.log(tooltipSize);
-
   const screenWidth = window.innerWidth;
   const tooltipWithDataPositon = getTooltipPosition(
     position?.x || 0,
