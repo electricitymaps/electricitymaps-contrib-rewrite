@@ -28,7 +28,7 @@ function BreakdownChart({
   const titleDisplayMode = displayByEmissions ? 'emissions' : 'electricity';
   const titleMixMode = mixMode === Mode.CONSUMPTION ? 'origin' : 'production';
   return (
-    <div className="ml-2">
+    <div className="ml-4">
       <ChartTitle translationKey={`country-history.${titleDisplayMode}${titleMixMode}`} />
       <AreaGraph
         testId="history-mix-graph"

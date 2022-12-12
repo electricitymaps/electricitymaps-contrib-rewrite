@@ -205,7 +205,7 @@ function AreaGraph({
       data-test-id={testId}
       height={height}
       ref={ref}
-      style={{ overflow: 'visible', width: '100%' }}
+      className="w-full overflow-visible"
     >
       <GraphBackground
         timeScale={timeScale}
