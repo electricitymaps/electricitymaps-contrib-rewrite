@@ -79,7 +79,7 @@ interface AreagraphProps {
   height: string;
   datetimes: Date[];
   selectedTimeAggregate: TimeAverages; // TODO: Graph does not need to know about this
-  tooltip: (props: InnerAreaGraphTooltipProps) => ReactElement;
+  tooltip: (props: InnerAreaGraphTooltipProps) => JSX.Element;
 }
 
 interface TooltipData {
@@ -251,14 +251,16 @@ function AreaGraph({
         selectedTimeIndex={hoverLineTimeIndex}
         svgNode={node}
       />
-      <AreaGraphTooltip
-        {...tooltipData}
-        selectedLayerKey={
-          selectedLayerIndex !== null ? layerKeys[selectedLayerIndex] : undefined
-        }
-      >
-        {(props) => tooltip(props)}
-      </AreaGraphTooltip>
+      {tooltip && (
+        <AreaGraphTooltip
+          {...tooltipData}
+          selectedLayerKey={
+            selectedLayerIndex !== null ? layerKeys[selectedLayerIndex] : undefined
+          }
+        >
+          {(props) => tooltip(props)}
+        </AreaGraphTooltip>
+      )}
     </svg>
   );
 }

@@ -90,6 +90,15 @@ export default function useBreakdownChartData() {
 
   const layerKeys: string[] = [...modeOrder, ...exchangeKeys];
 
+  // Ensure that all chart data entries contains all layer keys
+  for (const entry of chartData) {
+    for (const key of layerKeys) {
+      if (!(key in entry.layerData)) {
+        entry.layerData[key] = Number.NaN;
+      }
+    }
+  }
+
   const result = {
     chartData,
     layerKeys,
