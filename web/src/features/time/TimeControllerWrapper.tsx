@@ -23,7 +23,7 @@ function BottomSheetWrappedTimeController() {
       blocking={false}
       header={<TimeHeader />}
     >
-      <TimeController className="p-2 pt-1 " />
+      <TimeController className="p-2 pt-1" />
     </BottomSheet>
   );
 }
