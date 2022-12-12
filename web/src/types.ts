@@ -34,7 +34,7 @@ export interface ZoneResponse {
   [key: string]: {
     co2intensity: number; //TODO https://linear.app/electricitymaps/issue/ELE-1495/update-app-backend-variable-naming-to-use-camel-case-update-the
     co2intensityProduction: number;
-    countryCode: string;
+    zoneKey: string;
     fossilFuelRatio: number;
     fossilFuelRatioProduction: number;
     renewableRatio: number;
@@ -47,7 +47,7 @@ export interface ZoneOverviewForTimePeriod {
   [dateTimeKey: string]: ZoneOverview;
 }
 export interface ZoneOverview {
-  countryCode: string;
+  zoneKey: string;
   co2intensity?: number;
   co2intensityProduction?: number;
   consumptionColour?: string;
@@ -87,6 +87,10 @@ export interface ZoneDetail extends ZoneOverview {
   totalProduction: number;
   totalImport: number;
   totalDischarge: number;
+  fossilFuelRatio: number;
+  renewableRatio: number;
+  fossilFuelRatioProduction: number;
+  renewableRatioProduction: number;
   dischargeCo2Intensities: { [key in ElectricityStorageType]: number };
   productionCo2Intensities: { [key in GenerationType]: number };
   exchangeCo2Intensities: { [key: string]: number };
@@ -95,6 +99,9 @@ export interface ZoneDetail extends ZoneOverview {
     value: number;
     currency: string;
   };
+  dischargeCo2IntensitySources: { [key: string]: string };
+  productionCo2IntensitySources: { [key: string]: string };
+  exchangeCapacities?: { [key: string]: [number, number] };
 }
 
 export interface ZoneDetails {
