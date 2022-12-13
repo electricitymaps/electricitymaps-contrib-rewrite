@@ -5,25 +5,21 @@ import { useBreakpoint } from 'utils/styling';
 import TimeController from './TimeController';
 import TimeHeader from './TimeHeader';
 
-// Arbitrary value based on Iphone SE at 375 and Iphone 12 Pro at 390
-export const LARGE_DEVICE_VIEWPORT_WIDTH = 390;
+// These snap points should leave enough "safe area" at the bottom
+const SNAP_POINTS = [80, 200];
 
 function BottomSheetWrappedTimeController() {
   const [isLoadingMap] = useAtom(loadingMapAtom);
-
-  // Provide extra swipe up space for larger IOS devices
-  const isLargeDevice = window.screen.width >= LARGE_DEVICE_VIEWPORT_WIDTH;
-  const snapPoints = isLargeDevice ? [70, 180] : [60, 160];
 
   return (
     <BottomSheet
       scrollLocking={false} // Ensures scrolling is not blocked on IOS
       open={!isLoadingMap}
-      snapPoints={() => snapPoints}
+      snapPoints={() => SNAP_POINTS}
       blocking={false}
       header={<TimeHeader />}
     >
-      <TimeController className="p-2 pt-1" />
+      <TimeController className="p-2 px-4 pt-1" />
     </BottomSheet>
   );
 }

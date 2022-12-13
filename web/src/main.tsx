@@ -13,6 +13,9 @@ import { registerSW } from 'virtual:pwa-register';
 import 'react-spring-bottom-sheet/dist/style.css';
 import './index.css';
 
+// Init polyfills
+import 'utils/polyfills';
+
 /**
  * DevTools for Jotai which makes atoms appear in Redux Dev Tools.
  * Only enabled on import.meta.env.DEV
@@ -51,7 +54,7 @@ if (container) {
           <App />
         </AtomsDevtools>
       </BrowserRouter>
-      <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
+      <ReactQueryDevtools position="top-right" initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
