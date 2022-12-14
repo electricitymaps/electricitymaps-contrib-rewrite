@@ -38,7 +38,7 @@ i18n.on('languageChanged', function (lng: keyof typeof localeToFacebookLocale) {
   // Optional chaining added to ensure jsdom works
   document
     .querySelector('meta[property="og:locale"]')
-    ?.setAttribute('content', localeToFacebookLocale[lng]);
+    ?.setAttribute('content', localeToFacebookLocale[lng || 'en']);
 });
 
 export { default } from 'i18next';
