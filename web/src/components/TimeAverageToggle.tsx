@@ -44,7 +44,7 @@ export interface TimeAverageToggleProps {
 function TimeAverageToggle({ timeAverage, onToggleGroupClick }: TimeAverageToggleProps) {
   return (
     <ToggleGroupPrimitive.Root
-      className={'flex-start mb-2 flex flex-row items-center space-x-2'}
+      className={'flex-start mb-2 flex flex-row items-center gap-x-2'}
       type="multiple"
       aria-label="Font settings"
     >
