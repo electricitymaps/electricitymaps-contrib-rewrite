@@ -1,17 +1,9 @@
-import { useMemo } from 'react';
 import { interpolate } from 'd3-interpolate';
 import { formatDistance } from 'date-fns';
 
 import { getRefTime as getReferenceTime, getTargetTime } from './grib';
 
-export function useInterpolatedWindData(windData) {
-  // const windData = {}; //get wind data
-  console.log('windDassssta', windData);
-
-  // TODO: Recalculate every 5 minutes if custom datetime is not set.
-
-  // TODO: Recalculate every 5 minutes if custom datetime is not set.
-
+export function useInterpolatedWindData(windData: any) {
   if (!windData) {
     return null;
   }
@@ -22,12 +14,10 @@ export function useInterpolatedWindData(windData) {
   const tAfter = getTargetTime(gribs2[0]);
   const datetime = new Date();
   const k = (datetime - tBefore) / (tAfter - tBefore);
-  console.log('inter', windData, datetime, tBefore, tAfter);
   if (datetime > tAfter) {
     console.error('Error while interpolating wind because current time is out of bounds');
     return null;
   }
-
   console.info(
     `#1 wind forecast target ${formatDistance(tBefore, new Date(), {
       addSuffix: true,

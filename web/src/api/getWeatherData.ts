@@ -1,44 +1,42 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
-import { useAtom } from 'jotai';
-import moment from 'moment';
-import { selectedDatetimeIndexAtom } from 'utils/state/atoms';
+import { useInterpolatedWindData } from 'features/weather-layers/hooks';
+import { add, sub, startOfHour } from 'date-fns';
 
-import {
-  getBasePath,
-  getHeaders,
-  QUERY_KEYS,
-  REFETCH_INTERVAL_FIVE_MINUTES,
-} from './helpers';
+import { getBasePath, getHeaders, REFETCH_INTERVAL_FIVE_MINUTES } from './helpers';
 
-const GFS_STEP_ORIGIN = 6; // hours
-const GFS_STEP_HORIZON = 1; // hours
-
-export function getGfsTargetTimeBefore(datetime) {
-  // TODO: we should not introduce moment again!
-  let horizon = moment(datetime).utc().startOf('hour');
-  while (horizon.hour() % GFS_STEP_HORIZON !== 0) {
-    horizon = horizon.subtract(1, 'hour');
-  }
-  return horizon;
+function getBothForecastStartTime(now: Date) {
+  return sub(startOfHour(now), { hours: 7 }).toISOString();
+}
+function getBeforeForcastEndTime(now: Date) {
+  return add(startOfHour(now), { hours: 0 }).toISOString();
 }
 
-export function getGfsTargetTimeAfter(datetime) {
-  return moment(getGfsTargetTimeBefore(datetime)).add(GFS_STEP_HORIZON, 'hour');
+function getAfterForecastEndTime(now: Date) {
+  return add(startOfHour(now), { hours: 1 }).toISOString();
 }
 
-function getGfsReferenceTimeForTarget(datetime) {
-  // Warning: solar will not be available at horizon 0 so always do at least horizon 1
-  let origin = moment(datetime).subtract(7, 'hour');
-  while (origin.hour() % GFS_STEP_ORIGIN !== 0) {
-    origin = origin.subtract(1, 'hour');
-  }
-  return origin;
-}
-
-export async function fetchGfsForecast(resource, targetTime) {
-  const path = `/v3/gfs/${resource}?refTime=${getGfsReferenceTimeForTarget(
+export async function fetchGfsForecastBefore(resource: string, targetTime: Date) {
+  const path = `/v3/gfs/${resource}?refTime=${getBothForecastStartTime(
     targetTime
-  ).toISOString()}&targetTime=${targetTime.toISOString()}`;
+  )}&targetTime=${getBeforeForcastEndTime(targetTime)}`;
+  const requestOptions: RequestInit = {
+    method: 'GET',
+    headers: await getHeaders(path),
+  };
+  const response = await fetch(`${getBasePath()}${path}`, requestOptions);
+
+  if (response.ok) {
+    const { data } = (await response.json()) as { data: any };
+
+    return data;
+  }
+
+  throw new Error(await response.text());
+}
+export async function fetchGfsForecastAfter(resource: string, targetTime: Date) {
+  const path = `/v3/gfs/${resource}?refTime=${getBothForecastStartTime(
+    targetTime
+  )}&targetTime=${getAfterForecastEndTime(targetTime)}`;
   const requestOptions: RequestInit = {
     method: 'GET',
     headers: await getHeaders(path),
@@ -54,34 +52,25 @@ export async function fetchGfsForecast(resource, targetTime) {
   throw new Error(await response.text());
 }
 
-async function getWeatherData(selectedDatetime) {
-  console.log('DSADS');
+async function getWeatherData() {
+  const now = new Date();
 
-  console.log('SADS', selectedDatetime);
-  const before = fetchGfsForecast(
-    'wind',
-    getGfsTargetTimeBefore(selectedDatetime.datetimeString)
-  );
-  const after = fetchGfsForecast(
-    'wind',
-    getGfsTargetTimeAfter(selectedDatetime.datetimeString)
-  );
+  const before = fetchGfsForecastBefore('wind', now);
+  const after = fetchGfsForecastAfter('wind', now);
 
   const forecasts = await Promise.all([before, after]).then((values) => {
     return values;
   });
-  console.log('SADAD', forecasts);
-  return forecasts;
+  const interdata = useInterpolatedWindData(forecasts);
+
+  return interdata;
 }
 
-export const useGetWind = (
-  selectedDatetime: string,
-  options?: UseQueryOptions<any>
-): UseQueryResult<any> => {
-  return useQuery<any>(['wind'], async () => await getWeatherData(selectedDatetime), {
-    staleTime: 10,
+export const useGetWind = (options?: UseQueryOptions<any>): UseQueryResult<any> => {
+  return useQuery<any>(['wind'], async () => await getWeatherData(), {
+    staleTime: REFETCH_INTERVAL_FIVE_MINUTES,
     refetchOnWindowFocus: false,
-    enabled: Boolean(selectedDatetime),
+
     ...options,
   });
 };
