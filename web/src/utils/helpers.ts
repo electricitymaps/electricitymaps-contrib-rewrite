@@ -31,3 +31,11 @@ export function getProductionCo2Intensity(mode: string, zoneData: any) {
 
   return productionCo2Intensity;
 }
+
+/**
+ * Returns a link which maintains search and hash parameters
+ * @param to
+ */
+export function createToWithState(to: string) {
+  return `${to}${location.search}${location.hash}`;
+}
