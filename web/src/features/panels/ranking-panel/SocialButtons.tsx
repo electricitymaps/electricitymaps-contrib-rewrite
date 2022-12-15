@@ -4,13 +4,13 @@ const SOCIAL_TYPES = {
   twitter: {
     icon: <FaTwitter size={13} />,
     url: 'https://twitter.com/intent/tweet?url=https://www.app.electricitymaps.com',
-    classes: 'bg-[#1d9bf0] hover:bg-[#0c7abf] text-white',
+    classes: 'bg-[#1d9bf0] hover:bg-[#0c7abf]',
     text: 'Tweet',
   },
   facebook: {
     icon: <FaFacebook size={13} />,
     url: 'https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Fapp.electricitymaps.com%2F',
-    classes: 'bg-[#3b5998] hover:bg-[#2d4373] text-white',
+    classes: 'bg-[#3b5998] hover:bg-[#2d4373]',
     text: 'Share',
   },
   slack: {
@@ -39,7 +39,7 @@ const SOCIAL_TYPES = {
       </svg>
     ),
     url: 'https://slack.electricitymaps.com',
-    classes: 'hover:bg-[#efefef] bg-[#fff] text-black',
+    classes: 'hover:bg-[#762277] bg-[#4A154B]',
     text: 'Join Slack',
   },
 };
@@ -50,7 +50,7 @@ export function SocialButton({ type }: { type: keyof typeof SOCIAL_TYPES }) {
       href={SOCIAL_TYPES[type].url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${SOCIAL_TYPES[type].classes} flex items-center space-x-1 rounded border p-0.5 px-2 text-sm font-bold transition-colors dark:border-transparent`}
+      className={`${SOCIAL_TYPES[type].classes}  flex items-center space-x-1 rounded  p-0.5 px-2 text-sm font-bold text-white transition-colors`}
     >
       {SOCIAL_TYPES[type].icon}
       <span>{SOCIAL_TYPES[type].text}</span>
