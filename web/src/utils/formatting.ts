@@ -180,7 +180,7 @@ function formatDataSources(dataSources: string[], language: string) {
     ? new Intl.ListFormat(language, { style: 'long', type: 'conjunction' }).format(
         dataSources
       )
-    : dataSources?.join(', ');
+    : dataSources.join(', ');
 }
 
 export { scalePower, formatDate, formatTimeRange, formatDateTick, formatDataSources };

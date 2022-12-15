@@ -101,3 +101,11 @@ body,
 #root {
   @apply h-full;
 }
+
+.message a {
+  @apply text-blue-400;
+  @apply hover:text-blue-600;
+  @apply hover:underline;
+  @apply no-underline;
+  @apply dark:hover:text-blue-400;
+}
