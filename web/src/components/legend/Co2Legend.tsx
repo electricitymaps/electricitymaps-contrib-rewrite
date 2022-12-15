@@ -28,7 +28,7 @@ export default function Co2Legend(): ReactElement {
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
   return (
-    <div className="flex h-[78px] w-[224px] rounded bg-white p-2 shadow dark:bg-gray-900">
+    <div>
       <LegendItem label={__('legends.carbonintensity')} unit="gCO₂eq/kWh" isEnabled>
         <HorizontalColorbar colorScale={co2ColorScale} ticksCount={5} />
       </LegendItem>

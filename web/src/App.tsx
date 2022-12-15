@@ -6,7 +6,6 @@ import Toast from 'components/Toast';
 import ErrorBoundary from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
-import TimeController from 'features/time/TimeController';
 import { lazy, ReactElement, Suspense } from 'react';
 import Legend from 'components/legend/Legend';
 import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
