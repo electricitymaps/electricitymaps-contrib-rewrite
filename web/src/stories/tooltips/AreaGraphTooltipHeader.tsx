@@ -28,7 +28,7 @@ export default function AreaGraphToolTipHeader(props: AreaGraphToolTipHeaderProp
           <p className="text-base">{title}</p>
         </div>
         <div className="my-1 h-[32px] max-w-[160px] select-none rounded-full bg-brand-green/10 py-2 px-3 text-sm text-brand-green dark:bg-gray-700 dark:text-white">
-          {!false && formatDate(datetime, i18n.language, timeAverage)}
+          {formatDate(datetime, i18n.language, timeAverage)}
         </div>
       </div>
       <hr className="my-1 mb-3" />

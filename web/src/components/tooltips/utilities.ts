@@ -24,11 +24,15 @@ export const getSafeTooltipPosition = (
   return tooltipPosition;
 };
 
-export const getOffsetTooltipPosition = (
-  mousePositionX: number,
-  mousePositionY: number,
-  tooltipHeight: number
-) => {
+export const getOffsetTooltipPosition = ({
+  mousePositionX,
+  mousePositionY,
+  tooltipHeight,
+}: {
+  mousePositionX: number;
+  mousePositionY: number;
+  tooltipHeight: number;
+}) => {
   const xOffset = 10;
   const yOffset = tooltipHeight - 40;
 

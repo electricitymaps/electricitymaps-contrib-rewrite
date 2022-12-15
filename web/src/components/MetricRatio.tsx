@@ -1,7 +1,6 @@
 export function MetricRatio({ value, total, format }) {
-  return (
-    <small>{`(${Number.isFinite(value) ? format(value) : '?'} / ${
-      Number.isFinite(total) ? format(total) : '?'
-    })`}</small>
-  );
+  const formattedValue = Number.isFinite(value) ? format(value) : '?';
+  const formattedTotal = Number.isFinite(total) ? format(total) : '?';
+
+  return <small>{`(${formattedValue} / ${formattedTotal})`}</small>;
 }

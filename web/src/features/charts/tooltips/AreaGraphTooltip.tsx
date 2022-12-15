@@ -1,11 +1,8 @@
 import * as Portal from '@radix-ui/react-portal';
 import type { ReactElement } from 'react';
 import { ZoneDetail } from 'types';
-import {
-  AreaGraphElement,
-  InnerAreaGraphTooltipProps,
-} from '../../features/charts/types';
-import { getOffsetTooltipPosition } from './utilities';
+import { getOffsetTooltipPosition } from '../../../components/tooltips/utilities';
+import { AreaGraphElement, InnerAreaGraphTooltipProps } from '../types';
 
 interface AreaGraphTooltipProperties {
   children: (props: InnerAreaGraphTooltipProps) => ReactElement;
@@ -29,11 +26,11 @@ export default function AreaGraphTooltip(
     return null;
   }
 
-  const tooltipWithDataPositon = getOffsetTooltipPosition(
-    position?.x || 0,
-    position?.y || 0,
-    tooltipSize === 'large' ? 360 : 160
-  );
+  const tooltipWithDataPositon = getOffsetTooltipPosition({
+    mousePositionX: position?.x || 0,
+    mousePositionY: position?.y || 0,
+    tooltipHeight: tooltipSize === 'large' ? 360 : 160,
+  });
 
   return (
     <Portal.Root className="absolute left-0 top-0 h-0 w-0">
