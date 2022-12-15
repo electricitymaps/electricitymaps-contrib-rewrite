@@ -7,7 +7,7 @@ import ErrorBoundary from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
 import { lazy, ReactElement, Suspense } from 'react';
-import Legend from 'components/legend/Legend';
+import LegendContainer from 'components/legend/LegendContainer';
 import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
 
 const isProduction = import.meta.env.PROD;
@@ -47,7 +47,7 @@ export default function App(): ReactElement {
               <Map />
               <TimeControllerWrapper />
               <MapControls />
-              <Legend />
+              <LegendContainer />
             </ErrorBoundary>
           </div>
         </ToastProvider>
