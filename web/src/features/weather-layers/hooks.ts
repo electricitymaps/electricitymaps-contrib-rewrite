@@ -1,9 +1,10 @@
 import { interpolate } from 'd3-interpolate';
 import { formatDistance } from 'date-fns';
 
+import { GfsForecastResponse } from 'api/getWeatherData';
 import { getRefTime as getReferenceTime, getTargetTime } from './grib';
 
-export function useInterpolatedWindData(windData: any) {
+export function useInterpolatedWindData(windData: GfsForecastResponse[]) {
   if (!windData) {
     return null;
   }
