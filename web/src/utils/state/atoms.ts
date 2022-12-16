@@ -15,9 +15,7 @@ export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
 
 // TODO consider another initial value
 export const selectedDatetimeIndexAtom = atom({ datetimeString: '', index: 0 });
-selectedDatetimeIndexAtom.debugLabel = 'selectedDatetimeIndex';
 
-/** Some example atoms that are not currently used */
 export const spatialAggregateAtom = atomWithCustomStorage<ToggleOptions>({
   key: 'country-mode',
   initialValue: ToggleOptions.OFF,
@@ -45,7 +43,7 @@ export const productionConsumptionAtom = atomWithCustomStorage<Mode>({
   },
 });
 
-export const displayByEmissionsAtom = atom<boolean>(false);
+export const displayByEmissionsAtom = atom(false);
 
 export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
   key: 'wind',
@@ -56,8 +54,7 @@ export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
   },
 });
 
-export const themeAtom = atomWithStorage<ThemeOptions>('theme', ThemeOptions.LIGHT);
-
+export const themeAtom = atomWithStorage('theme', ThemeOptions.LIGHT);
 
 export const hasOnboardingBeenSeenAtom = atomWithCustomStorage({
   key: 'onboardingSeen',
