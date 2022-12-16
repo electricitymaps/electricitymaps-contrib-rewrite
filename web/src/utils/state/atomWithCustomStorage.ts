@@ -14,7 +14,7 @@ const subscribe = (callback: () => void) => {
   };
 };
 
-function createURLStorage<Value extends string>() {
+function createURLStorage<Value>() {
   return {
     getItem: (key: string) => {
       if (typeof location === 'undefined') {
@@ -30,7 +30,7 @@ function createURLStorage<Value extends string>() {
     },
     setItem: (key: string, value: Value) => {
       const searchParameters = new URLSearchParams(location.hash.slice(1));
-      searchParameters.set(key, value);
+      searchParameters.set(key, String(value));
       location.hash = searchParameters.toString();
     },
     removeItem: (key: string) => {
@@ -41,7 +41,7 @@ function createURLStorage<Value extends string>() {
   };
 }
 
-function createStorage<Value extends string>({
+function createStorage<Value>({
   syncWithUrl,
   syncWithLocalStorage,
   syncWithSessionStorage,
@@ -108,36 +108,33 @@ interface StorageOptions {
  * 1. URL
  * 2. sessionStorage
  * 3. localStorage
- * @see {@link https://github.com/pmndrs/jotai/blob/main/src/utils/atomWithStorage.ts}
+ * @see https://github.com/pmndrs/jotai/blob/main/src/utils/atomWithStorage.ts
  */
-export default function atomWithCustomStorage<Value extends string>({
+export default function atomWithCustomStorage<Value>({
   key,
   initialValue,
   options,
 }: {
   key: string;
-  initialValue: string;
+  initialValue: Value;
   options: StorageOptions;
 }) {
-  const storage = createStorage(options);
-  const baseAtom = atomWithStorage(key, initialValue, storage);
+  const storage = createStorage<Value>(options);
+  const baseAtom = atomWithStorage<Value>(key, initialValue, storage);
+  baseAtom.debugLabel = `baseAtom(${key})`;
   // Wrap base atom to return initial value if storage is empty
-  return atom(
+  const newAtom = atom(
     (get) => {
       const value = get(baseAtom);
       if (typeof value == typeof NO_STORAGE_VALUE) {
-        return initialValue as Value;
+        return initialValue;
       }
-      if (value === 'true') {
-        return true as unknown as Value;
-      }
-      if (value === 'false' || value === undefined) {
-        return false as unknown as Value;
-      }
-      return value as Value;
+      return value;
     },
     (get, set, update: Value) => {
       set(baseAtom, update);
     }
   );
+  newAtom.debugLabel = `atomWithCustomStorage(${key})`;
+  return newAtom;
 }

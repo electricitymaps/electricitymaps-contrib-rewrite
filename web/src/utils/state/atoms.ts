@@ -60,7 +60,9 @@ export const themeAtom = atomWithStorage('theme', ThemeOptions.LIGHT);
 
 export const hasOnboardingBeenSeenAtom = atomWithCustomStorage({
   key: 'onboardingSeen',
-  initialValue: 'false',
+export const colorblindModeAtom = atomWithCustomStorage({
+  key: 'colorblindModeEnabled',
+  initialValue: false,
   options: {
     syncWithLocalStorage: true,
   },
