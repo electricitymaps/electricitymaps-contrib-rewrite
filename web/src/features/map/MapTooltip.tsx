@@ -13,7 +13,7 @@ import {
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state/atoms';
-import { hoveredZoneAtom, mousePositionAtom } from './mapAtoms';
+import { hoveredZoneAtom, mapMovingAtom, mousePositionAtom } from './mapAtoms';
 
 const getTooltipPosition = (
   mousePositionX: number,
@@ -99,14 +99,15 @@ export default function MapTooltip() {
   const [hoveredZone] = useAtom(hoveredZoneAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
+  const [isMapMoving] = useAtom(mapMovingAtom);
   const { i18n } = useTranslation();
   const { data } = useGetState();
-  if (!hoveredZone) {
+
+  if (!hoveredZone || isMapMoving) {
     return null;
   }
 
   const { x, y } = mousePosition;
-
   const hoveredZoneData = data?.data?.zones[hoveredZone.zoneId] ?? undefined;
   const zoneData = hoveredZoneData
     ? data?.data?.zones[hoveredZone.zoneId][selectedDatetime.datetimeString]
