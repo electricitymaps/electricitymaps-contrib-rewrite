@@ -25,13 +25,6 @@ const SOUTHERN_LATITUDE_BOUND = -66.947_193;
 const NORTHERN_LATITUDE_BOUND = 84.313_245;
 const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 
-type FeatureId = string | number | undefined;
-
-interface Feature {
-  featureId: FeatureId;
-  zoneId: string;
-}
-
 // TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
 // We could even consider not changing it hear, but always reading it from the path parameter?
 export default function MapPage(): ReactElement {
