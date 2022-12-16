@@ -7,6 +7,7 @@ import { MoonLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages, ToggleOptions } from 'utils/constants';
 import {
+  colorblindModeAtom,
   selectedDatetimeIndexAtom,
   solarLayerEnabledAtom,
   solarLayerLoadingAtom,
@@ -70,10 +71,16 @@ export default function MapControls(): ReactElement {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
+  const [isColorblindModeEnabled, setIsColorblindModeEnabled] =
+    useAtom(colorblindModeAtom);
 
   // We are currently only supporting and fetching weather data for the latest hourly value
   const areWeatherLayersAllowed =
     selectedDatetime.index === 24 && timeAverage === TimeAverages.HOURLY;
+
+  const handleColorblindModeToggle = () => {
+    setIsColorblindModeEnabled(!isColorblindModeEnabled);
+  };
 
   return (
     <div className="z-1000 pointer-events-none absolute right-3 top-3 hidden flex-col items-end md:flex">
@@ -93,12 +100,15 @@ export default function MapControls(): ReactElement {
         )}
 
         <MapButton
-          icon={<HiOutlineEyeOff size={21} className="opacity-50" />}
+          icon={
+            <HiOutlineEyeOff
+              size={21}
+              className={`${isColorblindModeEnabled ? '' : 'opacity-50'}`}
+            />
+          }
           dataTestId="colorblind-layer-button"
           tooltipText={__('legends.colorblindmode')}
-          onClick={() => {
-            console.log('toggle colorblind mode');
-          }}
+          onClick={handleColorblindModeToggle}
         />
         {areWeatherLayersAllowed && (
           <>
