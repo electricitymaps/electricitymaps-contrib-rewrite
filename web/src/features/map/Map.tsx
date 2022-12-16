@@ -157,7 +157,6 @@ export default function MapPage(): ReactElement {
   };
 
   // TODO: Consider if we need to ignore zone hovering if the map is dragging
-  // TODO: Save cursor position to be used for tooltip
   const onMouseMove = (event: mapboxgl.MapLayerMouseEvent) => {
     const map = mapReference.current?.getMap();
     if (!map || !event.features) {
@@ -165,26 +164,41 @@ export default function MapPage(): ReactElement {
     }
     const feature = event.features[0];
 
-    // Remove state from old feature if we are no longer hovering anything,
-    // or if we are hovering a different feature than the previous one
-    if (hoveredFeature && (!feature || hoveredFeature.featureId !== feature.id)) {
+    const isHoveringAZone = feature?.id !== undefined;
+    const isHoveringANewZone = isHoveringAZone && hoveredZone?.featureId !== feature?.id;
+
+    // Reset currently hovered zone if we are no longer hovering anything
+    if (!isHoveringAZone && hoveredZone) {
+      setHoveredZone(null);
       map.setFeatureState(
-        { source: ZONE_SOURCE, id: hoveredFeature.featureId },
+        { source: ZONE_SOURCE, id: hoveredZone?.featureId },
         { hover: false }
       );
     }
-    if (feature && feature.id) {
-      setCursorType('pointer');
-      setHoveredFeature({ featureId: feature.id, zoneId: feature.properties?.zoneId });
-      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { hover: true });
 
-      setMousePosition({
-        mousePositionX: event.point.x,
-        mousePositionY: event.point.y,
-      });
-    } else {
-      setCursorType('grab');
-      setHoveredFeature(undefined);
+    // Do no more if we are not hovering a zone
+    if (!isHoveringAZone) {
+      return;
+    }
+
+    // Update mouse position to help position the tooltip
+    setMousePosition({
+      x: event.point.x,
+      y: event.point.y,
+    });
+
+    // Update hovered zone if we are hovering a new zone
+    if (isHoveringANewZone) {
+      // Reset the old one first
+      if (hoveredZone) {
+        map.setFeatureState(
+          { source: ZONE_SOURCE, id: hoveredZone?.featureId },
+          { hover: false }
+        );
+      }
+
+      setHoveredZone({ featureId: feature.id, zoneId: feature.properties?.zoneId });
+      map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { hover: true });
     }
   };
 
@@ -194,12 +208,13 @@ export default function MapPage(): ReactElement {
       return;
     }
 
-    if (hoveredFeature?.featureId !== null) {
+    // Reset hovered state when mouse leaves map (e.g. cursor moving into panel)
+    if (hoveredZone?.featureId !== undefined) {
       map.setFeatureState(
-        { source: ZONE_SOURCE, id: hoveredFeature?.featureId },
+        { source: ZONE_SOURCE, id: hoveredZone?.featureId },
         { hover: false }
       );
-      setHoveredFeature(undefined);
+      setHoveredZone(null);
     }
   };
 
