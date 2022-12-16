@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useRefWidthHeightObserver(offsetX = 0, offsetY = 0) {
   const [width, setWidth] = useState(0);
@@ -25,9 +25,6 @@ export function useRefWidthHeightObserver(offsetX = 0, offsetY = 0) {
       }, 0);
       // Update container width on every resize
       window.addEventListener('resize', update);
-      return () => {
-        window.removeEventListener('resize', update);
-      };
     },
     [offsetX, offsetY]
   );
