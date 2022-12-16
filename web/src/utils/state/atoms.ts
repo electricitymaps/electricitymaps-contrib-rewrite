@@ -3,9 +3,6 @@ import { atomWithStorage, createJSONStorage } from 'jotai/utils';
 import { Mode, ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
 
-export const loadingMapAtom = atom(true);
-loadingMapAtom.debugLabel = 'loadingMap';
-
 // TODO: Ensure it works as intended without URL params
 export const timeAverageAtom = atomWithCustomStorage<TimeAverages>({
   key: 'average',
