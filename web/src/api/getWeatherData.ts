@@ -1,11 +1,11 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query';
+import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+import { add, startOfHour, sub } from 'date-fns';
 import { useInterpolatedWindData } from 'features/weather-layers/hooks';
-import { add, sub, startOfHour } from 'date-fns';
 
-import { getBasePath, getHeaders, REFETCH_INTERVAL_FIVE_MINUTES } from './helpers';
+import { REFETCH_INTERVAL_FIVE_MINUTES, getBasePath, getHeaders } from './helpers';
 
 function getBothForecastStartTime(now: Date) {
-  return sub(startOfHour(now), { hours: 7 }).toISOString();
+  return sub(startOfHour(now), { hours: 9 }).toISOString();
 }
 function getBeforeForcastEndTime(now: Date) {
   return add(startOfHour(now), { hours: 0 }).toISOString();
