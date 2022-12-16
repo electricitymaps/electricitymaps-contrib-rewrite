@@ -8,6 +8,7 @@ import { useCo2ColorScale, useTheme } from '../../hooks/theme';
 import useGetState from 'api/getState';
 import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import ZoomControls from 'features/map-controls/ZoomControls';
+import { leftPanelOpenAtom } from 'features/panels/panelAtoms';
 import { useAtom, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { createToWithState, getCO2IntensityByMode } from 'utils/helpers';
@@ -37,6 +38,7 @@ export default function MapPage(): ReactElement {
   const [hoveredZone, setHoveredZone] = useAtom(hoveredZoneAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
+  const setLeftPanelOpen = useSetAtom(leftPanelOpenAtom);
 
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
@@ -147,6 +149,7 @@ export default function MapPage(): ReactElement {
       setSelectedFeatureId(feature.id);
       map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
       //TODO If panel is closed and user clicks on zone, reopen panel
+      setLeftPanelOpen(true);
       const zoneId = feature.properties.zoneId;
       // TODO: Consider using flyTo zone?
       navigate(createToWithState(`/zone/${zoneId}`));

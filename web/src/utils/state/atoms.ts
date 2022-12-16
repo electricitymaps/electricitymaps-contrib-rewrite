@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { atomWithStorage, createJSONStorage } from 'jotai/utils';
+import { atomWithStorage } from 'jotai/utils';
 import { Mode, ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 import atomWithCustomStorage from './atomWithCustomStorage';
 
@@ -58,11 +58,6 @@ export const windLayerAtom = atomWithCustomStorage<ToggleOptions>({
 
 export const themeAtom = atomWithStorage<ThemeOptions>('theme', ThemeOptions.LIGHT);
 
-export const isLeftPanelOpenAtom = atomWithStorage(
-  'is-left-panel-open',
-  false,
-  createJSONStorage(() => sessionStorage)
-);
 
 export const hasOnboardingBeenSeenAtom = atomWithCustomStorage({
   key: 'onboardingSeen',
