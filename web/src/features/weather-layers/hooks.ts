@@ -2,9 +2,12 @@ import { interpolate } from 'd3-interpolate';
 import { formatDistance } from 'date-fns';
 
 import { GfsForecastResponse } from 'api/getWeatherData';
+import { Maybe } from 'types';
 import { getRefTime as getReferenceTime, getTargetTime } from './grib';
 
-export function useInterpolatedWindData(windData: GfsForecastResponse[]) {
+export function useInterpolatedWindData(
+  windData: GfsForecastResponse[]
+): Maybe<GfsForecastResponse> {
   if (!windData) {
     return null;
   }

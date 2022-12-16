@@ -1,19 +1,24 @@
-import { useEffect, useMemo, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
-import { useRefWidthHeightObserver as useReferenceWidthHeightObserver } from './hooks';
 import { useGetWind } from 'api/getWeatherData';
 import { useAtom } from 'jotai';
+import { useEffect, useMemo, useState } from 'react';
 import { MapboxMap } from 'react-map-gl';
-import { selectedDatetimeIndexAtom, windLayerAtom } from 'utils/state/atoms';
-import Windy from './windy';
+import { Maybe } from 'types';
 import { ToggleOptions } from 'utils/constants';
+import { selectedDatetimeIndexAtom, windLayerAtom } from 'utils/state/atoms';
+import { useRefWidthHeightObserver } from 'utils/viewport';
+import Windy from './windy';
 
+type WindyType = ReturnType<typeof Windy>;
+let windySingleton: Maybe<WindyType> = null;
 const createWindy = async (canvas: HTMLCanvasElement, data: any, map: MapboxMap) => {
-  return await new Windy({
-    canvas,
-    data,
-    map,
-  });
+  if (!windySingleton) {
+    windySingleton = new Windy({
+      canvas,
+      data,
+      map,
+    });
+  }
+  return windySingleton as WindyType;
 };
 
 export default function WindLayer({
@@ -23,35 +28,37 @@ export default function WindLayer({
   map?: MapboxMap;
   isMoving: boolean;
 }) {
-  const [windy, setWindy] = useState(null);
-  const { ref, width, height, node } = useReferenceWidthHeightObserver();
+  const [windy, setWindy] = useState<Maybe<WindyType>>(null);
+  const { ref, node, width, height } = useRefWidthHeightObserver();
   const viewport = useMemo(() => {
     const sw = map?.unproject([0, height]);
     const ne = map?.unproject([width, 0]);
     const swArray = [sw?.lng, sw?.lat];
     const neArray = [ne?.lng, ne?.lat];
-    return [
-      [
+
+    return {
+      bounds: [
         [0, 0],
         [width, height],
       ],
       width,
       height,
-      [swArray, neArray],
-    ];
+      extent: [swArray, neArray],
+    };
   }, [map, width, height]);
 
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
-  const { data: windData, isSuccess } = useGetWind();
   const [windLayerToggle] = useAtom(windLayerAtom);
   const isWindLayerEnabled =
     windLayerToggle === ToggleOptions.ON && selectedDatetime.index === 24;
+  const { data: windData, isSuccess } = useGetWind({ enabled: isWindLayerEnabled });
   const isVisible = isSuccess && !isMoving && isWindLayerEnabled;
 
   useEffect(() => {
-    if (!windy && isVisible && node && isWindLayerEnabled && windData) {
-      createWindy(node, windData, map!).then((w) => {
-        w.start(...viewport);
+    if (map && !windy && isVisible && node && isWindLayerEnabled && windData) {
+      createWindy(node, windData, map).then((w) => {
+        const { bounds, width, height, extent } = viewport;
+        w.start(bounds, width, height, extent);
         setWindy(w);
       });
     } else if (!isVisible && windy) {

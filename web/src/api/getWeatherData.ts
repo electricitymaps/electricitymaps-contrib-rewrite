@@ -1,6 +1,7 @@
-import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { add, startOfHour, sub } from 'date-fns';
 import { useInterpolatedWindData } from 'features/weather-layers/hooks';
+import type { Maybe } from 'types';
 
 import { REFETCH_INTERVAL_FIVE_MINUTES, getBasePath, getHeaders } from './helpers';
 
@@ -98,11 +99,15 @@ async function getWeatherData() {
   return interdata;
 }
 
-export const useGetWind = (options?: UseQueryOptions<any>): UseQueryResult<any> => {
-  return useQuery<any>(['wind'], async () => await getWeatherData(), {
-    staleTime: REFETCH_INTERVAL_FIVE_MINUTES,
-    refetchOnWindowFocus: false,
-    retry: false, // Disables retrying as getWeatherData handles retrying with new timestamps
-    ...options,
-  });
+export const useGetWind = (options?: UseQueryOptions<Maybe<GfsForecastResponse>>) => {
+  return useQuery<Maybe<GfsForecastResponse>>(
+    ['wind'],
+    async () => await getWeatherData(),
+    {
+      staleTime: REFETCH_INTERVAL_FIVE_MINUTES,
+      refetchOnWindowFocus: false,
+      retry: false, // Disables retrying as getWeatherData handles retrying with new timestamps
+      ...options,
+    }
+  );
 };
