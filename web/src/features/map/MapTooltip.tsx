@@ -13,13 +13,7 @@ import {
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state/atoms';
-
-interface MapTooltipProperties {
-  mousePositionX: number;
-  mousePositionY: number;
-  hoveredFeature?: { featureId: string | number | undefined; zoneId: string };
-  enabled: boolean;
-}
+import { hoveredZoneAtom, mousePositionAtom } from './mapAtoms';
 
 const getTooltipPosition = (
   mousePositionX: number,
@@ -100,36 +94,27 @@ function TooltipInner({
   );
 }
 
-export default function MapTooltip(properties: MapTooltipProperties) {
-  const { mousePositionX, mousePositionY, hoveredFeature, enabled } = properties;
+export default function MapTooltip() {
+  const [mousePosition] = useAtom(mousePositionAtom);
+  const [hoveredZone] = useAtom(hoveredZoneAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   const { i18n } = useTranslation();
   const { data } = useGetState();
-  if (!enabled || !hoveredFeature) {
-    return undefined;
+  if (!hoveredZone) {
+    return null;
   }
 
-  const hoveredZoneData = data?.data?.zones[hoveredFeature.zoneId] ?? undefined;
+  const { x, y } = mousePosition;
+
+  const hoveredZoneData = data?.data?.zones[hoveredZone.zoneId] ?? undefined;
   const zoneData = hoveredZoneData
-    ? data?.data?.zones[hoveredFeature.zoneId][selectedDatetime.datetimeString]
+    ? data?.data?.zones[hoveredZone.zoneId][selectedDatetime.datetimeString]
     : undefined;
 
   const screenWidth = window.innerWidth;
-  const tooltipWithDataPositon = getTooltipPosition(
-    mousePositionX,
-    mousePositionY,
-    screenWidth,
-    290,
-    176
-  );
-  const emptyTooltipPosition = getTooltipPosition(
-    mousePositionX,
-    mousePositionY,
-    screenWidth,
-    176,
-    80
-  );
+  const tooltipWithDataPositon = getTooltipPosition(x, y, screenWidth, 290, 176);
+  const emptyTooltipPosition = getTooltipPosition(x, y, screenWidth, 176, 80);
 
   const formattedDate = formatDate(
     new Date(selectedDatetime.datetimeString),
@@ -147,7 +132,7 @@ export default function MapTooltip(properties: MapTooltipProperties) {
           <div>
             <TooltipInner
               zoneData={zoneData}
-              zoneId={hoveredFeature.zoneId}
+              zoneId={hoveredZone.zoneId}
               date={formattedDate}
             />
           </div>
@@ -162,7 +147,7 @@ export default function MapTooltip(properties: MapTooltipProperties) {
         style={{ left: emptyTooltipPosition.x, top: emptyTooltipPosition.y }}
       >
         <div>
-          <ZoneName zone={hoveredFeature.zoneId} textStyle="text-base" />
+          <ZoneName zone={hoveredZone.zoneId} textStyle="text-base" />
           <div className="flex self-start text-xs">{formattedDate}</div>
           <p className="text-start">No data available</p>
         </div>
