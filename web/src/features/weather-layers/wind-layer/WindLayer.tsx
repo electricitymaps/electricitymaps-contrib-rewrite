@@ -61,17 +61,16 @@ export default function WindLayer({
   }, [isVisible, isSuccess, node, windy, viewport]);
 
   return (
-    <CSSTransition classNames="fade" in={Boolean(isVisible && windy)} timeout={300}>
-      <canvas
-        className="pointer-events-none absolute h-full w-full"
-        style={{
-          display: isVisible ? 'block' : 'none',
-        }}
-        id="wind"
-        width={width}
-        height={height}
-        ref={ref}
-      />
-    </CSSTransition>
+    <canvas
+      className={`pointer-events-none absolute h-full w-full duration-300 ${
+        // Using display: none here will cause the observer to return width and height of 0
+        // so instead we use opacity which can also be transitioned nicely
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+      id="wind"
+      width={width}
+      height={height}
+      ref={ref}
+    />
   );
 }
