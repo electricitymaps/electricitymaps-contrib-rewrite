@@ -38,7 +38,6 @@ export default function MapPage(): ReactElement {
   const [hoveredFeature, setHoveredFeature] = useState<Feature>();
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
-  const [timeAverage] = useAtom(timeAverageAtom);
   const [_, updateIsLoadingMap] = useAtom(loadingMapAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [isMoving, setIsMoving] = useState<boolean>(false);
@@ -85,7 +84,7 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(timeAverage);
+  const { isLoading, isError, error, data } = useGetState();
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
@@ -106,7 +105,6 @@ export default function MapPage(): ReactElement {
     for (const [index, feature] of geometries.features.entries()) {
       const { zoneId } = feature.properties;
       const zone = data.data?.zones[zoneId];
-
       const co2intensity =
         zone && zone[selectedDatetime.datetimeString]
           ? getCO2IntensityByMode(zone[selectedDatetime.datetimeString], 'consumption')

@@ -31,7 +31,7 @@ export interface Topo {
 const generateTopos = (theme: MapTheme, spatialAggregate: string): MapGeometries => {
   const geometries: MapGeometries = { features: [], type: 'FeatureCollection' };
   const topography = topo as Topo;
-
+  geometries.features.push({ properties: { zoneId: 'emptyZone' } } as any);
   for (const k of Object.keys(topography.objects)) {
     if (!topography.objects[k].arcs) {
       continue;
