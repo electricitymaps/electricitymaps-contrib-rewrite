@@ -32,17 +32,6 @@ interface Feature {
 // TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
 // We could even consider not changing it hear, but always reading it from the path parameter?
 export default function MapPage(): ReactElement {
-  // const [viewPortState, setViewPortState] = useState({
-  //   project: null,
-  //   unproject: null,
-  // });
-
-  // useEffect(() => {
-  //   setViewPortState({
-  //     project: _context.viewport.project,
-  //     unproject: this._context.viewport.unproject,
-  //   });
-  // }, []);
   const [hoveredFeature, setHoveredFeature] = useState<Feature>();
   const [selectedFeatureId, setSelectedFeatureId] = useState<FeatureId>();
   const [cursorType, setCursorType] = useState<string>('grab');
