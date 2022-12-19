@@ -25,6 +25,7 @@ export type GfsForecastResponse = [ForecastEntry, ForecastEntry];
 const GFS_STEP_ORIGIN = 6; // hours
 const GFS_STEP_HORIZON = 1; // hours
 
+// Data is bucketed into groups for every six hours, so we need to find the closest step in the past
 function getForecastStartTime(now: Date) {
   // Warning: solar will not be available at horizon 0 so always do at least horizon 1
   let origin = sub(startOfHour(now), { hours: GFS_STEP_HORIZON });
