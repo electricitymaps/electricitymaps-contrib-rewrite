@@ -38,7 +38,7 @@ function CarbonIntensitySquare({
   const styles = useSpring({ backgroundColor: co2ColorScale(co2intensity) });
   const { number } = useSpring({
     from: { number: 0 },
-    number: co2intensity,
+    number: Number.isFinite(co2intensity) ? co2intensity : 0,
   });
 
   return (
@@ -52,7 +52,7 @@ function CarbonIntensitySquare({
           className="mx-auto flex h-[65px] w-[65px] flex-col items-center justify-center rounded-2xl text-md"
         >
           <p className="select-none text-md font-bold" data-test-id="co2-square-value">
-            <animated.div>{number.to((x) => `${Math.round(x) || '?'}g`)}</animated.div>
+            <animated.span>{number.to((x) => `${Math.round(x) || '?'}g`)}</animated.span>
           </p>
         </animated.div>
       </div>
