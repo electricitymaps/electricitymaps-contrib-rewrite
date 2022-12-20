@@ -1,9 +1,9 @@
-import { PulseLoader } from 'react-spinners';
 import { TimeAverages } from 'utils/constants';
 import { ChartTitle } from './ChartTitle';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';
 import { useCarbonChartData } from './hooks/useCarbonChartData';
+import CarbonChartTooltip from './tooltips/CarbonChartTooltip';
 
 interface CarbonChartProps {
   datetimes: Date[];
@@ -14,13 +14,13 @@ function CarbonChart({ datetimes, timeAverage }: CarbonChartProps) {
   const { data, isLoading, isError } = useCarbonChartData();
 
   if (isLoading || isError || !data) {
-    return <PulseLoader />;
+    return null;
   }
 
   const { chartData, layerFill, layerKeys } = data;
 
   return (
-    <div className="ml-2">
+    <div className="ml-4">
       <ChartTitle translationKey="country-history.carbonintensity" />
       <AreaGraph
         testId="history-carbon-graph"
@@ -35,6 +35,7 @@ function CarbonChart({ datetimes, timeAverage }: CarbonChartProps) {
         height="8em"
         datetimes={datetimes}
         selectedTimeAggregate={timeAverage}
+        tooltip={CarbonChartTooltip}
       />
     </div>
   );

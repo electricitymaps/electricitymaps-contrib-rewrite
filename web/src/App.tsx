@@ -6,8 +6,9 @@ import Toast from 'components/Toast';
 import ErrorBoundary from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
-import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
 import { lazy, ReactElement, Suspense } from 'react';
+import LegendContainer from 'components/legend/LegendContainer';
+import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
 
 const isProduction = import.meta.env.PROD;
 
@@ -17,7 +18,6 @@ const handleReload = () => {
   window.location.reload();
 };
 export default function App(): ReactElement {
-  //@ts-ignore Use global variable from Vite
   const currentAppVersion = APP_VERSION;
   const { data, isSuccess } = useGetAppVersion();
   const isNewVersionAvailable =
@@ -46,6 +46,7 @@ export default function App(): ReactElement {
               <MapWrapper />
               <TimeControllerWrapper />
               <MapControls />
+              <LegendContainer />
             </ErrorBoundary>
           </div>
         </ToastProvider>

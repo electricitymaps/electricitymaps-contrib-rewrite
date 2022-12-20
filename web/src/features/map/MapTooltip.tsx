@@ -14,31 +14,7 @@ import {
   timeAverageAtom,
 } from 'utils/state/atoms';
 import { hoveredZoneAtom, mapMovingAtom, mousePositionAtom } from './mapAtoms';
-
-const getTooltipPosition = (
-  mousePositionX: number,
-  mousePositionY: number,
-  screenWidth: number,
-  tooltipWidth: number,
-  tooltipHeight: number
-) => {
-  const ToolTipFlipBoundaryX = tooltipWidth + 30;
-  const ToolTipFlipBoundaryY = tooltipHeight - 40;
-  const xOffset = 10;
-  const yOffset = tooltipHeight - 40;
-
-  const tooltipPosition = {
-    x: mousePositionX + xOffset,
-    y: mousePositionY - yOffset,
-  };
-  if (screenWidth - mousePositionX < ToolTipFlipBoundaryX) {
-    tooltipPosition.x = mousePositionX - tooltipWidth;
-  }
-  if (mousePositionY < ToolTipFlipBoundaryY) {
-    tooltipPosition.y = mousePositionY;
-  }
-  return tooltipPosition;
-};
+import { getSafeTooltipPosition } from './utilities';
 
 function TooltipInner({
   zoneData,
@@ -50,7 +26,7 @@ function TooltipInner({
   zoneData: {
     co2intensity: number;
     co2intensityProduction: number;
-    countryCode: string;
+    zoneKey: string;
     fossilFuelRatio: number;
     fossilFuelRatioProduction: number;
     renewableRatio: number;
@@ -114,8 +90,8 @@ export default function MapTooltip() {
     : undefined;
 
   const screenWidth = window.innerWidth;
-  const tooltipWithDataPositon = getTooltipPosition(x, y, screenWidth, 290, 176);
-  const emptyTooltipPosition = getTooltipPosition(x, y, screenWidth, 176, 80);
+  const tooltipWithDataPositon = getSafeTooltipPosition(x, y, screenWidth, 290, 176);
+  const emptyTooltipPosition = getSafeTooltipPosition(x, y, screenWidth, 176, 80);
 
   const formattedDate = formatDate(
     new Date(selectedDatetime.datetimeString),

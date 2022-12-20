@@ -9,6 +9,7 @@ import useGetState from 'api/getState';
 import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import ZoomControls from 'features/map-controls/ZoomControls';
 import { leftPanelOpenAtom } from 'features/panels/panelAtoms';
+import WindLayer from 'features/weather-layers/wind-layer/WindLayer';
 import { useAtom, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { createToWithState, getCO2IntensityByMode } from 'utils/helpers';
@@ -36,13 +37,13 @@ export default function MapPage(): ReactElement {
   const setMousePosition = useSetAtom(mousePositionAtom);
   const setIsLoadingMap = useSetAtom(loadingMapAtom);
   const [hoveredZone, setHoveredZone] = useAtom(hoveredZoneAtom);
-  const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const setLeftPanelOpen = useSetAtom(leftPanelOpenAtom);
 
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
   const theme = useTheme();
+
   // Calculate layer styles only when the theme changes
   // To keep the stable and prevent excessive rerendering.
   const styles = useMemo(
@@ -79,7 +80,7 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState(timeAverage);
+  const { isLoading, isError, data } = useGetState();
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
@@ -277,6 +278,9 @@ export default function MapPage(): ReactElement {
         <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
         <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
       </Source>
+      <CustomLayer>
+        <WindLayer />
+      </CustomLayer>
       <CustomLayer>
         <ExchangeLayer />
       </CustomLayer>
