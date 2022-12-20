@@ -55,7 +55,6 @@ function EmptyBarBreakdownChart({
 
   return (
     <>
-      {' '}
       <div style={{ width, height, position: 'absolute' }}>
         {overLayText && (
           <div className="absolute top-[50%] left-[50%] z-10 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-gray-200 p-2 text-center text-sm shadow-sm">
@@ -80,8 +79,6 @@ function EmptyBarBreakdownChart({
               scale={co2Scale}
               value={Math.abs(d.tCo2eqPerMin)}
               isMobile={Boolean(isMobile)}
-              onMouseOut={() => {}}
-              onMouseOver={() => {}}
             >
               <HorizontalBar
                 className="production"
