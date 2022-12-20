@@ -170,8 +170,11 @@ dependencies:
   react-map-gl: 7.0.19_6eczaga5xxiwzxtfiyk6fioasq
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   react-spinners: 0.13.6_biqbaboplfbrettd7655fr4n2y
+  react-spring-bottom-sheet: 3.5.0-alpha.0_3sauqnnrv7lnox3glal4dmngp4
   recharts: 2.1.16_biqbaboplfbrettd7655fr4n2y
+  sprintf-js: 1.1.2
   tailwindcss: 3.1.8_postcss@8.4.18
+  tailwindcss-radix: 2.6.1
   tiny-invariant: 1.3.1
   topojson-client: 3.1.0
 
