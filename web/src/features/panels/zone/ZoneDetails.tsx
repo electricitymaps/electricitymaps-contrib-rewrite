@@ -35,26 +35,28 @@ export default function ZoneDetails(): JSX.Element {
 
   const datetimes = Object.keys(data?.zoneStates || {})?.map((key) => new Date(key));
   return (
-    <div className="h-[calc(100%-290px)] overflow-y-scroll pb-48">
+    <>
       <ZoneHeader zoneId={zoneId} {...selectedData} />
       <DisplayByEmissionToggle />
-      <ZoneDetailsContent
-        isLoading={isLoading}
-        isError={isError}
-        zoneDataStatus={zoneDataStatus}
-      >
-        <BarBreakdownChart />
-        <Divider />
-        {zoneDataStatus === ZoneDataStatus.AVAILABLE && (
-          <AreaGraphContainer
-            datetimes={datetimes}
-            timeAverage={timeAverage}
-            displayByEmissions={displayByEmissions}
-          />
-        )}
-        <Attribution dataSources={selectedData?.source} zoneId={zoneId} />
-      </ZoneDetailsContent>
-    </div>
+      <div className="h-[calc(100%-290px)] overflow-y-scroll pb-48">
+        <ZoneDetailsContent
+          isLoading={isLoading}
+          isError={isError}
+          zoneDataStatus={zoneDataStatus}
+        >
+          <BarBreakdownChart />
+          <Divider />
+          {zoneDataStatus === ZoneDataStatus.AVAILABLE && (
+            <AreaGraphContainer
+              datetimes={datetimes}
+              timeAverage={timeAverage}
+              displayByEmissions={displayByEmissions}
+            />
+          )}
+          <Attribution dataSources={selectedData?.source} zoneId={zoneId} />
+        </ZoneDetailsContent>
+      </div>
+    </>
   );
 }
 
