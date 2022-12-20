@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable unicorn/no-process-exit */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable unicorn/no-array-reduce */
-/* eslint-disable unicorn/prefer-module */
 /* This script aggregates the per-zone config files into a single zones.json/exchanges.json
 file to enable easy importing within web/ */
 import * as yaml from 'js-yaml';
