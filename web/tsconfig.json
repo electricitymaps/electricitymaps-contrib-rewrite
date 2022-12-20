@@ -21,6 +21,6 @@
     },
     "transpileOnly": true
   },
-  "include": ["src", "./cypress/cypress.d.ts"],
+  "include": ["src", "./cypress/cypress.d.ts", "viteEnvironment.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
