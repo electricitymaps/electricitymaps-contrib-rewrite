@@ -1,13 +1,14 @@
+import { ToastProvider } from '@radix-ui/react-toast';
+import { useGetAppVersion } from 'api/getAppVersion';
 import LoadingOverlay from 'components/LoadingOverlay';
 import { OnboardingModal } from 'components/modals/OnboardingModal';
+import Toast from 'components/Toast';
 import ErrorBoundary from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
-import TimeController from 'features/time/TimeController';
-import { ReactElement, lazy, Suspense } from 'react';
-import { ToastProvider } from '@radix-ui/react-toast';
-import { useGetAppVersion } from 'api/getAppVersion';
-import Toast from 'components/Toast';
+import { lazy, ReactElement, Suspense } from 'react';
+import LegendContainer from 'components/legend/LegendContainer';
+import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
 
 const isProduction = import.meta.env.PROD;
 
@@ -17,7 +18,6 @@ const handleReload = () => {
   window.location.reload();
 };
 export default function App(): ReactElement {
-  //@ts-ignore Use global variable from Vite
   const currentAppVersion = APP_VERSION;
   const { data, isSuccess } = useGetAppVersion();
   const isNewVersionAvailable =
@@ -44,8 +44,9 @@ export default function App(): ReactElement {
               <OnboardingModal />
               <LeftPanel />
               <Map />
-              <TimeController />
+              <TimeControllerWrapper />
               <MapControls />
+              <LegendContainer />
             </ErrorBoundary>
           </div>
         </ToastProvider>
