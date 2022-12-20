@@ -1,10 +1,15 @@
 import { useGetSolar } from 'api/getWeatherData';
 import { mapMovingAtom } from 'features/map/mapAtoms';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
+
 import { useEffect } from 'react';
 import { MapboxMap } from 'react-map-gl';
 import { ToggleOptions } from 'utils/constants';
-import { selectedDatetimeIndexAtom, solarLayerAtom } from 'utils/state/atoms';
+import {
+  selectedDatetimeIndexAtom,
+  solarLayerAtom,
+  solarLayerLoadingAtom,
+} from 'utils/state/atoms';
 import { useReferenceWidthHeightObserver } from 'utils/viewport';
 import { stackBlurImageOpacity } from './stackBlurImageOpacity';
 import {
@@ -18,6 +23,7 @@ export default function SolarLayer({ map }: { map?: MapboxMap }) {
   const [isMapMoving] = useAtom(mapMovingAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [solarLayerToggle] = useAtom(solarLayerAtom);
+  const setIsLoadingSolarLayer = useSetAtom(solarLayerLoadingAtom);
 
   const isSolarLayerEnabled =
     solarLayerToggle === ToggleOptions.ON && selectedDatetime.index === 24;
@@ -76,6 +82,7 @@ export default function SolarLayer({ map }: { map?: MapboxMap }) {
       // Render the image into canvas and mark as ready so that fading in can start.
       canvas.clearRect(0, 0, width, height);
       canvas.putImageData(image, 0, 0);
+      setIsLoadingSolarLayer(false);
     }
   }, [node, isVisible, solarData, width, height, map]);
 
