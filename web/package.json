@@ -13,6 +13,7 @@
   "scripts": {
     "build": "pnpm update-version && vite build",
     "update-version": "echo '{\"version\": \"'$npm_package_version'\"}' > public/client-version.json",
+    "update-world": "ts-node ./geo/update-world.ts",
     "cy:components": "cypress open --components -b electron",
     "cy:e2e": "cypress open --e2e -b electron",
     "dev": "vite --open",
