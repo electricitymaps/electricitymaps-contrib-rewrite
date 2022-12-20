@@ -100,7 +100,7 @@ export default function MapPage(): ReactElement {
       return;
     }
 
-    for (const [index, feature] of geometries.features.entries()) {
+    for (const feature of geometries.features) {
       const { zoneId } = feature.properties;
       const zone = data.data?.zones[zoneId];
       const co2intensity =
@@ -114,14 +114,14 @@ export default function MapPage(): ReactElement {
 
       const existingColor = map.getFeatureState({
         source: 'zones-clickable',
-        id: index,
+        id: zoneId,
       })?.color;
 
       if (existingColor !== fillColor) {
         map.setFeatureState(
           {
             source: 'zones-clickable',
-            id: index,
+            id: zoneId,
           },
           {
             color: fillColor,
@@ -265,7 +265,12 @@ export default function MapPage(): ReactElement {
         mapStyle={MAP_STYLE as mapboxgl.Style}
       >
         <Layer id="ocean" type="background" paint={styles.ocean} />
-        <Source id="zones-clickable" generateId type="geojson" data={geometries}>
+        <Source
+          id="zones-clickable"
+          promoteId={'zoneId'}
+          type="geojson"
+          data={geometries}
+        >
           <Layer id="zones-clickable-layer" type="fill" paint={styles.zonesClickable} />
           <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />

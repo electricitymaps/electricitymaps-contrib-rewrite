@@ -31,8 +31,6 @@ export interface Topo {
 const generateTopos = (theme: MapTheme, spatialAggregate: string): MapGeometries => {
   const geometries: MapGeometries = { features: [], type: 'FeatureCollection' };
   const topography = topo as Topo;
-  //Insert an empty to index 0, maplibre can't currently access index 0 to update on hover / click. This is a workaround
-  geometries.features.push({ properties: { zoneId: 'emptyZone' } } as any);
   for (const k of Object.keys(topography.objects)) {
     if (!topography.objects[k].arcs) {
       continue;
