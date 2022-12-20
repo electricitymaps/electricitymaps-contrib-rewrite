@@ -2,7 +2,7 @@ import MapButton from 'components/MapButton';
 import { useAtom } from 'jotai';
 import { ReactElement, useState } from 'react';
 import { FiWind } from 'react-icons/fi';
-import { HiOutlineSun } from 'react-icons/hi';
+import { HiOutlineEyeOff, HiOutlineSun } from 'react-icons/hi';
 import { HiLanguage } from 'react-icons/hi2';
 import { useTranslation } from 'translation/translation';
 import { ToggleOptions } from 'utils/constants';
@@ -11,7 +11,7 @@ import ConsumptionProductionToggle from './ConsumptionProductionToggle';
 import LanguageSelector from './LanguageSelector';
 import SpatialAggregatesToggle from './SpatialAggregatesToggle';
 
-export default function MapControls(): ReactElement {
+export default function MapControls(properties: MapControlsProperties): ReactElement {
   const { __ } = useTranslation();
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [windLayerToggle, setWindLayerToggle] = useAtom(windLayerAtom);
@@ -67,6 +67,16 @@ export default function MapControls(): ReactElement {
         dataTestId="solar-layer-button"
         tooltipText={__('tooltips.solar')}
         onClick={onToggleSolarLayer}
+      />
+
+      <MapButton
+        icon={<HiOutlineEyeOff size={21} className="opacity-50" />}
+        className="mt-2"
+        dataTestId="colorblind-layer-button"
+        tooltipText={__('legends.colorblindmode')}
+        onClick={() => {
+          console.log('toggle colorblind mode');
+        }}
       />
     </div>
   );
