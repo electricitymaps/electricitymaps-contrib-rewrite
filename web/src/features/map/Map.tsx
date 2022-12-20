@@ -9,14 +9,11 @@ import useGetState from 'api/getState';
 import MapTooltip from 'components/tooltips/MapTooltip';
 import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import ZoomControls from 'features/map-controls/ZoomControls';
+import WindLayer from 'features/weather-layers/wind-layer/WindLayer';
 import { useAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { createToWithState, getCO2IntensityByMode } from 'utils/helpers';
-import {
-  loadingMapAtom,
-  selectedDatetimeIndexAtom,
-  timeAverageAtom,
-} from 'utils/state/atoms';
+import { loadingMapAtom, selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import CustomLayer from './map-utils/CustomLayer';
 import { useGetGeometries } from './map-utils/getMapGrid';
 
@@ -48,6 +45,7 @@ export default function MapPage(): ReactElement {
   const getCo2colorScale = useCo2ColorScale();
   const navigate = useNavigate();
   const theme = useTheme();
+
   // Calculate layer styles only when the theme changes
   // To keep the stable and prevent excessive rerendering.
   const styles = useMemo(
@@ -84,7 +82,7 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, error, data } = useGetState();
+  const { isLoading, isError, data } = useGetState();
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
@@ -272,6 +270,9 @@ export default function MapPage(): ReactElement {
           <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
           <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
         </Source>
+        <CustomLayer>
+          <WindLayer isMoving={isMoving} />
+        </CustomLayer>
         <CustomLayer>
           <ExchangeLayer isMoving={isMoving} />
         </CustomLayer>
