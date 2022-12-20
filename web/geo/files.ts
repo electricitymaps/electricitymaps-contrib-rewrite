@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable unicorn/consistent-function-scoping */
-/* eslint-disable unicorn/no-array-reduce */
-/* eslint-disable unicorn/prefer-module */
-// const fs = require('node:fs');
 import yaml from 'js-yaml';
 import fs from 'node:fs';
 import path from 'node:path';

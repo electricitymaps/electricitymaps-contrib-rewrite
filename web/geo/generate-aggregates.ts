@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/prefer-module */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { Feature, MultiPolygon, Polygon, Properties, union } from '@turf/turf';
 import { ZoneConfig } from './types';
 
