@@ -1,10 +1,10 @@
-const path = require('path');
+import path from 'path';
 
 const args = process.argv.slice(2);
 
-const { getJSON } = require('./utilities');
-const { saveZoneYaml } = require('./files');
-const { mergeZones } = require('../generate-zones-config');
+import { mergeZones } from '../generate-zones-config';
+import { saveZoneYaml } from './files';
+import { getJSON } from './utilities';
 
 const zonesGeo = getJSON(path.resolve(__dirname, './world.geojson'));
 const zones = mergeZones();

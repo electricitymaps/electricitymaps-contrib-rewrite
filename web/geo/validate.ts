@@ -4,10 +4,12 @@ import {
   bboxPolygon,
   convex,
   dissolve,
+  Feature,
   featureCollection,
   featureEach,
   getGeom,
   intersect,
+  Polygon,
 } from '@turf/turf';
 import { getHoles, getPolygons, log, writeJSON } from './utilities';
 
@@ -89,10 +91,10 @@ function zeroComplexPolygons(fc, { MAX_CONVEX_DEVIATION }) {
 function matchesZonesConfig(fc) {
   const zonesJson = mergeZones();
 
-  const missingZones = [];
+  const missingZones: string[] = [];
   featureEach(fc, (ft) => {
-    if (!(ft.properties.zoneName in zonesJson)) {
-      missingZones.push(ft.properties.zoneName);
+    if (!(ft.properties?.zoneName in zonesJson)) {
+      missingZones.push(ft.properties?.zoneName);
     }
   });
   if (missingZones.length > 0) {
@@ -120,8 +122,10 @@ function zeroNeighboringIds(fc) {
   // Throws error if multiple polygons have the same zoneName and are right next to each other,
   // in that case they should be merged as one polygon
 
-  const groupedByZoneNames = getPolygons(fc).features.reduce((accumulator, cval) => {
-    const { zoneName } = cval.properties;
+  const groupedByZoneNames: { [key: string]: Feature<Polygon>[] } = getPolygons(
+    fc
+  ).features.reduce((accumulator, cval) => {
+    const zoneName = cval.properties?.zoneName;
     if (accumulator[zoneName]) {
       accumulator[zoneName].push(cval);
     } else {
@@ -163,7 +167,7 @@ function zeroOverlaps(fc, { MIN_AREA_INTERSECTION }) {
     .filter(
       (ft1, index1) =>
         features.filter((ft2, index2) => {
-          if (countriesToIgnore.has(ft1.ft.properties.countryKey)) {
+          if (countriesToIgnore.has(ft1.ft.properties?.countryKey)) {
             return false;
           }
           if (index1 !== index2 && intersect(ft1.bbox, ft2.bbox)) {
@@ -174,7 +178,7 @@ function zeroOverlaps(fc, { MIN_AREA_INTERSECTION }) {
           }
         }).length
     )
-    .map(({ ft, _ }) => ft.properties.zoneName);
+    .map(({ ft, _ }: any) => ft.properties?.zoneName);
   if (overlaps.length > 0) {
     for (const x of overlaps) {
       console.error(`${x} overlaps with another feature`);

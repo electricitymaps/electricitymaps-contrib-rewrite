@@ -5,12 +5,9 @@
 /* eslint-disable unicorn/prefer-module */
 /* This script aggregates the per-zone config files into a single zones.json/exchanges.json
 file to enable easy importing within web/ */
-const yaml = require('js-yaml');
-const path = require('node:path');
-const fs = require('node:fs');
-// import yaml from 'js-yaml';
-// import fs from 'node:fs';
-// import path from 'node:path';
+import * as yaml from 'js-yaml';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 const config = {
   verifyNoUpdates: process.env.VERIFY_NO_UPDATES !== undefined,

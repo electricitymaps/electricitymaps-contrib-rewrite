@@ -1,8 +1,3 @@
-/* eslint-disable unicorn/filename-case */
-/* eslint-disable unicorn/prefer-module */
-// /* eslint-disable @typescript-eslint/no-var-requires */
-// /* eslint-disable unicorn/prefer-module */
-// const path = require('node:path');
 import * as path from 'node:path';
 import { mergeZones } from '../generate-zones-config';
 import { generateAggregates } from './generate-aggregates';
