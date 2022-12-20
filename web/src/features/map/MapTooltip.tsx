@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
+import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { ZoneName } from 'components/ZoneName';
 import { useTranslation } from 'translation/translation';
 import { Mode } from 'utils/constants';
@@ -14,7 +15,6 @@ import {
   timeAverageAtom,
 } from 'utils/state/atoms';
 import { hoveredZoneAtom, mapMovingAtom, mousePositionAtom } from './mapAtoms';
-import { getSafeTooltipPosition } from './utilities';
 
 function TooltipInner({
   zoneData,
