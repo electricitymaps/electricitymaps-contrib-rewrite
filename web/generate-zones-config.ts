@@ -103,7 +103,7 @@ const writeJSON = (fileName: any, object: any) => {
 const zonesConfig = mergeZones();
 const exchangesConfig = mergeExchanges();
 
-const autogenConfigPath = path.resolve(__dirname, 'src/config');
+const autogenConfigPath = path.resolve(__dirname, 'config');
 
 if (config.verifyNoUpdates) {
   const zonesConfigPrevious = JSON.parse(
