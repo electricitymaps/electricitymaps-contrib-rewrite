@@ -9,6 +9,7 @@ import useGetState from 'api/getState';
 import ExchangeLayer from 'features/exchanges/ExchangeLayer';
 import ZoomControls from 'features/map-controls/ZoomControls';
 import { leftPanelOpenAtom } from 'features/panels/panelAtoms';
+import SolarLayer from 'features/weather-layers/solar/SolarLayer';
 import WindLayer from 'features/weather-layers/wind-layer/WindLayer';
 import { useAtom, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
@@ -277,6 +278,9 @@ export default function MapPage(): ReactElement {
         <Layer id="zones-hoverable-layer" type="fill" paint={styles.zonesHover} />
         <Layer id="zones-border" type="line" paint={styles.zonesBorder} />
       </Source>
+      <CustomLayer>
+        <SolarLayer />
+      </CustomLayer>
       <CustomLayer>
         <WindLayer />
       </CustomLayer>
