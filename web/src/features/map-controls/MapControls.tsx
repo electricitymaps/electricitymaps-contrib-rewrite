@@ -69,6 +69,7 @@ export default function MapControls(): ReactElement {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
 
+  // We currently only support showing weather layers for the latest timestamp
   const areWeatherLayersAllowed = selectedDatetime.index === 24;
 
   return (
