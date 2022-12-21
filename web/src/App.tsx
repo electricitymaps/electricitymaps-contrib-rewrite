@@ -13,7 +13,7 @@ import * as Sentry from '@sentry/react';
 
 const isProduction = import.meta.env.PROD;
 
-const Map = lazy(async () => import('features/map/Map'));
+const MapWrapper = lazy(async () => import('features/map/MapWrapper'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
 const handleReload = () => {
   window.location.reload();
@@ -44,7 +44,7 @@ export default function App(): ReactElement {
               <LoadingOverlay />
               <OnboardingModal />
               <LeftPanel />
-              <Map />
+              <MapWrapper />
               <TimeControllerWrapper />
               <MapControls />
               <LegendContainer />
