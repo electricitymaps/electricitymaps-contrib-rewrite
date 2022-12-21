@@ -129,6 +129,12 @@ export default function atomWithCustomStorage<Value>({
       if (typeof value == typeof NO_STORAGE_VALUE) {
         return initialValue;
       }
+      if (value === 'true') {
+        return true;
+      }
+      if (value === 'false' || value === undefined) {
+        return false;
+      }
       return value;
     },
     (get, set, update: Value) => {
