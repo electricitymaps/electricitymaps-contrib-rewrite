@@ -26,7 +26,7 @@ function BarBreakdownChart() {
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
   const { ref, width } = useRefWidthHeightObserver();
   const { __ } = useTranslation();
-  const isMinSM = useBreakpoint('sm');
+  const isBiggerThanMobile = useBreakpoint('sm');
 
   const [tooltipData, setTooltipData] = useState<{
     selectedLayerKey: string;
@@ -58,7 +58,7 @@ function BarBreakdownChart() {
       mousePositionX: clientX || 0,
       mousePositionY: clientY || 0,
       tooltipHeight: displayByEmissions ? 190 : 360,
-      isMinSM,
+      isBiggerThanMobile,
     });
 
     setTooltipData({
