@@ -44,14 +44,19 @@ export function getProductionTooltipData(
     generationTypeProduction,
   });
   const isExport = electricity < 0;
-  const usage =
-    (Number.isFinite(electricity) &&
-      Math.abs(displayByEmissions ? electricity * co2Intensity * 1000 : electricity)) ||
-    Number.NaN;
 
-  const emissions =
-    (Number.isFinite(electricity) && Math.abs(electricity * co2Intensity * 1000)) ||
-    Number.NaN;
+  let usage = Number.NaN;
+  let emissions = Number.NaN;
+
+  if (Number.isFinite(electricity)) {
+    usage = Math.abs(
+      displayByEmissions ? electricity * co2Intensity * 1000 : electricity
+    );
+  }
+
+  if (Number.isFinite(electricity)) {
+    emissions = Math.abs(electricity * co2Intensity * 1000);
+  }
 
   return {
     co2Intensity,

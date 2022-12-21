@@ -164,6 +164,16 @@ describe('getProductionTooltipData', () => {
     };
     expect(actual).toEqual(expected);
   });
+
+  it('returns 0 usage for zero production', () => {
+    const actual = getProductionTooltipData('solar', zoneDetailsData, false);
+    expect(actual.usage).toEqual(0);
+  });
+
+  it('returns nan usage for null production', () => {
+    const actual = getProductionTooltipData('geothermal', zoneDetailsData, false);
+    expect(actual.usage).toEqual(Number.NaN);
+  });
 });
 
 describe('getExchangeTooltipData', () => {
