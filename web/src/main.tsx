@@ -5,7 +5,6 @@ import App from 'App';
 import { useAtomsDevtools } from 'jotai/devtools';
 import { createRoot } from 'react-dom/client';
 import {
-  Routes,
   BrowserRouter,
   useLocation,
   useNavigationType,
@@ -72,7 +71,6 @@ const queryClient = new QueryClient({
 });
 
 const container = document.querySelector('#root');
-const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 if (container) {
   const root = createRoot(container);
   // StrictMode is disabled due to issue in react-spring-bottom-sheet
@@ -81,11 +79,9 @@ if (container) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <SentryRoutes>
-            <AtomsDevtools>
-              <App />
-            </AtomsDevtools>
-          </SentryRoutes>
+          <AtomsDevtools>
+            <App />
+          </AtomsDevtools>
         </BrowserRouter>
         <ReactQueryDevtools position="top-right" initialIsOpen={false} />
       </QueryClientProvider>
