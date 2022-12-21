@@ -88,7 +88,7 @@ export default defineConfig(({ mode }) => ({
           }),
           sentryVitePlugin({
             org: 'electricitymaps',
-            project: 'api', //TODO new project
+            project: 'web-app-new', //TODO new project
 
             // Specify the directory containing build artifacts
             include: './dist',

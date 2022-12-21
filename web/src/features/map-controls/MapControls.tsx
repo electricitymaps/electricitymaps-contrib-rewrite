@@ -11,7 +11,7 @@ import ConsumptionProductionToggle from './ConsumptionProductionToggle';
 import LanguageSelector from './LanguageSelector';
 import SpatialAggregatesToggle from './SpatialAggregatesToggle';
 
-export default function MapControls(properties: MapControlsProperties): ReactElement {
+export default function MapControls(): ReactElement {
   const { __ } = useTranslation();
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [windLayerToggle, setWindLayerToggle] = useAtom(windLayerAtom);

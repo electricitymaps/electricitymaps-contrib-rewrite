@@ -18,9 +18,16 @@ import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 
 const isProduction = import.meta.env.PROD;
+
+// Init CSS
+import 'react-spring-bottom-sheet/dist/style.css';
+import './index.css';
+
+// Init polyfills
+import { StrictMode, useEffect } from 'react';
 if (isProduction) {
   Sentry.init({
-    dsn: 'https://c6e9e4041eb74d22803b3f2bfb0c794d@o192958.ingest.sentry.io/1829181', //Electricitymap-app sentry project
+    dsn: 'https://bbe4fb6e5b3c4b96a1df95145a91e744@o192958.ingest.sentry.io/4504366922989568', //We should create a capacitor project in Sentry for the mobile app
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.reactRouterV6Instrumentation(
@@ -35,13 +42,6 @@ if (isProduction) {
     tracesSampleRate: 1, //This will send 100% of errors to Sentry
   });
 }
-
-// Init CSS
-import 'react-spring-bottom-sheet/dist/style.css';
-import './index.css';
-
-// Init polyfills
-import { StrictMode, useEffect } from 'react';
 
 const AtomsDevtools = ({ children }: { children: JSX.Element }) => {
   useAtomsDevtools('demo');

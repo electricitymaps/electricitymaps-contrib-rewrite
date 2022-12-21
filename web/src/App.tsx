@@ -27,7 +27,7 @@ export default function App(): ReactElement {
       : false;
 
   return (
-    <Suspense fallback={<ErrorComponent />}>
+    <Suspense fallback={<div />}>
       <main className="fixed flex h-screen w-screen flex-col">
         <ToastProvider duration={20_000}>
           <Header />
