@@ -6,7 +6,7 @@ import { useTranslation } from 'translation/translation';
 import { ZoneDetail } from 'types';
 import { displayByEmissionsAtom } from 'utils/state/atoms';
 import { useBreakpoint } from 'utils/styling';
-import { useRefWidthHeightObserver } from 'utils/viewport';
+import { useReferenceWidthHeightObserver } from 'utils/viewport';
 import useBarBreakdownChartData from '../hooks/useBarBreakdownProductionChartData';
 import BreakdownChartTooltip from '../tooltips/BreakdownChartTooltip';
 import BarBreakdownEmissionsChart from './BarBreakdownEmissionsChart';
@@ -24,7 +24,7 @@ function BarBreakdownChart() {
     height,
   } = useBarBreakdownChartData();
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
-  const { ref, width } = useRefWidthHeightObserver();
+  const { ref, width } = useReferenceWidthHeightObserver();
   const { __ } = useTranslation();
   const isBiggerThanMobile = useBreakpoint('sm');
 

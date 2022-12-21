@@ -47,7 +47,7 @@ function BarBreakdownEmissionsChart({
 }: BarBreakdownEmissionsChartProps) {
   const { __ } = useTranslation();
   const { productionY, exchangeY } = getDataBlockPositions(
-    productionData.length || 0,
+    productionData.length > 0 ? productionData.length : 0,
     exchangeData
   );
 
