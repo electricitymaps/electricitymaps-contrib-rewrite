@@ -8,7 +8,7 @@ import { themes } from './oldThemes';
 export function useTheme(): MapTheme {
   const [colorBlindModeEnabled] = useAtom(colorblindModeAtom);
   const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-  const brightModeEnabled = darkThemeMediaQuery.matches; //useSelector((state) => state.application.brightModeEnabled);
+  const brightModeEnabled = darkThemeMediaQuery.matches;
 
   return useMemo(() => {
     if (brightModeEnabled) {
