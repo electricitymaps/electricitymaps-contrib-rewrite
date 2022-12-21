@@ -6,11 +6,12 @@ import { HiOutlineEyeOff, HiOutlineSun } from 'react-icons/hi';
 import { HiLanguage } from 'react-icons/hi2';
 import { MoonLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
-import { ToggleOptions } from 'utils/constants';
+import { TimeAverages, ToggleOptions } from 'utils/constants';
 import {
   selectedDatetimeIndexAtom,
   solarLayerEnabledAtom,
   solarLayerLoadingAtom,
+  timeAverageAtom,
   windLayerAtom,
   windLayerLoadingAtom,
 } from 'utils/state/atoms';
@@ -67,9 +68,12 @@ function WeatherButton({ type }: { type: 'wind' | 'solar' }) {
 export default function MapControls(): ReactElement {
   const { __ } = useTranslation();
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
+  const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
 
-  const areWeatherLayersAllowed = selectedDatetime.index === 24;
+  // We are currently only supporting and fetching weather data for the latest hourly value
+  const areWeatherLayersAllowed =
+    selectedDatetime.index === 24 && timeAverage === TimeAverages.HOURLY;
 
   return (
     <div className="z-1000 pointer-events-none absolute right-3 top-3 hidden flex-col items-end md:flex">
