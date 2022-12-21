@@ -42,7 +42,10 @@ if (isProduction) {
     tracesSampleRate: 1, //This will send 100% of errors to Sentry
   });
 }
-
+/**
+ * DevTools for Jotai which makes atoms appear in Redux Dev Tools.
+ * Only enabled on import.meta.env.DEV
+ */
 const AtomsDevtools = ({ children }: { children: JSX.Element }) => {
   useAtomsDevtools('demo');
   return children;
