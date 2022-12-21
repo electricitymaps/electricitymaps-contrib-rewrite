@@ -9,15 +9,9 @@ import MapControls from 'features/map-controls/MapControls';
 import { lazy, ReactElement, Suspense } from 'react';
 import LegendContainer from 'components/legend/LegendContainer';
 import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
-import { ErrorBoundary, init } from '@sentry/react';
+import * as Sentry from '@sentry/react';
 
 const isProduction = import.meta.env.PROD;
-if (isProduction) {
-  init({
-    dsn: 'https://c6e9e4041eb74d22803b3f2bfb0c794d@o192958.ingest.sentry.io/1829181', //Electricitymap-app sentry project
-    tracesSampleRate: 1, //This will send 100% of errors to Sentry
-  });
-}
 
 const Map = lazy(async () => import('features/map/Map'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
@@ -38,7 +32,7 @@ export default function App(): ReactElement {
         <ToastProvider duration={20_000}>
           <Header />
           <div className="relative flex flex-auto items-stretch">
-            <ErrorBoundary fallback={<ErrorComponent />}>
+            <Sentry.ErrorBoundary fallback={<ErrorComponent />} showDialog>
               {isSuccess && isNewVersionAvailable && (
                 <Toast
                   title="A new app version is available"
@@ -54,7 +48,7 @@ export default function App(): ReactElement {
               <TimeControllerWrapper />
               <MapControls />
               <LegendContainer />
-            </ErrorBoundary>
+            </Sentry.ErrorBoundary>
           </div>
         </ToastProvider>
       </main>

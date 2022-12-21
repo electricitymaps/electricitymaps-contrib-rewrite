@@ -6,6 +6,7 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { localeToFacebookLocale } from './src/translation/locales';
+import sentryVitePlugin from '@sentry/vite-plugin';
 
 export default defineConfig(({ mode }) => ({
   optimizeDeps: {
@@ -78,6 +79,20 @@ export default defineConfig(({ mode }) => ({
                 },
               ],
             },
+          }),
+          sentryVitePlugin({
+            org: 'electricitymaps',
+            project: 'api', //TODO new project
+
+            // Specify the directory containing build artifacts
+            include: './dist',
+
+            // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
+            // and needs the `project:releases` and `org:read` scopes
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+
+            // Optionally uncomment the line below to override automatic release name detection
+            // release: process.env.RELEASE,
           }),
         ]
       : []),
