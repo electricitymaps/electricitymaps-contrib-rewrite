@@ -52,9 +52,6 @@ export function getProductionTooltipData(
     usage = Math.abs(
       displayByEmissions ? electricity * co2Intensity * 1000 : electricity
     );
-  }
-
-  if (Number.isFinite(electricity)) {
     emissions = Math.abs(electricity * co2Intensity * 1000);
   }
 
