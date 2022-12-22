@@ -77,7 +77,7 @@ function BarBreakdownChart() {
       <BySource />
       {tooltipData && (
         <Portal.Root
-          className="absolute left-0 top-0 h-full w-full bg-black/20 p-2 sm:h-0 sm:w-0 sm:p-0"
+          className="pointer-events-none absolute left-0 top-0 h-full w-full bg-black/20 p-2 sm:h-0 sm:w-0 sm:p-0"
           style={{
             left: tooltipData?.x,
             top: tooltipData?.y,
