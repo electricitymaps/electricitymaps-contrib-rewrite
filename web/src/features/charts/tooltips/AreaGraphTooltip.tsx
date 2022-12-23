@@ -43,7 +43,7 @@ export default function AreaGraphTooltip(
   });
 
   return (
-    <Portal.Root className="pointer-events-none absolute left-0 top-0 h-full w-full bg-black/20 sm:h-0 sm:w-0">
+    <Portal.Root className="pointer-events-auto absolute left-0 top-0 h-full w-full bg-black/20 sm:h-0 sm:w-0">
       <div
         style={{
           left: tooltipWithDataPositon.x,
@@ -52,7 +52,7 @@ export default function AreaGraphTooltip(
         className="relative flex flex-col items-center gap-y-1 p-2 sm:block sm:p-0"
       >
         {children({ zoneDetail, selectedLayerKey })}
-        <button className="p-auto pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full bg-white shadow dark:bg-gray-900">
+        <button className="p-auto pointer-events-auto flex h-8 w-8 items-center justify-center rounded-full bg-white shadow dark:bg-gray-900 sm:hidden">
           <HiXMark size="24" />
         </button>
       </div>
