@@ -43,7 +43,7 @@ export default function AreaGraphTooltip(
   });
 
   return (
-    <Portal.Root className="pointer-events-auto absolute left-0 top-0 z-50 h-full w-full bg-black/20 sm:h-0 sm:w-0">
+    <Portal.Root className="pointer-events-none absolute left-0 top-0 z-50 h-full w-full bg-black/20 sm:h-0 sm:w-0">
       <div
         style={{
           left: tooltipWithDataPositon.x,
