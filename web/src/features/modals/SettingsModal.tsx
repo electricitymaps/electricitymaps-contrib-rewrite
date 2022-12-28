@@ -77,7 +77,7 @@ export function SettingsModalContent() {
 
   const { __ } = useTranslation();
   return (
-    <div className="flex flex-col items-center space-y-3">
+    <div className="flex flex-col items-center space-y-4">
       <ConsumptionProductionToggle />
       <SpatialAggregatesToggle />
       <Button
