@@ -7,7 +7,7 @@ import { isFAQModalOpenAtom } from './modalAtoms';
 export function FAQModalContent() {
   const { __ } = useTranslation();
   return (
-    <div className=" flex flex-col items-center ">
+    <div className="flex flex-col items-center">
       <div className="h-[75vh] overflow-y-scroll">
         <FAQContent />
       </div>
