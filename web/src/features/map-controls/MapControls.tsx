@@ -1,8 +1,10 @@
-import { useAtom } from 'jotai';
-import { ReactElement, useState } from 'react';
+import { Button } from 'components/Button';
+import { isInfoModalOpenAtom, isSettingsModalOpenAtom } from 'features/modals/modalAtoms';
+import { useAtom, useSetAtom } from 'jotai';
+import { useState } from 'react';
 import { FiWind } from 'react-icons/fi';
 import { HiOutlineEyeOff, HiOutlineSun } from 'react-icons/hi';
-import { HiLanguage } from 'react-icons/hi2';
+import { HiCog6Tooth, HiLanguage, HiOutlineInformationCircle } from 'react-icons/hi2';
 import { MoonLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages, ToggleOptions } from 'utils/constants';
@@ -20,7 +22,35 @@ import LanguageSelector from './LanguageSelector';
 import MapButton from './MapButton';
 import SpatialAggregatesToggle from './SpatialAggregatesToggle';
 
-const weatherButtonMap = {
+function MobileMapControls() {
+  const setIsInfoModalOpen = useSetAtom(isInfoModalOpenAtom);
+  const setIsSettingsModalOpen = useSetAtom(isSettingsModalOpenAtom);
+
+  // TODO: add safe area insets
+  // top: env(safe-area-inset-top, 10px);
+
+  const handleOpenInfoModal = () => setIsInfoModalOpen(true);
+  const handleOpenSettingsModal = () => setIsSettingsModalOpen(true);
+
+  return (
+    <div className="absolute top-2 right-2 flex space-x-3 sm:hidden">
+      <Button
+        className="m-0 p-3"
+        aria-label="open info modal"
+        onClick={handleOpenInfoModal}
+        icon={<HiOutlineInformationCircle size={21} />}
+      />
+      <Button
+        className="m-0 p-3"
+        aria-label="open settings modal"
+        onClick={handleOpenSettingsModal}
+        icon={<HiCog6Tooth size={20} />}
+      />
+    </div>
+  );
+}
+
+export const weatherButtonMap = {
   wind: {
     icon: FiWind,
     iconSize: 18,
@@ -66,7 +96,7 @@ function WeatherButton({ type }: { type: 'wind' | 'solar' }) {
   );
 }
 
-export default function MapControls(): ReactElement {
+function DesktopMapControls() {
   const { __ } = useTranslation();
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [timeAverage] = useAtom(timeAverageAtom);
@@ -83,7 +113,7 @@ export default function MapControls(): ReactElement {
   };
 
   return (
-    <div className="z-1000 pointer-events-none absolute right-3 top-3 hidden flex-col items-end md:flex">
+    <div className="pointer-events-none absolute right-3 top-3 z-50 hidden flex-col items-end md:flex">
       <div className="pointer-events-auto mb-16 flex flex-col items-end space-y-1">
         <ConsumptionProductionToggle />
         <SpatialAggregatesToggle />
@@ -118,5 +148,14 @@ export default function MapControls(): ReactElement {
         )}
       </div>
     </div>
+  );
+}
+
+export default function MapControls() {
+  return (
+    <>
+      <MobileMapControls />
+      <DesktopMapControls />
+    </>
   );
 }
