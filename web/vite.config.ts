@@ -88,7 +88,7 @@ export default defineConfig(({ mode }) => ({
           }),
           sentryVitePlugin({
             org: 'electricitymaps',
-            project: 'web-app-new', //TODO new project
+            project: 'app-new',
 
             // Specify the directory containing build artifacts
             include: './dist',
@@ -98,7 +98,7 @@ export default defineConfig(({ mode }) => ({
             authToken: process.env.SENTRY_AUTH_TOKEN,
 
             // Optionally uncomment the line below to override automatic release name detection
-            // release: process.env.RELEASE,
+            release: process.env.npm_package_version,
           }),
         ]
       : []),
