@@ -8,7 +8,7 @@ const colorblindCo2Scale = {
   colors: ['#FFFFB0', '#E0B040', '#A06030', '#602020', '#000010'],
 };
 
-export const themes = {
+export const colors = {
   colorblindDark: {
     co2Scale: colorblindCo2Scale,
     oceanColor: '#33414A',
@@ -26,7 +26,7 @@ export const themes = {
     nonClickableFill: '#7A878D',
   },
   colorblindBright: {
-    co2scale: colorblindCo2Scale,
+    co2Scale: colorblindCo2Scale,
     oceanColor: '#FAFAFA',
     strokeWidth: 0.3,
     strokeColor: '#FAFAFA',

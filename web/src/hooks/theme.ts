@@ -1,7 +1,7 @@
 import { scaleLinear } from 'd3-scale';
 import { useMemo } from 'react';
 import { MapTheme } from 'types';
-import { themes } from './oldThemes';
+import { colors } from './colors';
 // TODO: Convert this to a Jotai atom and consider if we want to do things differently now with new setup
 export function useTheme() {
   const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
@@ -10,9 +10,9 @@ export function useTheme() {
 
   return useMemo(() => {
     if (brightModeEnabled) {
-      return colorBlindModeEnabled ? themes.colorblindBright : themes.bright;
+      return colorBlindModeEnabled ? colors.colorblindBright : colors.bright;
     } else {
-      return colorBlindModeEnabled ? themes.colorblindDark : themes.dark;
+      return colorBlindModeEnabled ? colors.colorblindDark : colors.dark;
     }
   }, [brightModeEnabled, colorBlindModeEnabled]);
 }

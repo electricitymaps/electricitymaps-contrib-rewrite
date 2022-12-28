@@ -1,7 +1,7 @@
-import { useCo2ColorScale } from 'hooks/theme';
 import type { ReactElement } from 'react';
 import { useTranslation } from 'translation/translation';
 import HorizontalColorbar from './ColorBar';
+import { windColor } from 'features/weather-layers/wind-layer/scales';
 
 function LegendItem({
   isEnabled,
@@ -11,7 +11,7 @@ function LegendItem({
 }: {
   isEnabled: boolean;
   label: string;
-  unit: string;
+  unit: string | ReactElement;
   children: ReactElement;
 }) {
   return !isEnabled ? null : (
@@ -24,13 +24,12 @@ function LegendItem({
   );
 }
 
-export default function Co2Legend(): ReactElement {
+export default function WindLegend(): ReactElement {
   const { __ } = useTranslation();
-  const co2ColorScale = useCo2ColorScale();
   return (
     <div>
-      <LegendItem label={__('legends.carbonintensity')} unit="gCO₂eq/kWh" isEnabled>
-        <HorizontalColorbar colorScale={co2ColorScale} ticksCount={5} id={'co2'} />
+      <LegendItem label={__('legends.windpotential')} unit="m/s" isEnabled>
+        <HorizontalColorbar colorScale={windColor} id="wind" ticksCount={6} />
       </LegendItem>
     </div>
   );
