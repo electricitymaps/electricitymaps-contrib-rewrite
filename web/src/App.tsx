@@ -6,6 +6,7 @@ import Toast from 'components/Toast';
 import ErrorComponent from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
 import MapControls from 'features/map-controls/MapControls';
+import InfoModal from 'features/modals/InfoModal';
 import { lazy, ReactElement, Suspense } from 'react';
 import LegendContainer from 'components/legend/LegendContainer';
 import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
@@ -43,6 +44,7 @@ export default function App(): ReactElement {
               )}
               <LoadingOverlay />
               <OnboardingModal />
+              <InfoModal />
               <LeftPanel />
               <MapWrapper />
               <TimeControllerWrapper />
