@@ -25,11 +25,12 @@ export default function EmissionToggle(): ReactElement {
   };
 
   return (
-    <div className="px-2 pt-3 pb-4 xl:px-10">
+    <div className="px-2 pt-3 xl:px-10">
       <ToggleButton
         options={options}
         selectedOption={displayByEmissions.toString()}
         onToggle={onSetCurrentMode}
+        fontSize="text-xs"
       />
     </div>
   );
