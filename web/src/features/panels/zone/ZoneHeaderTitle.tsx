@@ -47,7 +47,7 @@ export default function ZoneHeaderTitle({
             </span>
           </h2>
         </div>
-        <div className="flex flex-wrap items-center gap-1 text-center">
+        <div className="flex h-3 flex-wrap items-center gap-1 text-center">
           {isEstimated && (
             <Badge type="warning" key={'badge-est'}>
               {__('country-panel.estimated')}
