@@ -1,20 +1,23 @@
 import { scaleLinear } from 'd3-scale';
+import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 import { MapTheme } from 'types';
 import { colors } from './colors';
+import { colorblindModeAtom } from 'utils/state/atoms';
+
 // TODO: Convert this to a Jotai atom and consider if we want to do things differently now with new setup
-export function useTheme() {
+export function useTheme(): MapTheme {
+  const [isColorBlindModeEnabled] = useAtom(colorblindModeAtom);
   const darkThemeMediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-  const brightModeEnabled = darkThemeMediaQuery.matches; //useSelector((state) => state.application.brightModeEnabled);
-  const colorBlindModeEnabled = false; //useSelector((state) => state.application.colorBlindModeEnabled);
+  const isBrightModeEnabled = darkThemeMediaQuery.matches;
 
   return useMemo(() => {
-    if (brightModeEnabled) {
-      return colorBlindModeEnabled ? colors.colorblindBright : colors.bright;
+    if (isBrightModeEnabled) {
+      return isColorBlindModeEnabled ? colors.colorblindBright : colors.bright;
     } else {
-      return colorBlindModeEnabled ? colors.colorblindDark : colors.dark;
+      return isColorBlindModeEnabled ? colors.colorblindDark : colors.dark;
     }
-  }, [brightModeEnabled, colorBlindModeEnabled]);
+  }, [isBrightModeEnabled, isColorBlindModeEnabled]) as MapTheme;
 }
 
 export function useCo2ColorScale() {
