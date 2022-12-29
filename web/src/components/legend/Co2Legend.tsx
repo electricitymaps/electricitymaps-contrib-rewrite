@@ -4,17 +4,15 @@ import { useTranslation } from 'translation/translation';
 import HorizontalColorbar from './ColorBar';
 
 function LegendItem({
-  isEnabled,
   label,
   unit,
   children,
 }: {
-  isEnabled: boolean;
   label: string;
   unit: string;
   children: ReactElement;
 }) {
-  return !isEnabled ? null : (
+  return (
     <div className="text-center">
       <p className="py-1  text-base">
         {label} <small>({unit})</small>
@@ -29,7 +27,7 @@ export default function Co2Legend(): ReactElement {
   const co2ColorScale = useCo2ColorScale();
   return (
     <div>
-      <LegendItem label={__('legends.carbonintensity')} unit="gCO₂eq/kWh" isEnabled>
+      <LegendItem label={__('legends.carbonintensity')} unit="gCO₂eq/kWh">
         <HorizontalColorbar colorScale={co2ColorScale} ticksCount={5} id={'co2'} />
       </LegendItem>
     </div>

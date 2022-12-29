@@ -1,20 +1,18 @@
 import type { ReactElement } from 'react';
 import { useTranslation } from 'translation/translation';
 import HorizontalColorbar from './ColorBar';
-import { solarColor } from './solarScale';
+import { solarColor } from '../../features/weather-layers/solar/utils';
 
 function LegendItem({
-  isEnabled,
   label,
   unit,
   children,
 }: {
-  isEnabled: boolean;
   label: string;
   unit: string | ReactElement;
   children: ReactElement;
 }) {
-  return !isEnabled ? null : (
+  return (
     <div className="text-center">
       <p className="py-1  text-base">
         {label} <small>({unit})</small>
@@ -28,7 +26,7 @@ export default function SolarLegend(): ReactElement {
   const { __ } = useTranslation();
   return (
     <div>
-      <LegendItem label={__('legends.solarpotential')} unit="W/m²" isEnabled>
+      <LegendItem label={__('legends.solarpotential')} unit="W/m²">
         <HorizontalColorbar colorScale={solarColor} id="solar" ticksCount={5} />
       </LegendItem>
     </div>
