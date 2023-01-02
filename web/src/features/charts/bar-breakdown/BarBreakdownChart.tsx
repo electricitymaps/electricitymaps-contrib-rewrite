@@ -15,6 +15,8 @@ import BarBreakdownProductionChart from './BarBreakdownProductionChart';
 import BySource from './BySource';
 import EmptyBarBreakdownChart from './EmptyBarBreakdownChart';
 
+const X_PADDING = 9;
+
 function BarBreakdownChart() {
   const {
     currentZoneDetail,
@@ -25,7 +27,7 @@ function BarBreakdownChart() {
     height,
   } = useBarBreakdownChartData();
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
-  const { ref, width } = useReferenceWidthHeightObserver();
+  const { ref, width } = useReferenceWidthHeightObserver(X_PADDING);
   const { __ } = useTranslation();
   const isBiggerThanMobile = useBreakpoint('sm');
 

@@ -2,6 +2,7 @@ import useGetZone from 'api/getZone';
 import BarBreakdownChart from 'features/charts/bar-breakdown/BarBreakdownChart';
 import { useAtom } from 'jotai';
 import { Navigate, useParams } from 'react-router-dom';
+import { TimeAverages } from 'utils/constants';
 import {
   displayByEmissionsAtom,
   selectedDatetimeIndexAtom,
@@ -36,7 +37,12 @@ export default function ZoneDetails(): JSX.Element {
   const datetimes = Object.keys(data?.zoneStates || {})?.map((key) => new Date(key));
   return (
     <>
-      <ZoneHeader zoneId={zoneId} {...selectedData} />
+      <ZoneHeader
+        zoneId={zoneId}
+        {...selectedData}
+        isAggregated={timeAverage !== TimeAverages.HOURLY}
+        isEstimated={selectedData?.estimationMethod !== undefined}
+      />
       <DisplayByEmissionToggle />
       <div className="h-[calc(100%-290px)] overflow-y-scroll p-4 pt-0 pb-48">
         <ZoneDetailsContent
@@ -74,7 +80,7 @@ function ZoneDetailsContent({
   if (isLoading) {
     return (
       <div className={`flex h-full w-full items-center justify-center`}>
-        <div className="z-50 h-[50px] w-[50px] bg-[url('/loading-icon.svg')] bg-[length:60px] bg-center bg-no-repeat dark:bg-gray-900 dark:bg-[url('/loading-icon-darkmode.svg')]"></div>
+        <div className="z-50 h-[50px] w-[50px] bg-[url('/loading-icon.svg')] bg-[length:60px] bg-center bg-no-repeat dark:bg-[url('/loading-icon-darkmode.svg')]"></div>
       </div>
     );
   }
