@@ -1,5 +1,5 @@
 import * as path from 'node:path';
-import { mergeZones } from '../generate-zones-config';
+import { mergeZones } from '../scripts/generate-zones-config';
 import { generateAggregates } from './generate-aggregates';
 import { generateExchangesToIgnore } from './generate-exchanges-to-exclude';
 import { generateTopojson } from './generate-topojson';
