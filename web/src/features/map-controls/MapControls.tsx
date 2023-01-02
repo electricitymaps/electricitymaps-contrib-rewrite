@@ -7,6 +7,7 @@ import { HiOutlineEyeOff, HiOutlineSun } from 'react-icons/hi';
 import { HiCog6Tooth, HiLanguage, HiOutlineInformationCircle } from 'react-icons/hi2';
 import { MoonLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
+import trackEvent from 'utils/analytics';
 import { TimeAverages, ToggleOptions } from 'utils/constants';
 import {
   colorblindModeAtom,
@@ -71,11 +72,21 @@ function WeatherButton({ type }: { type: 'wind' | 'solar' }) {
   const [isLoadingLayer, setIsLoadingLayer] = useAtom(weatherButtonMap[type].loadingAtom);
   const isEnabled = enabled === ToggleOptions.ON;
   const Icon = weatherButtonMap[type].icon;
+  const tooltipTexts = {
+    wind: isEnabled ? __('tooltips.hideWindLayer') : __('tooltips.showWindLayer'),
+    solar: isEnabled ? __('tooltips.hideSolarLayer') : __('tooltips.showSolarLayer'),
+  };
+
+  const weatherId = `${type.charAt(0).toUpperCase() + type.slice(1)}`; // Capitalize first letter
 
   const onToggle = () => {
     if (!isEnabled) {
       setIsLoadingLayer(true);
+      trackEvent(`${weatherId} Enabled`);
+    } else {
+      trackEvent(`${weatherId} Disabled`);
     }
+
     setEnabled(isEnabled ? ToggleOptions.OFF : ToggleOptions.ON);
   };
 
@@ -88,7 +99,7 @@ function WeatherButton({ type }: { type: 'wind' | 'solar' }) {
           <Icon size={weatherButtonMap[type].iconSize} color={isEnabled ? '' : 'gray'} />
         )
       }
-      tooltipText={__(`tooltips.${type}}`)}
+      tooltipText={tooltipTexts[type]}
       dataTestId={`${type}-layer-button`}
       className={`${isLoadingLayer ? 'cursor-default' : 'cursor-pointer'}`}
       onClick={!isLoadingLayer ? onToggle : () => {}}
