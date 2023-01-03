@@ -8,7 +8,7 @@ import { validateGeometry } from './validate';
 
 const config = {
   WORLD_PATH: path.resolve(__dirname, './world.geojson'),
-  OUT_PATH: path.resolve(__dirname, '../src/config/world.json'),
+  OUT_PATH: path.resolve(__dirname, '../config/world.json'),
   ERROR_PATH: path.resolve(__dirname, '.'),
   MIN_AREA_HOLES: 5_000_000,
   MAX_CONVEX_DEVIATION: 0.708,
@@ -19,7 +19,7 @@ const config = {
 
 const EXCHANGE_OUT_PATH = path.resolve(
   __dirname,
-  '../src/config/excluded-aggregated-exchanges.json'
+  '../config/excludedAggregatedExchanges.json'
 );
 
 const fc = getJSON(config.WORLD_PATH);
