@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
 import { formatDataSources } from 'utils/formatting';
-import { getContributors, getDisclaimer } from './util';
+import { getContributors } from './util';
 
 export function removeDuplicateSources(source: string | undefined) {
   if (!source) {
@@ -66,18 +66,9 @@ export default function Attribution({
       {__('country-panel.helpfrom')}
       <div className="flex flex-wrap gap-1">
         <ContributorList zoneId={zoneId} />
-        <Disclaimer zoneId={zoneId} />
       </div>
     </div>
   );
-}
-
-function Disclaimer({ zoneId }: { zoneId: string }) {
-  const disclaimer = getDisclaimer(zoneId);
-  if (!disclaimer) {
-    return null;
-  }
-  return <div className="pt-2">Disclaimer: {disclaimer}</div>;
 }
 
 function ContributorList({ zoneId }: { zoneId: string }) {
