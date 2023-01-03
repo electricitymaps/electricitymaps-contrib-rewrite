@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
-import source from 'react-map-gl/dist/esm/components/source';
 import { useTranslation } from 'translation/translation';
 import { formatDataSources } from 'utils/formatting';
-import zonesConfigJSON from '../../../../config/zones.json'; // Todo: improve how to handle json configs
-import { getContributors } from './util';
-const zonesConfig: Record<string, any> = zonesConfigJSON;
+import { getContributors, getDisclaimer } from './util';
 
 export function removeDuplicateSources(source: string | undefined) {
   if (!source) {
@@ -69,9 +66,18 @@ export default function Attribution({
       {__('country-panel.helpfrom')}
       <div className="flex flex-wrap gap-1">
         <ContributorList zoneId={zoneId} />
+        <Disclaimer zoneId={zoneId} />
       </div>
     </div>
   );
+}
+
+function Disclaimer({ zoneId }: { zoneId: string }) {
+  const disclaimer = getDisclaimer(zoneId);
+  if (!disclaimer) {
+    return null;
+  }
+  return <div className="pt-2">Disclaimer: {disclaimer}</div>;
 }
 
 function ContributorList({ zoneId }: { zoneId: string }) {
