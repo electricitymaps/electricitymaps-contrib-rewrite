@@ -71,7 +71,7 @@ function Modal({
        self-center sm:top-4 sm:min-w-[500px]"
         data-test-id={modalName}
       >
-        <div className="pointer-events-auto flex w-full max-w-[60px] shrink flex-col justify-around">
+        <div className="pointer-events-auto z-10 flex w-full max-w-[35px] shrink flex-col justify-around px-2 sm:max-w-[60px]">
           {!isOnFirstView() && (
             <button
               className="flex h-10 w-10 items-center justify-center rounded-full bg-white pr-1 shadow dark:bg-gray-900"
@@ -122,7 +122,7 @@ function Modal({
             />
           ))}
         </div>
-        <div className="pointer-events-auto flex w-full max-w-[60px] flex-col items-end  ">
+        <div className="pointer-events-auto z-10 flex w-full max-w-[35px] flex-col items-end px-2 sm:max-w-[60px]">
           {RightButton}
         </div>
       </div>
