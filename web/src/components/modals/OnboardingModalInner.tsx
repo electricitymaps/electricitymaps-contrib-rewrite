@@ -44,14 +44,14 @@ function Modal({
 
   const RightButton = isOnLastView() ? (
     <button
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green shadow"
       onClick={onDismiss}
     >
       <HiCheck size="24" color="white" />
     </button>
   ) : (
     <button
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-white pl-1 dark:bg-gray-900"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-white pl-1 shadow dark:bg-gray-900"
       onClick={handleForward}
     >
       <HiChevronRight size="24" />
@@ -74,7 +74,7 @@ function Modal({
         <div className="pointer-events-auto flex w-full max-w-[60px] shrink flex-col justify-around">
           {!isOnFirstView() && (
             <button
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white pr-1 dark:bg-gray-900"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white pr-1 shadow dark:bg-gray-900"
               onClick={handleBack}
             >
               <HiChevronLeft size="24" />
