@@ -91,9 +91,9 @@ function Modal({
             </button>
           </div>
           <div
-            className={`flex h-1/2 max-h-[264px] w-full
-              flex-grow  rounded-t-xl bg-auto bg-center bg-no-repeat ${
-                isOnFirstView() ? 'dark:invert' : ''
+            className={`flex h-1/2 max-h-[264px] w-full flex-grow
+              self-center rounded-t-xl bg-auto bg-center bg-no-repeat ${
+                isOnFirstView() ? 'max-w-[12rem] dark:invert' : ''
               }`}
             style={
               currentView.headerImage && {
