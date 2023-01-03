@@ -4,6 +4,7 @@ import { BottomSheet } from 'react-spring-bottom-sheet';
 import { useBreakpoint } from 'utils/styling';
 import TimeController from './TimeController';
 import TimeHeader from './TimeHeader';
+import { hasOnboardingBeenSeenAtom } from 'utils/state/atoms';
 
 const SNAP_POINTS = [60, 160];
 
@@ -33,6 +34,10 @@ function FloatingTimeController() {
 
 export default function TimeControllerWrapper() {
   const isBiggerThanMobile = useBreakpoint('sm');
+  const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
+  if (!hasOnboardingBeenSeen) {
+    return null;
+  }
   return isBiggerThanMobile ? (
     <FloatingTimeController />
   ) : (
