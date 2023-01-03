@@ -1,21 +1,22 @@
 import { loadingMapAtom } from 'features/map/mapAtoms';
 import { useAtom } from 'jotai';
 import { BottomSheet } from 'react-spring-bottom-sheet';
+import { hasOnboardingBeenSeenAtom } from 'utils/state/atoms';
 import { useBreakpoint } from 'utils/styling';
 import TimeController from './TimeController';
 import TimeHeader from './TimeHeader';
-import { hasOnboardingBeenSeenAtom } from 'utils/state/atoms';
 
 const SNAP_POINTS = [60, 160];
 
 function BottomSheetWrappedTimeController() {
   const [isLoadingMap] = useAtom(loadingMapAtom);
+  const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
 
   return (
     <BottomSheet
       scrollLocking={false} // Ensures scrolling is not blocked on IOS
       open={!isLoadingMap}
-      snapPoints={() => SNAP_POINTS}
+      snapPoints={() => (hasOnboardingBeenSeen ? SNAP_POINTS : [0])}
       blocking={false}
       header={<TimeHeader />}
     >
@@ -34,10 +35,6 @@ function FloatingTimeController() {
 
 export default function TimeControllerWrapper() {
   const isBiggerThanMobile = useBreakpoint('sm');
-  const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
-  if (!hasOnboardingBeenSeen) {
-    return null;
-  }
   return isBiggerThanMobile ? (
     <FloatingTimeController />
   ) : (
