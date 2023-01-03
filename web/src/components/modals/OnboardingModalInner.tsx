@@ -68,7 +68,7 @@ function Modal({
       />
       <div
         className="px-auto pointer-events-none  absolute top-auto z-50 mx-auto flex w-full items-center justify-center
-       self-center sm:top-4 sm:min-w-[500px]"
+       self-center sm:top-20 sm:min-w-[500px]"
         data-test-id={modalName}
       >
         <div className="pointer-events-auto z-10 flex w-full max-w-[35px] shrink flex-col justify-around px-2 sm:max-w-[60px]">
