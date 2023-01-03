@@ -81,11 +81,7 @@ function Modal({
             </button>
           )}
         </div>
-        <div
-          className={
-            'color-white pointer-events-auto relative flex h-[500px] w-auto max-w-[500px] flex-col rounded-3xl bg-gray-50 shadow  dark:bg-gray-700'
-          }
-        >
+        <div className="color-white pointer-events-auto relative flex h-[450px] w-auto max-w-[500px] flex-col rounded-3xl bg-gray-50 shadow-lg dark:bg-gray-700  sm:h-[500px]">
           <div className="absolute self-end p-4 align-baseline">
             <button
               className="p-auto pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white shadow dark:bg-gray-900"
