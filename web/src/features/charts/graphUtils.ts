@@ -113,7 +113,7 @@ export function getElectricityProductionValue({
   generationTypeProduction,
   generationTypeStorage,
 }: {
-  generationTypeCapacity: Maybe<number> | undefined;
+  generationTypeCapacity: Maybe<number>;
   isStorage: boolean;
   generationTypeProduction: Maybe<number>;
   generationTypeStorage: Maybe<number>;
