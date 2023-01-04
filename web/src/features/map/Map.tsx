@@ -237,7 +237,7 @@ export default function MapPage(): ReactElement {
   const onLoad = () => {
     if (data?.callerLocation) {
       const map = mapReference.current?.getMap();
-      map?.flyTo({ center: [data?.callerLocation[0], data?.callerLocation[1]] });
+      map?.flyTo({ center: [data.callerLocation[0], data.callerLocation[1]] });
     }
     setIsLoadingMap(false);
   };
