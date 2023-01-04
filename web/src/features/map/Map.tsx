@@ -132,6 +132,9 @@ export default function MapPage(): ReactElement {
         );
       }
     }
+    if (data?.callerLocation) {
+      map.flyTo({ center: [data.callerLocation[0], data.callerLocation[1]] });
+    }
   }, [mapReference, geometries, data, getCo2colorScale, selectedDatetime]);
 
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
@@ -235,10 +238,6 @@ export default function MapPage(): ReactElement {
   };
 
   const onLoad = () => {
-    if (data?.callerLocation) {
-      const map = mapReference.current?.getMap();
-      map?.flyTo({ center: [data.callerLocation[0], data.callerLocation[1]] });
-    }
     setIsLoadingMap(false);
   };
 
