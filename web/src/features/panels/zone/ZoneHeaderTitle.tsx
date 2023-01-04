@@ -34,23 +34,29 @@ export default function ZoneHeaderTitle({
       >
         <HiArrowLeft />
       </Link>
-      <div>
+
+      <div className="w-full">
         <div className="flex  flex-row justify-between">
-          <div className="mb-0.5 flex items-center">
-            <CountryFlag
-              zoneId={zoneId}
-              size={18}
-              className="mr-1 shadow-[0_0px_3px_rgba(0,0,0,0.2)]"
-            />
-            <div className="flex w-[280px] flex-row overflow-hidden">
-              <h2 className="truncate font-medium" data-test-id="zone-name">
-                {title}
-              </h2>
-              {isSubZone && (
-                <p className="ml-2 flex w-auto items-center whitespace-nowrap rounded-full bg-gray-200 py-0.5 px-2  text-xs dark:bg-gray-900">
-                  {countryName || zoneId}
-                </p>
-              )}
+          <div className="mb-0.5 flex  w-full  justify-between">
+            <div className="flex  flex-row items-center ">
+              <CountryFlag
+                zoneId={zoneId}
+                size={18}
+                className="mr-1 shadow-[0_0px_3px_rgba(0,0,0,0.2)]"
+              />
+              <div className="flex flex-row">
+                <h2
+                  className="max-w-[300px] overflow-hidden truncate font-medium sm:max-w-[230px] md:max-w-[270px]"
+                  data-test-id="zone-name"
+                >
+                  {title}
+                </h2>
+                {isSubZone && (
+                  <p className="ml-2 flex w-auto items-center whitespace-nowrap rounded-full bg-gray-200 py-0.5 px-2  text-xs dark:bg-gray-900">
+                    {countryName || zoneId}
+                  </p>
+                )}
+              </div>
             </div>
             {disclaimer && (
               <TooltipWrapper side="bottom" tooltipContent={disclaimer}>
