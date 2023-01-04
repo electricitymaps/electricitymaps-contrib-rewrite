@@ -31,7 +31,7 @@ gsutil web set -m index.html -e 404.html $BUCKET_NAME
 #gsutil setmeta -h "Cache-Control:no-cache,max-age=0" $BUCKET_NAME/*.json
 
 # Create new git tag and Github release
-VERSION=$(pnpm version prerelease --preid=beta)
+VERSION=$(npm pkg get version | tr -d '"')
 git tag -a $VERSION -m "$VERSION"
 git push origin $VERSION
 gh release create $VERSION --generate-notes --prerelease --repo electricitymaps/electricitymaps-contrib-rewrite

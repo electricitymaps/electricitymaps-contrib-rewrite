@@ -27,7 +27,7 @@
     "run-eslint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
     "lint": "run-p run-tsc run-eslint",
     "validate": "run-p lint test:ci test:e2e:headless",
-    "deploy": "pnpm build && sh scripts/deploy.sh",
+    "deploy": "pnpm version prerelease --preid=beta && pnpm build && sh scripts/deploy.sh",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
