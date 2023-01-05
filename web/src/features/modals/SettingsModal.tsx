@@ -11,7 +11,11 @@ import { HiLanguage } from 'react-icons/hi2';
 import { MoonLoader } from 'react-spinners';
 import { useTranslation } from 'translation/translation';
 import { TimeAverages, ToggleOptions } from 'utils/constants';
-import { selectedDatetimeIndexAtom, timeAverageAtom } from 'utils/state/atoms';
+import {
+  colorblindModeAtom,
+  selectedDatetimeIndexAtom,
+  timeAverageAtom,
+} from 'utils/state/atoms';
 import { isSettingsModalOpenAtom } from './modalAtoms';
 
 function WeatherToggleButton({
@@ -67,6 +71,8 @@ export function SettingsModalContent() {
   const [isLanguageSelectorOpen, setIsLanguageSelectorOpen] = useState(false);
   const [timeAverage] = useAtom(timeAverageAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
+  const [isColorblindModeEnabled, setIsColorblindModeEnabled] =
+    useAtom(colorblindModeAtom);
 
   // We are currently only supporting and fetching weather data for the latest hourly value
   const areWeatherLayersAllowed =
@@ -96,7 +102,7 @@ export function SettingsModalContent() {
         className={
           isColorblindModeEnabled ? 'bg-brand-green text-white dark:bg-brand-green' : ''
         }
-        onClick={() => {}}
+        onClick={() => setIsColorblindModeEnabled(!isColorblindModeEnabled)}
         icon={<HiOutlineEyeOff size={21} />}
       >
         {__('legends.colorblindmode')}
