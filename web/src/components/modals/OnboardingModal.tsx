@@ -1,54 +1,60 @@
 import { resolvePath, useParams } from 'react-router-dom';
 import { hasOnboardingBeenSeenAtom } from 'utils/state/atoms';
 
-import Modal from './OnboardingModalInner';
 import { useAtom } from 'jotai';
+import Modal from './OnboardingModalInner';
 
 const views = [
   {
-    headerImage: resolvePath('electricitymaps-icon.svg'),
+    headerImage: resolvePath('images/electricitymaps-icon.svg'),
     isMainTitle: true,
     renderContent: (__: (translationKey: string) => string) => (
       <>
         <div>
-          <h1 className="text-2xl">Electricity Maps</h1>
+          <h1 className="font-poppins text-lg sm:text-2xl">Electricity Maps</h1>
         </div>
-        <div className=" py-6 text-xl">
+        <div className=" py-6 text-base sm:text-xl">
           <h2>{__('onboarding-modal.view1.subtitle')}</h2>
         </div>
       </>
     ),
   },
   {
-    headerImage: resolvePath('onboarding/mapExtract.png'),
+    headerImage: resolvePath('images/onboarding/mapExtract.png'),
     renderContent: (__: (translationKey: string) => string) => (
       <>
         <div>
-          <h2 className="text-xl">{__('onboarding-modal.view2.header')}</h2>
+          <h2 className="mb-2 text-base sm:text-xl">
+            {__('onboarding-modal.view2.header')}
+          </h2>
         </div>
-        <div>{__('onboarding-modal.view2.text')}</div>
+        <div className="text-sm sm:text-base">{__('onboarding-modal.view2.text')}</div>
       </>
     ),
   },
   {
-    headerImage: resolvePath('onboarding/exchangeArrows.png'),
+    headerImage: resolvePath('images/onboarding/exchangeArrows.png'),
     renderContent: (__: (translationKey: string) => string) => (
       <>
         <div>
-          <h2 className="text-xl">{__('onboarding-modal.view3.header')}</h2>
+          <h2 className="mb-2 text-base sm:text-xl">
+            {__('onboarding-modal.view3.header')}
+          </h2>
         </div>
-        <div>{__('onboarding-modal.view3.text')}</div>
+        <div className="text-sm sm:text-base">{__('onboarding-modal.view3.text')}</div>
       </>
     ),
   },
   {
-    headerImage: resolvePath('onboarding/splitLayers.png'),
+    headerImage: resolvePath('images/onboarding/splitLayers.png'),
     renderContent: (__: (translationKey: string) => string) => (
       <>
         <div>
-          <h2 className="text-xl">{__('onboarding-modal.view4.header')}</h2>
+          <h2 className="mb-2 text-base sm:text-xl">
+            {__('onboarding-modal.view4.header')}
+          </h2>
         </div>
-        <div>{__('onboarding-modal.view4.text')}</div>
+        <div className="text-sm sm:text-base">{__('onboarding-modal.view4.text')}</div>
       </>
     ),
   },
