@@ -43,16 +43,13 @@ function WeatherToggleButton({
 
       <Button
         onClick={!isLoadingLayer ? onToggle : () => {}}
-        textColor={isEnabled ? '#000' : '#999'}
+        className={isEnabled ? 'bg-brand-green text-white dark:bg-brand-green' : ''}
         disabled={!allowed}
         icon={
           isLoadingLayer ? (
-            <MoonLoader size={14} color="#135836" className="mr-1" />
+            <MoonLoader size={14} color="white" className="mr-1" />
           ) : (
-            <Icon
-              size={weatherButtonMap[type].iconSize}
-              color={isEnabled ? '' : 'gray'}
-            />
+            <Icon size={weatherButtonMap[type].iconSize} />
           )
         }
       >
@@ -95,7 +92,13 @@ export function SettingsModalContent() {
 
       <WeatherToggleButton allowed={areWeatherLayersAllowed} type="wind" />
       <WeatherToggleButton allowed={areWeatherLayersAllowed} type="solar" />
-      <Button onClick={() => {}} icon={<HiOutlineEyeOff size={21} />}>
+      <Button
+        className={
+          isColorblindModeEnabled ? 'bg-brand-green text-white dark:bg-brand-green' : ''
+        }
+        onClick={() => {}}
+        icon={<HiOutlineEyeOff size={21} />}
+      >
         {__('legends.colorblindmode')}
       </Button>
     </div>
