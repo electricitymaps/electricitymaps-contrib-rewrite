@@ -40,6 +40,7 @@ export default function MapPage(): ReactElement {
   const [hoveredZone, setHoveredZone] = useAtom(hoveredZoneAtom);
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const setLeftPanelOpen = useSetAtom(leftPanelOpenAtom);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const initialView = {
     latitude: 50.905,
     longitude: 6.528,
@@ -85,7 +86,7 @@ export default function MapPage(): ReactElement {
     [theme]
   );
 
-  const { isLoading, isError, data } = useGetState();
+  const { isLoading, isSuccess, isError, data } = useGetState();
   const mapReference = useRef<MapRef>(null);
   const geometries = useGetGeometries();
 
@@ -132,11 +133,18 @@ export default function MapPage(): ReactElement {
         );
       }
     }
-    if (data?.callerLocation) {
-      map.flyTo({ center: [data.callerLocation[0], data.callerLocation[1]] });
-    }
   }, [mapReference, geometries, data, getCo2colorScale, selectedDatetime]);
 
+  useEffect(() => {
+    const map = mapReference.current?.getMap();
+    if (!map || isError || !isFirstLoad) {
+      return;
+    }
+    if (data?.callerLocation) {
+      map.flyTo({ center: [data.callerLocation[0], data.callerLocation[1]] });
+      setIsFirstLoad(false);
+    }
+  }, [isSuccess]);
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
     setHoveredZone(hoveredZone);
     const map = mapReference.current?.getMap();
