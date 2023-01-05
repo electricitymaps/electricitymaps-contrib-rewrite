@@ -1,11 +1,11 @@
 import Badge from 'components/Badge';
 import { CountryFlag } from 'components/Flag';
 import { TimeDisplay } from 'components/TimeDisplay';
+import TooltipWrapper from 'components/tooltips/TooltipWrapper';
 import { HiArrowLeft } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 import { getCountryName, getZoneName, useTranslation } from 'translation/translation';
 import { createToWithState } from 'utils/helpers';
-import TooltipWrapper from 'components/tooltips/TooltipWrapper';
 import { getDisclaimer } from './util';
 
 interface ZoneHeaderTitleProps {
@@ -60,7 +60,7 @@ export default function ZoneHeaderTitle({
             </div>
             {disclaimer && (
               <TooltipWrapper side="bottom" tooltipContent={disclaimer}>
-                <div className="h-6 w-6 select-none rounded-full bg-white text-center drop-shadow dark:border dark:border-gray-500 dark:bg-gray-900">
+                <div className="mr-1 h-6 w-6 select-none rounded-full bg-white text-center drop-shadow dark:border dark:border-gray-500 dark:bg-gray-900 sm:mr-0">
                   <p>i</p>
                 </div>
               </TooltipWrapper>
