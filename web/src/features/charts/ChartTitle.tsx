@@ -21,7 +21,7 @@ export function ChartTitle({ translationKey }: Props) {
   Use local for timeAverage if exists, otherwise use local default if exists. If no translation exists, use english
   */
   return (
-    <h3 className="text-md">
+    <h3 className="text-md font-bold">
       {localExists
         ? __(`${translationKey}.${timeAverage}`)
         : __(
