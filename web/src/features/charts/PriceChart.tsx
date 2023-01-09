@@ -21,7 +21,7 @@ function PriceChart({ datetimes, timeAverage }: PriceChartProps) {
   const { chartData, layerFill, layerKeys, layerStroke, valueAxisLabel, markerFill } =
     data;
 
-  if (!chartData[24].layerData.price) {
+  if (!chartData[0]?.layerData?.price) {
     return null;
   }
   return (
