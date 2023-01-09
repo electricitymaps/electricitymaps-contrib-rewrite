@@ -79,7 +79,6 @@ if (container) {
             <App />
           </AtomsDevtools>
         </BrowserRouter>
-        <ReactQueryDevtools position="top-right" initialIsOpen={false} />
       </QueryClientProvider>
     </StrictMode>
   );
