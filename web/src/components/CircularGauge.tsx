@@ -5,9 +5,10 @@ const PIE_START_ANGLE = 90;
 export interface CircularGaugeProps {
   ratio: number;
   name: string;
+  testId?: string;
 }
 
-export function CircularGauge({ ratio, name }: CircularGaugeProps) {
+export function CircularGauge({ ratio, name, testId }: CircularGaugeProps) {
   // TODO: To improve performance, the background pie does not https://linear.app/electricitymaps/issue/ELE-1497/improve-gauge-animation-performance
   // need to rerender on percentage change
   const data = [{ value: ratio }];
@@ -15,7 +16,7 @@ export function CircularGauge({ ratio, name }: CircularGaugeProps) {
   const endAngle = PIE_START_ANGLE - percentageAsAngle;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" data-test-id={testId}>
       <PieChart width={65} height={65} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
         <Pie
           innerRadius="80%"

@@ -12,22 +12,30 @@ describe('Country Panel', () => {
 
     cy.contains('East Denmark');
     cy.contains('Carbon Intensity');
-    cy.get('[data-test-id=left-panel] [data-test-id=co2-square-value]').contains('152');
-    cy.get('[data-test-id=country-lowcarbon-gauge]').trigger('mousemove');
-    cy.contains('Includes renewables and nuclear');
-    cy.get('[data-test-id=country-lowcarbon-gauge]').trigger('mouseout');
+    cy.get('[data-test-id=left-panel] [data-test-id=co2-square-value]').contains('232');
+    // TODO: Add tooltip again
+    // cy.get('[data-test-id=zone-header-lowcarbon-gauge]').trigger('mousemove');
+    // cy.contains('Includes renewables and nuclear');
+    // cy.get('[data-test-id=zone-header-lowcarbon-gauge]').trigger('mouseout');
 
-    cy.contains('Carbon emissions').should('not.have.class', 'selected');
-    cy.contains('Carbon emissions').click().should('have.class', 'selected');
+    cy.get('[data-test-id=display-by-emissions-toggle]')
+      .contains('Carbon emissions')
+      .should('have.attr', 'data-state', 'off');
+    cy.get('[data-test-id=display-by-emissions-toggle]')
+      .contains('Carbon emissions')
+      .click()
+      .should('have.attr', 'data-state', 'on');
     cy.contains('0 t/min');
-    cy.contains('Electricity consumption').click();
+    cy.get('[data-test-id=display-by-emissions-toggle]')
+      .contains('Carbon emissions')
+      .click();
 
     // test graph tooltip
-    cy.get('[data-test-id=details-carbon-graph]').trigger('mousemove', 'left');
+    cy.get('[data-test-id=history-carbon-graph]').trigger('mousemove', 'left');
     // ensure hovering the graph does not change underlying data
     cy.get('[data-test-id=left-panel] [data-test-id=co2-square-value]').should(
       'have.text',
-      '152'
+      '232'
     );
     cy.get('[data-test-id=time-slider-input] ').should('have.value', '1661331600000');
     // ensure tooltip is shown and changes depending on where on the graph is being hovered

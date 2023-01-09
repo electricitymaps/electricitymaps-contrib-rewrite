@@ -32,7 +32,7 @@ export default function EmissionToggle(): ReactElement {
   };
 
   return (
-    <div className="px-2 pt-3 xl:px-10">
+    <div className="px-2 pt-3 xl:px-10" data-test-id="display-by-emissions-toggle">
       <ToggleButton
         options={options}
         selectedOption={displayByEmissions.toString()}

@@ -1,9 +1,9 @@
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import ZoneHeaderTitle from './ZoneHeaderTitle';
-import { productionConsumptionAtom } from 'utils/state/atoms';
-import { Mode } from 'utils/constants';
 import { useAtom } from 'jotai';
+import { Mode } from 'utils/constants';
+import { productionConsumptionAtom } from 'utils/state/atoms';
+import ZoneHeaderTitle from './ZoneHeaderTitle';
 
 interface ZoneHeaderProps {
   zoneId: string;
@@ -46,8 +46,13 @@ export function ZoneHeader({
         <CircularGauge
           name="Low-carbon"
           ratio={fossilFuel ? 1 - fossilFuel : Number.NaN}
+          testId="zone-header-lowcarbon-gauge"
         />
-        <CircularGauge name="Renewable" ratio={renewable ?? Number.NaN} />
+        <CircularGauge
+          name="Renewable"
+          ratio={renewable ?? Number.NaN}
+          testId="zone-header-renewable-gauge"
+        />
       </div>
     </div>
   );

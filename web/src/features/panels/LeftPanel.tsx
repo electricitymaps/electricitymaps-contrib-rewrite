@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { TimeDisplay } from 'components/TimeDisplay';
 import Logo from 'features/header/Logo';
 import { useAtom } from 'jotai';
@@ -13,7 +14,6 @@ import {
 import FAQPanel from './faq/FAQPanel';
 import { leftPanelOpenAtom } from './panelAtoms';
 import RankingPanel from './ranking-panel/RankingPanel';
-import * as Sentry from '@sentry/react';
 
 import ZoneDetails from './zone/ZoneDetails';
 
@@ -82,6 +82,7 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
 
   return (
     <aside
+      data-test-id="left-panel"
       className={`absolute left-0 top-0 z-20 h-full w-full  bg-zinc-50 shadow-xl transition-all duration-500 dark:bg-gray-800 dark:[color-scheme:dark] sm:flex sm:w-[calc(14vw_+_16rem)] ${
         location.pathname === '/map' ? 'hidden' : ''
       } ${!isOpen ? '-translate-x-full' : ''}`}
