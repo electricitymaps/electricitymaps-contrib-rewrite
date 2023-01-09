@@ -97,10 +97,10 @@ export default function MapPage(): ReactElement {
     }
 
     // An issue where the map has not loaded source yet causing map errors
-    const isSourceLoaded = map.getSource('zones-clickable') != undefined;
-    if (!isSourceLoaded) {
-      return;
-    }
+    // const isSourceLoaded = map.getSource('zones-clickable') != undefined;
+    // if (!isSourceLoaded) {
+    //   return; //TODO enable this if required
+    // }
 
     for (const feature of geometries.features) {
       const { zoneId } = feature.properties;
@@ -110,9 +110,7 @@ export default function MapPage(): ReactElement {
           ? getCO2IntensityByMode(zone[selectedDatetime.datetimeString], mixMode)
           : undefined;
 
-      const fillColor = co2intensity
-        ? getCo2colorScale(co2intensity)
-        : theme.clickableFill;
+      const fillColor = co2intensity ? getCo2colorScale(co2intensity) : 'red';
 
       const existingColor = map.getFeatureState({
         source: 'zones-clickable',
@@ -120,6 +118,7 @@ export default function MapPage(): ReactElement {
       })?.color;
 
       if (existingColor !== fillColor) {
+        console.log('pls change colors', map, zoneId, existingColor);
         map.setFeatureState(
           {
             source: 'zones-clickable',
@@ -131,7 +130,15 @@ export default function MapPage(): ReactElement {
         );
       }
     }
-  }, [mapReference, geometries, data, getCo2colorScale, selectedDatetime, mixMode]);
+  }, [
+    mapReference,
+    geometries,
+    data,
+    getCo2colorScale,
+    selectedDatetime,
+    mixMode,
+    isLoading,
+  ]);
 
   useEffect(() => {
     const map = mapReference.current?.getMap();
@@ -275,6 +282,8 @@ export default function MapPage(): ReactElement {
       onZoomEnd={onDragOrZoomEnd}
       dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
       onDragEnd={onDragOrZoomEnd}
+      dragRotate={false}
+      touchZoomRotate={false}
       minZoom={0.7}
       maxBounds={[
         [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],

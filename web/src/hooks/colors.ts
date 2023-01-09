@@ -30,7 +30,7 @@ export const colors: Colors = {
   colorblindDark: {
     co2Scale: colorblindCo2Scale,
     oceanColor: '#33414A',
-    strokeWidth: 0.3,
+    strokeWidth: 0.15,
     strokeColor: '#6D6D6D',
     clickableFill: '#7A878D',
     nonClickableFill: '#7A878D',
@@ -38,7 +38,7 @@ export const colors: Colors = {
   dark: {
     co2Scale: defaultCo2Scale,
     oceanColor: '#33414A',
-    strokeWidth: 0.3,
+    strokeWidth: 0.15,
     strokeColor: '#6D6D6D',
     clickableFill: '#7A878D',
     nonClickableFill: '#7A878D',
@@ -46,7 +46,7 @@ export const colors: Colors = {
   colorblindBright: {
     co2Scale: colorblindCo2Scale,
     oceanColor: '#FAFAFA',
-    strokeWidth: 0.3,
+    strokeWidth: 0.15,
     strokeColor: '#FAFAFA',
     clickableFill: '#D4D9DE',
     nonClickableFill: '#D4D9DE',
@@ -54,7 +54,7 @@ export const colors: Colors = {
   bright: {
     co2Scale: defaultCo2Scale,
     oceanColor: '#FAFAFA',
-    strokeWidth: 0.3,
+    strokeWidth: 0.15,
     strokeColor: '#FAFAFA',
     clickableFill: '#D4D9DE',
     nonClickableFill: '#D4D9DE',
