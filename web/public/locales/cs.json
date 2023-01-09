@@ -196,13 +196,13 @@
     "AS": { "zoneName": "Americká Samoa" },
     "AT": { "zoneName": "Rakousko" },
     "AR": { "zoneName": "Argentina" },
-    "AUS-NSW": { "countryName": "Austrálie", "zoneName": "Nový Jižní Wales" },
-    "AUS-NT": { "countryName": "Austrálie", "zoneName": "Severní teritorium" },
-    "AUS-QLD": { "countryName": "Austrálie", "zoneName": "Queensland" },
-    "AUS-SA": { "countryName": "Austrálie", "zoneName": "Jižní Austrálie" },
-    "AUS-TAS": { "countryName": "Austrálie", "zoneName": "Tasmánie" },
-    "AUS-VIC": { "countryName": "Austrálie", "zoneName": "Viktorie" },
-    "AUS-WA": { "countryName": "Austrálie", "zoneName": "Západní Austrálie" },
+    "AU-NSW": { "countryName": "Austrálie", "zoneName": "Nový Jižní Wales" },
+    "AU-NT": { "countryName": "Austrálie", "zoneName": "Severní teritorium" },
+    "AU-QLD": { "countryName": "Austrálie", "zoneName": "Queensland" },
+    "AU-SA": { "countryName": "Austrálie", "zoneName": "Jižní Austrálie" },
+    "AU-TAS": { "countryName": "Austrálie", "zoneName": "Tasmánie" },
+    "AU-VIC": { "countryName": "Austrálie", "zoneName": "Viktorie" },
+    "AU-WA": { "countryName": "Austrálie", "zoneName": "Západní Austrálie" },
     "AW": { "zoneName": "Aruba" },
     "AX": { "zoneName": "Ålandy" },
     "AZ": { "zoneName": "Ázerbájdžán" },
@@ -554,6 +554,6 @@
     "ZA": { "zoneName": "Jihoafrická republika" },
     "ZM": { "zoneName": "Zambie" },
     "ZW": { "zoneName": "Zimbabwe" },
-    "AUS-TAS-KI": { "countryName": "Tasmánie", "zoneName": "King Island" }
+    "AU-TAS-KI": { "countryName": "Tasmánie", "zoneName": "King Island" }
   }
 }
