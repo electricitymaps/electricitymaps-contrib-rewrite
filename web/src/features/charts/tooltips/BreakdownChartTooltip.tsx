@@ -108,7 +108,6 @@ export function BreakdownChartTooltipContent(
 
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
-  console.log('emmisions', emissions);
   // Dynamically generate the translated headline HTML based on the exchange or generation type
   const headline = isExchange
     ? __(
