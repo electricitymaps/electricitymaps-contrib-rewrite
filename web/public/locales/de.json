@@ -51,6 +51,9 @@
     "zone-list-header-subtitle": "Sortiert nach CO₂-Intensität der verfügbaren Elektrizität (gCO₂äq/kWh)",
     "search": "Land oder Region suchen"
   },
+  "time-controller": {
+    "title": "Daten aus der Vergangenheit anzeigen"
+  },
   "country-history": {
     "Getdata": "Zugang zu historischen Daten und zur Vorhersage-API",
     "carbonintensity": { "hourly": "spezifische CO₂-Emissionen in den letzten 24 h" },
