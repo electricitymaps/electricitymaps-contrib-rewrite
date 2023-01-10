@@ -5,7 +5,7 @@ const defaultCo2Scale = {
 
 const colorblindCo2Scale = {
   steps: [0, 150, 600, 800, 1100, 1500],
-  colors: ['#FFFFB0', '#E3BF66', '#BB833C', '#8B4D2B', '#4E241F', '#000000'],
+  colors: ['#FFFFB0', '#E3BF66', '#BB833C', '#8B4D2B', '#4E241F', '#000'],
 };
 
 interface ThemeColor {
