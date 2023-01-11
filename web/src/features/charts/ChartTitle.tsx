@@ -22,14 +22,15 @@ export function ChartTitle({ translationKey }: Props) {
   Use local for timeAverage if exists, otherwise use local default if exists. If no translation exists, use english
   */
   return (
-    <h3 className="text-md font-bold">
-      {localExists
-        ? __(`${translationKey}.${timeAverage}`)
-        : __(
-            `${translationKey}.default`,
-            formatTimeRange(localDefaultExists ? i18n.language : 'en', timeAverage)
-          )}
-    </h3>
+    <>
+      <h3 className="text-md font-bold">
+        {localExists
+          ? __(`${translationKey}.${timeAverage}`)
+          : __(
+              `${translationKey}.default`,
+              formatTimeRange(localDefaultExists ? i18n.language : 'en', timeAverage)
+            )}
+      </h3>
       <div className=" flex flex-row items-center pb-2 text-center text-sm  ">
         <HiOutlineArrowDownTray className="min-w-[12px]" size={12} />
         <a
