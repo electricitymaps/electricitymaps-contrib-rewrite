@@ -3,7 +3,6 @@ import { CountryFlag } from 'components/Flag';
 import { MetricRatio } from 'components/MetricRatio';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
-import React from 'react';
 import { renderToString } from 'react-dom/server';
 import AreaGraphToolTipHeader from 'stories/tooltips/AreaGraphTooltipHeader';
 import { getZoneName, useTranslation } from 'translation/translation';
@@ -109,7 +108,6 @@ export function BreakdownChartTooltipContent(
 
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
-
   // Dynamically generate the translated headline HTML based on the exchange or generation type
   const headline = isExchange
     ? __(
@@ -127,7 +125,9 @@ export function BreakdownChartTooltipContent(
         __(selectedLayerKey),
         renderToString(<CountryFlag className="shadow-3xl" zoneId={zoneKey} />)
       ); // Eg: "20 % of electricity in Denmark comes from biomass"
-
+  const title = isExchange
+    ? getZoneName(selectedLayerKey)
+    : __(selectedLayerKey).charAt(0).toUpperCase() + __(selectedLayerKey).slice(1);
   return (
     <div className="w-full rounded-md bg-white p-3 text-sm shadow-3xl dark:bg-gray-900 sm:w-[410px]">
       <AreaGraphToolTipHeader
@@ -136,16 +136,20 @@ export function BreakdownChartTooltipContent(
         }
         datetime={datetime}
         timeAverage={timeAverage}
-        title={isExchange ? getZoneName(selectedLayerKey) : __(selectedLayerKey)}
+        title={title}
       />
       <div
         className="inline-flex flex-wrap items-center gap-x-1"
         dangerouslySetInnerHTML={{ __html: headline }}
       />
       <br />
-      <MetricRatio value={usage} total={totalElectricity} format={formatPower} />
+      {displayByEmissions && (
+        <MetricRatio value={emissions} total={totalEmissions} format={formatCo2} />
+      )}
+
       {!displayByEmissions && (
-        <React.Fragment>
+        <>
+          <MetricRatio value={usage} total={totalElectricity} format={formatPower} />
           <br />
           {timeAverage === TimeAverages.HOURLY && (
             <>
@@ -163,10 +167,10 @@ export function BreakdownChartTooltipContent(
           {__('tooltips.ofemissions')}
           <br />
           <MetricRatio value={emissions} total={totalEmissions} format={formatCo2} />
-        </React.Fragment>
+        </>
       )}
       {!displayByEmissions && (Number.isFinite(co2Intensity) || usage !== 0) && (
-        <React.Fragment>
+        <>
           <br />
           <br />
           {__('tooltips.withcarbonintensity')}
@@ -182,7 +186,7 @@ export function BreakdownChartTooltipContent(
               </small>
             )}
           </div>
-        </React.Fragment>
+        </>
       )}
     </div>
   );

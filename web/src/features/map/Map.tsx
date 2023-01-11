@@ -144,7 +144,7 @@ export default function MapPage(): ReactElement {
     }
   }, [isSuccess]);
   const onClick = (event: mapboxgl.MapLayerMouseEvent) => {
-    setHoveredZone(hoveredZone);
+    setHoveredZone(null);
     const map = mapReference.current?.getMap();
     if (!map || !event.features) {
       return;
@@ -164,8 +164,12 @@ export default function MapPage(): ReactElement {
       setSelectedFeatureId(feature.id);
       map.setFeatureState({ source: ZONE_SOURCE, id: feature.id }, { selected: true });
       setLeftPanelOpen(true);
+
+      const center = JSON.parse(feature.properties.center);
+      const centerMinusLeftPanelWidth = [center[0] - 10, center[1]] as [number, number];
+      map.flyTo({ center: centerMinusLeftPanelWidth, zoom: 3.5 });
+
       const zoneId = feature.properties.zoneId;
-      map.flyTo({ center: JSON.parse(feature.properties.center), zoom: 3.5 });
       navigate(createToWithState(`/zone/${zoneId}`));
     } else {
       setSelectedFeatureId(undefined);
@@ -275,6 +279,8 @@ export default function MapPage(): ReactElement {
       onZoomEnd={onDragOrZoomEnd}
       dragPan={{ maxSpeed: 0 }} // Disables easing effect to improve performance on exchange layer
       onDragEnd={onDragOrZoomEnd}
+      dragRotate={false}
+      touchZoomRotate={false}
       minZoom={0.7}
       maxBounds={[
         [Number.NEGATIVE_INFINITY, SOUTHERN_LATITUDE_BOUND],
