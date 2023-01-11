@@ -139,12 +139,12 @@ export default function MapPage(): ReactElement {
     const map = mapReference.current?.getMap();
     // deselect and dehover zone when navigating to /map (e.g. using back button on mobile panel)
     if (map && location.pathname === '/map' && selectedFeatureId) {
-      setSelectedFeatureId(undefined);
-      setHoveredZone(null);
       map.setFeatureState(
         { source: ZONE_SOURCE, id: selectedFeatureId },
         { selected: false, hover: false }
       );
+      setSelectedFeatureId(undefined);
+      setHoveredZone(null);
     }
   }, [location.pathname]);
 
