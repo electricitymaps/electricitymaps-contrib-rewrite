@@ -2,14 +2,14 @@
 import { CarbonIntensityDisplay } from 'components/CarbonIntensityDisplay';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'translation/translation';
 import { formatDate } from 'utils/formatting';
 import { timeAverageAtom } from 'utils/state/atoms';
 import { InnerAreaGraphTooltipProps } from '../types';
 
 export default function CarbonChartTooltip(props: InnerAreaGraphTooltipProps) {
   const [timeAverage] = useAtom(timeAverageAtom);
-  const { i18n } = useTranslation();
+  const { i18n, __ } = useTranslation();
   const { zoneDetail } = props;
 
   const co2ColorScale = useCo2ColorScale();
@@ -29,7 +29,7 @@ export default function CarbonChartTooltip(props: InnerAreaGraphTooltipProps) {
             }}
             className="h-[16px] w-[16px] rounded-sm"
           ></div>
-          <div className="text-base font-bold">Carbon Intensity</div>
+          <div className="text-base font-bold">{__('tooltips.carbonintensity')}</div>
         </div>
         <div className="my-1 h-[32px] max-w-[160px] select-none rounded-full bg-brand-green/10 py-2 px-3 text-sm text-brand-green dark:bg-gray-700 dark:text-white">
           {formatDate(new Date(stateDatetime), i18n.language, timeAverage)}
