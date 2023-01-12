@@ -21,8 +21,7 @@ export default function CarbonChartTooltip(props: InnerAreaGraphTooltipProps) {
     return null;
   }
   const { co2intensity, co2intensityProduction, stateDatetime } = zoneDetail;
-  const intensity = isConsumption ? co2intensity ?? 0 : co2intensityProduction ?? 0;
-  const intensity = (isConsumption ? co2intensity: co2intensityProduction) ?? 0;
+  const intensity = (isConsumption ? co2intensity : co2intensityProduction) ?? 0;
   return (
     <div className="w-full rounded-md bg-white p-3 shadow-xl dark:bg-gray-900 sm:w-80">
       <div className="flex justify-between">
