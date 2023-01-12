@@ -12,9 +12,9 @@ import {
   selectedDatetimeIndexAtom,
   spatialAggregateAtom,
 } from 'utils/state/atoms';
+import { getExchangesToDisplay } from '../bar-breakdown/utils';
 import { getGenerationTypeKey } from '../graphUtils';
 import { AreaGraphElement } from '../types';
-import { getExchangesToDisplay } from '../bar-breakdown/utils';
 
 export const getLayerFill = (exchangeKeys: string[], co2ColorScale: any) => {
   const layerFill = (key: string) => {
@@ -39,7 +39,7 @@ export default function useBreakdownChartData() {
   const isAggregateToggled = aggregateToggle === ToggleOptions.ON;
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
 
-  if (isLoading || isError) {
+  if (isLoading || isError || selectedDatetime.datetimeString === '') {
     return { isLoading, isError };
   }
   const currentData = zoneData?.zoneStates?.[selectedDatetime.datetimeString];
