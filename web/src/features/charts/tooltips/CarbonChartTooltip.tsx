@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import { CarbonIntensityDisplay } from 'components/CarbonIntensity';
+import { CarbonIntensityDisplay } from 'components/CarbonIntensityDisplay';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
@@ -36,9 +36,10 @@ export default function CarbonChartTooltip(props: InnerAreaGraphTooltipProps) {
         </div>
       </div>
       <hr className="my-1 mb-3" />
-      <p className="flex justify-center text-base">
-        <CarbonIntensityDisplay co2Intensity={co2intensity} />
-      </p>
+      <CarbonIntensityDisplay
+        co2Intensity={co2intensity ?? 0}
+        className="flex justify-center text-base"
+      />
     </div>
   );
 }
