@@ -42,17 +42,17 @@ export default function ZoneHeaderTitle({
               <CountryFlag
                 zoneId={zoneId}
                 size={18}
-                className="mr-1 shadow-[0_0px_3px_rgba(0,0,0,0.2)]"
+                className="mr-2 shadow-[0_0px_3px_rgba(0,0,0,0.2)]"
               />
               <div className="flex flex-row">
                 <h2
-                  className="max-w-[300px] overflow-hidden truncate font-medium sm:max-w-[230px] md:max-w-[270px]"
+                  className="max-w-[300px] overflow-hidden truncate text-lg font-medium sm:max-w-[230px] md:max-w-[270px]"
                   data-test-id="zone-name"
                 >
                   {title}
                 </h2>
                 {isSubZone && (
-                  <p className="ml-2 flex w-auto items-center whitespace-nowrap rounded-full bg-gray-200 py-0.5 px-2  text-xs dark:bg-gray-900">
+                  <p className="ml-2 flex w-auto items-center whitespace-nowrap rounded-full bg-gray-200 py-0.5 px-2  text-sm dark:bg-gray-900">
                     {countryName || zoneId}
                   </p>
                 )}
@@ -76,7 +76,7 @@ export default function ZoneHeaderTitle({
           {isAggregated && (
             <Badge key={'badge-agg'}>{__('country-panel.aggregated')}</Badge>
           )}
-          <TimeDisplay className="whitespace-nowrap text-xs" />
+          <TimeDisplay className="whitespace-nowrap text-sm" />
         </div>
       </div>
     </div>

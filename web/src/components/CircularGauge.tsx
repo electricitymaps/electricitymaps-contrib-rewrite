@@ -25,12 +25,12 @@ export function CircularGauge({ ratio, name }: CircularGaugeProps) {
           paddingAngle={0}
           dataKey="value"
           data={[{ value: 100 }]}
-          className="fill-gray-200 dark:fill-gray-600/50"
+          className="fill-gray-200/60 dark:fill-gray-600/50"
           isAnimationActive={false}
           strokeWidth={0}
         >
           <Label
-            className="select-none fill-gray-900 text-sm font-bold dark:fill-gray-300"
+            className="select-none bg-red-500 fill-gray-900 font-bold dark:fill-gray-300"
             position="center"
             offset={0}
             formatter={(value: number) =>
@@ -53,7 +53,7 @@ export function CircularGauge({ ratio, name }: CircularGaugeProps) {
           strokeWidth={0}
         />
       </PieChart>
-      <div className="mt-3 text-center text-xs text-gray-900 dark:text-gray-300">
+      <div className="mt-2 text-center text-sm text-gray-900 dark:text-gray-300">
         {name}
       </div>
     </div>
