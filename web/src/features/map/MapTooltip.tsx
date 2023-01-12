@@ -4,9 +4,10 @@ import { useAtom } from 'jotai';
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { ZoneName } from 'components/ZoneName';
+import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { useTranslation } from 'translation/translation';
+import { StateZoneData } from 'types';
 import { Mode } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
 import {
@@ -23,16 +24,7 @@ function TooltipInner({
 }: {
   date: string;
   zoneId: string;
-  zoneData: {
-    co2intensity: number;
-    co2intensityProduction: number;
-    zoneKey: string;
-    fossilFuelRatio: number;
-    fossilFuelRatioProduction: number;
-    renewableRatio: number;
-    renewableRatioProduction: number;
-    stateDatetime: number;
-  };
+  zoneData: StateZoneData;
 }) {
   const {
     co2intensity,
