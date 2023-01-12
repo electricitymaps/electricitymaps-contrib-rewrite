@@ -30,7 +30,7 @@ export function CircularGauge({ ratio, name }: CircularGaugeProps) {
           strokeWidth={0}
         >
           <Label
-            className="select-none bg-red-500 fill-gray-900 font-bold dark:fill-gray-300"
+            className="select-none fill-gray-900 font-bold dark:fill-gray-300"
             position="center"
             offset={0}
             formatter={(value: number) =>
