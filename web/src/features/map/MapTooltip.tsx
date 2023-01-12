@@ -126,7 +126,7 @@ export default function MapTooltip() {
         <div>
           <ZoneName zone={hoveredZone.zoneId} textStyle="text-base" />
           <div className="flex self-start text-xs">{formattedDate}</div>
-          <p className="text-start">{__('tooltips.temporaryDataOutage')}</p>
+          <p className="text-start">{__('tooltips.noParserInfo')}</p>
         </div>
       </div>
     </Portal.Root>
