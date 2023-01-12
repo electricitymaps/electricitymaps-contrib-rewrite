@@ -21,7 +21,7 @@ export function CircularGauge({ ratio, name, tooltipContent }: CircularGaugeProp
       <TooltipWrapper
         side="right"
         tooltipContent={tooltipContent}
-        tooltipClassName="bg-white"
+        tooltipClassName="bg-white max-w-44"
       >
         {/* Div required to ensure Tooltip is rendered in right place */}
         <div>
