@@ -4,8 +4,8 @@ import { useAtom } from 'jotai';
 import useGetState from 'api/getState';
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { ZoneName } from 'components/ZoneName';
+import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { useTranslation } from 'translation/translation';
 import { Mode } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
@@ -44,7 +44,6 @@ function TooltipInner({
   } = zoneData;
   const [currentMode] = useAtom(productionConsumptionAtom);
   const isConsumption = currentMode === Mode.CONSUMPTION;
-
   return (
     <div className="w-full p-4 text-center">
       <div className="pl-1">
@@ -59,7 +58,7 @@ function TooltipInner({
           <div className="px-4">
             <CircularGauge
               name="Low-carbon"
-              ratio={isConsumption ? fossilFuelRatio : fossilFuelRatioProduction}
+              ratio={1 - (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction)}
             />
           </div>
           <CircularGauge
