@@ -10,8 +10,7 @@ export interface CircularGaugeProps {
 }
 
 export function CircularGauge({ ratio, name, tooltipContent }: CircularGaugeProps) {
-  // TODO: To improve performance, the background pie does not https://linear.app/electricitymaps/issue/ELE-1497/improve-gauge-animation-performance
-  // need to rerender on percentage change
+  // TODO: To improve performance, the background pie does not need to rerender on percentage change
   const data = [{ value: ratio }];
   const percentageAsAngle = ratio * 360;
   const endAngle = PIE_START_ANGLE - percentageAsAngle;
@@ -43,7 +42,7 @@ export function CircularGauge({ ratio, name, tooltipContent }: CircularGaugeProp
               strokeWidth={0}
             >
               <Label
-                className="select-none bg-red-500 fill-gray-900 font-bold dark:fill-gray-300"
+                className="select-none fill-gray-900 font-bold dark:fill-gray-300"
                 position="center"
                 offset={0}
                 formatter={(value: number) =>
@@ -58,7 +57,7 @@ export function CircularGauge({ ratio, name, tooltipContent }: CircularGaugeProp
               outerRadius="100%"
               startAngle={90}
               endAngle={endAngle}
-              fill="#3C764A" // TODO: Use theme color
+              fill="#3C764A"
               paddingAngle={0}
               dataKey="value"
               animationDuration={500}
