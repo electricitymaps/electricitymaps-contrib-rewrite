@@ -15,7 +15,7 @@ export const formatPower = function (d: number, numberDigits = DEFAULT_NUM_DIGIT
   return power;
 };
 
-export const formatCo2 = function (d, numberDigits = DEFAULT_NUM_DIGITS) {
+export const formatCo2 = function (d: number, numberDigits: number = DEFAULT_NUM_DIGITS) {
   let value = d;
   // Assume gCO₂ / h input
   value /= 60; // Convert to gCO₂ / min
@@ -24,14 +24,13 @@ export const formatCo2 = function (d, numberDigits = DEFAULT_NUM_DIGITS) {
     return d;
   }
 
-  if (d >= 1) {
-    // a ton or more
-    return `${d3.format(`.${numberDigits}s`)(value)}t ${translate('ofCO2eqPerMinute')}`;
-  } else {
-    return `${d3.format(`.${numberDigits}s`)(value * 1e6)}g ${translate(
-      'ofCO2eqPerMinute'
-    )}`;
-  }
+  const number =
+    d >= 1
+      ? // a ton or more
+        `${d3.format(`.${numberDigits}s`)(value)}t`
+      : `${d3.format(`.${numberDigits}s`)(value * 1e6)}g}`;
+
+  return `${number} ${translate('ofCO2eqPerMinute')}`;
 };
 
 const scalePower = function (maxPower: number | undefined) {

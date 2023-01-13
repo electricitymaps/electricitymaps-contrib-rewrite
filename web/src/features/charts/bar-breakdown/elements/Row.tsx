@@ -40,7 +40,6 @@ export default function Row({
         height={ROW_HEIGHT + PADDING_Y}
         /* Support only click events in mobile mode, otherwise react to mouse hovers */
         onClick={isMobile ? onMouseOver : () => {}}
-        onFocus={!isMobile ? onMouseOver : () => {}}
         onMouseOver={!isMobile ? onMouseOver : () => {}}
         onMouseMove={!isMobile ? onMouseOver : () => {}}
         onMouseOut={onMouseOut}
