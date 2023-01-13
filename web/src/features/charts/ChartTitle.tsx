@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { useAtom } from 'jotai';
+import { HiOutlineArrowDownTray } from 'react-icons/hi2';
 import { useTranslation } from 'translation/translation';
 import { formatTimeRange } from 'utils/formatting';
 import { timeAverageAtom } from 'utils/state/atoms';
-import { HiOutlineArrowDownTray } from 'react-icons/hi2';
 
 type Props = {
   translationKey: string;
@@ -37,7 +38,7 @@ export function ChartTitle({ translationKey }: Props) {
           href="https://electricitymaps.com/?utm_source=app.electricitymaps.com&utm_medium=referral&utm_campaign=country_panel"
           target="_blank"
           rel="noreferrer"
-          className="pl-0.5 text-sky-600 no-underline hover:underline  dark:invert"
+          className="pl-0.5 text-left text-[#4178ac] no-underline hover:underline dark:invert"
         >
           {__('country-history.Getdata')}
         </a>
