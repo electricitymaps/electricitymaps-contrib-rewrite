@@ -2,7 +2,7 @@ import ToggleButton from 'components/ToggleButton';
 import { useAtom } from 'jotai';
 import type { ReactElement } from 'react';
 import trackEvent from 'utils/analytics';
-import { Mode } from 'utils/constants';
+import { MixMode } from 'utils/constants';
 import { displayByEmissionsAtom, productionConsumptionAtom } from 'utils/state/atoms';
 
 export default function EmissionToggle(): ReactElement {
@@ -14,7 +14,7 @@ export default function EmissionToggle(): ReactElement {
     {
       value: false.toString(),
       translationKey:
-        mixMode === Mode.PRODUCTION
+        mixMode === MixMode.PRODUCTION
           ? 'country-panel.electricityproduction'
           : 'country-panel.electricityconsumption',
     },

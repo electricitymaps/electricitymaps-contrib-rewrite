@@ -1,5 +1,5 @@
 import { PulseLoader } from 'react-spinners';
-import { Mode, TimeAverages } from 'utils/constants';
+import { MixMode, TimeAverages } from 'utils/constants';
 import { ChartTitle } from './ChartTitle';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';
@@ -26,7 +26,7 @@ function BreakdownChart({
   const { chartData, valueAxisLabel, layerFill, layerKeys } = data;
 
   const titleDisplayMode = displayByEmissions ? 'emissions' : 'electricity';
-  const titleMixMode = mixMode === Mode.CONSUMPTION ? 'origin' : 'production';
+  const titleMixMode = mixMode === MixMode.CONSUMPTION ? 'origin' : 'production';
   return (
     <>
       <ChartTitle translationKey={`country-history.${titleDisplayMode}${titleMixMode}`} />

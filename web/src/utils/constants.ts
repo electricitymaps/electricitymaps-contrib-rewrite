@@ -15,7 +15,7 @@ export enum ThemeOptions {
   DARK = 'dark',
 }
 
-export enum Mode {
+export enum MixMode {
   CONSUMPTION = 'consumption',
   PRODUCTION = 'production',
 }

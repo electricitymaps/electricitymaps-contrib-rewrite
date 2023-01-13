@@ -13,7 +13,7 @@ import SolarLayer from 'features/weather-layers/solar/SolarLayer';
 import WindLayer from 'features/weather-layers/wind-layer/WindLayer';
 import { useAtom, useSetAtom } from 'jotai';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Mode } from 'utils/constants';
+import { MixMode } from 'utils/constants';
 import { createToWithState, getCO2IntensityByMode } from 'utils/helpers';
 import { productionConsumptionAtom, selectedDatetimeIndexAtom } from 'utils/state/atoms';
 import CustomLayer from './map-utils/CustomLayer';
@@ -47,7 +47,7 @@ export default function MapPage(): ReactElement {
   const navigate = useNavigate();
   const theme = useTheme();
   const [currentMode] = useAtom(productionConsumptionAtom);
-  const mixMode = currentMode === Mode.CONSUMPTION ? 'consumption' : 'production';
+  const mixMode = currentMode === MixMode.CONSUMPTION ? 'consumption' : 'production';
 
   // Calculate layer styles only when the theme changes
   // To keep the stable and prevent excessive rerendering.

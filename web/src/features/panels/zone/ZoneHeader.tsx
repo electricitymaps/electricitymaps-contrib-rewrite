@@ -2,7 +2,7 @@ import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'translation/translation';
-import { Mode } from 'utils/constants';
+import { MixMode } from 'utils/constants';
 import { productionConsumptionAtom } from 'utils/state/atoms';
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
@@ -42,7 +42,7 @@ export function ZoneHeader({
   fossilFuelRatioProduction,
 }: ZoneHeaderProps) {
   const [currentMode] = useAtom(productionConsumptionAtom);
-  const isConsumption = currentMode === Mode.CONSUMPTION;
+  const isConsumption = currentMode === MixMode.CONSUMPTION;
   const intensity = isConsumption ? co2intensity : co2intensityProduction;
   const renewable = isConsumption ? renewableRatio : renewableRatioProduction;
   const fossilFuel = isConsumption ? fossilFuelRatio : fossilFuelRatioProduction;

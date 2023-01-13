@@ -7,7 +7,7 @@ import { CircularGauge } from 'components/CircularGauge';
 import { ZoneName } from 'components/ZoneName';
 import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { useTranslation } from 'translation/translation';
-import { Mode } from 'utils/constants';
+import { MixMode } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
 import {
   productionConsumptionAtom,
@@ -43,7 +43,7 @@ function TooltipInner({
     renewableRatioProduction,
   } = zoneData;
   const [currentMode] = useAtom(productionConsumptionAtom);
-  const isConsumption = currentMode === Mode.CONSUMPTION;
+  const isConsumption = currentMode === MixMode.CONSUMPTION;
   return (
     <div className="w-full p-4 text-center">
       <div className="pl-1">
