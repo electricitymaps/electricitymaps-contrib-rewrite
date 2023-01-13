@@ -1,11 +1,12 @@
 #!/bin/bash
 
-BUCKET_NAME="gs://beta.electricitymaps.com"
-
 echo "Starting deployment..."
 
-
 # Ensure required environment variables are set
+if [ -z "$SUBDOMAIN" ]; then
+  echo "SUBDOMAIN is not set - must be beta or app"
+  exit 1
+fi
 if [ -z "$VITE_PUBLIC_ELECTRICITYMAP_PUBLIC_TOKEN" ]; then
   echo "VITE_PUBLIC_ELECTRICITYMAP_PUBLIC_TOKEN is not set"
   exit 1
@@ -15,8 +16,10 @@ if [ -z "$SENTRY_AUTH_TOKEN" ]; then
   exit 1
 fi
 
+BUCKET_NAME="gs://$SUBDOMAIN.electricitymaps.com"
+
 # Create bucket (if not already done)
-gsutil mb -p tmrow-152415 -c regional -l europe-west1 $BUCKET_NAME || true
+# gsutil mb -p tmrow-152415 -c regional -l europe-west1 $BUCKET_NAME || true
 
 # Upload files and set proper index page
 gsutil -m cp -a public-read -r dist/* $BUCKET_NAME
@@ -37,6 +40,6 @@ gsutil -m setmeta -h "Cache-Control:no-cache,max-age=0" "$BUCKET_NAME/**/index.h
 VERSION=$(npm pkg get version | tr -d '"')
 git tag -a $VERSION -m "$VERSION"
 git push origin $VERSION
-gh release create $VERSION --generate-notes --prerelease --repo electricitymaps/electricitymaps-contrib-rewrite
+gh release create $VERSION --generate-notes --repo electricitymaps/electricitymaps-contrib-rewrite
 
 echo "Done!"
