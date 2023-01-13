@@ -19,25 +19,9 @@ const PADDING_X = 5;
 const X_AXIS_HEIGHT = 15;
 const DEFAULT_FLAG_SIZE = 16;
 
-export function getProductionCo2Intensity(
-  mode: ElectricityModeType,
-  zoneData: ZoneDetail
-) {
-  const isStorage = mode.includes('storage');
-  const generationMode = mode.replace(' storage', '') as GenerationType;
 
-  if (!isStorage) {
-    return zoneData.productionCo2Intensities?.[generationMode];
-  }
 
-  const storage = zoneData.storage?.[generationMode as ElectricityStorageKeyType];
-  // TODO: Find out how this worked before if the data is never available
-  const storageCo2Intensity = zoneData.storageCo2Intensities?.[generationMode];
-  const dischargeCo2Intensity =
-    zoneData.dischargeCo2Intensities?.[generationMode as ElectricityStorageKeyType];
 
-  return storage && storage > 0 ? storageCo2Intensity : dischargeCo2Intensity;
-}
 
 export function getExchangeCo2Intensity(mode, zoneData, electricityMixMode) {
   const exchange = (zoneData.exchange || {})[mode];
