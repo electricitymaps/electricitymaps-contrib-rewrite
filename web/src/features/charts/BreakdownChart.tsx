@@ -1,4 +1,4 @@
-import { PulseLoader } from 'react-spinners';
+import { useTranslation } from 'translation/translation';
 import { Mode, TimeAverages } from 'utils/constants';
 import { ChartTitle } from './ChartTitle';
 import AreaGraph from './elements/AreaGraph';
@@ -18,9 +18,10 @@ function BreakdownChart({
   timeAverage,
 }: BreakdownChartProps) {
   const { data, mixMode } = useBreakdownChartData();
+  const { __ } = useTranslation();
 
   if (!data) {
-    return <PulseLoader />;
+    return null;
   }
 
   const isBreakdownGraphOverlayEnabled =
@@ -60,6 +61,12 @@ function BreakdownChart({
           tooltipSize={displayByEmissions ? 'small' : 'large'}
         />
       </div>
+      {timeAverage !== TimeAverages.HOURLY && (
+        <div
+          className="prose my-1 rounded bg-gray-200 p-2 text-sm leading-snug"
+          dangerouslySetInnerHTML={{ __html: __('country-panel.exchangesAreMissing') }}
+        />
+      )}
     </>
   );
 }
