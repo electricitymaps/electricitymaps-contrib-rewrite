@@ -1,10 +1,13 @@
-import { ZoneDetail } from 'types';
+import {
+  ElectricityModeType,
+  ElectricityStorageKeyType,
+  GenerationType,
+  ZoneDetail,
+} from 'types';
+import { MixMode } from './constants';
 
-export function getCO2IntensityByMode(
-  zoneData: { co2intensity: number; co2intensityProduction: number },
-  electricityMixMode: string
-) {
-  return electricityMixMode === 'consumption'
+export function getCO2IntensityByMode(zoneData: ZoneDetail, electricityMixMode: MixMode) {
+  return electricityMixMode === MixMode.CONSUMPTION
     ? zoneData.co2intensity
     : zoneData.co2intensityProduction;
 }

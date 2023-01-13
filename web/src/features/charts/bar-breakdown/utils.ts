@@ -8,8 +8,8 @@ import {
   ZoneDetail,
   ZoneKey,
 } from 'types';
-import { Mode, modeOrder } from 'utils/constants';
-import { getCO2IntensityByMode } from 'utils/helpers';
+import { MixMode, modeOrder } from 'utils/constants';
+import { getCO2IntensityByMode, getProductionCo2Intensity } from 'utils/helpers';
 import exchangesToExclude from '../../../../config/excludedAggregatedExchanges.json'; // TODO: do something globally
 
 const LABEL_MAX_WIDTH = 102;
@@ -19,11 +19,11 @@ const PADDING_X = 5;
 const X_AXIS_HEIGHT = 15;
 const DEFAULT_FLAG_SIZE = 16;
 
-
-
-
-
-export function getExchangeCo2Intensity(mode, zoneData, electricityMixMode) {
+export function getExchangeCo2Intensity(
+  mode: ZoneKey,
+  zoneData: ZoneDetail,
+  electricityMixMode: MixMode
+) {
   const exchange = (zoneData.exchange || {})[mode];
   const exchangeCo2Intensity = (zoneData.exchangeCo2Intensities || {})[mode];
 
@@ -115,29 +115,30 @@ export const getDataBlockPositions = (
 
 export interface ExchangeDataType {
   exchange: number;
-  mode: ZoneKey; // TODO: Weird that this is called "mode"
-  gCo2eqPerkWh: number;
-  tCo2eqPerMin: number;
+  exchangeCapacityRange: number[];
+  mode: ZoneKey; // TODO: This should not be called "mode" as it's a zonekey
+  gCo2eqPerkWh: Maybe<number>;
+  tCo2eqPerMin: Maybe<number>;
 }
 export const getExchangeData = (
   data: ZoneDetail,
-  exchangeKeys: string[],
-  electricityMixMode: Mode
+  exchangeKeys: ZoneKey[],
+  electricityMixMode: MixMode
 ): ExchangeDataType[] =>
-  exchangeKeys.map((mode) => {
+  exchangeKeys.map((key) => {
     // Power in MW
-    const exchange = (data.exchange || {})[mode];
-    const exchangeCapacityRange = (data.exchangeCapacities || {})[mode];
+    const exchange = (data.exchange || {})[key];
+    const exchangeCapacityRange = (data.exchangeCapacities || {})[key];
 
     // Exchange CO₂ intensity
-    const gCo2eqPerkWh = getExchangeCo2Intensity(mode, data, electricityMixMode);
-    const gCo2eqPerHour = gCo2eqPerkWh * 1e3 * exchange;
-    const tCo2eqPerMin = gCo2eqPerHour / 1e6 / 60;
+    const gCo2eqPerkWh = getExchangeCo2Intensity(key, data, electricityMixMode);
+    const gCo2eqPerHour = gCo2eqPerkWh ? gCo2eqPerkWh * 1e3 * exchange : null;
+    const tCo2eqPerMin = gCo2eqPerHour ? gCo2eqPerHour / 1e6 / 60 : null;
 
     return {
       exchange,
       exchangeCapacityRange,
-      mode,
+      mode: key,
       gCo2eqPerkWh,
       tCo2eqPerMin,
     };
