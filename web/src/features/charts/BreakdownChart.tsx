@@ -61,7 +61,7 @@ function BreakdownChart({
           tooltipSize={displayByEmissions ? 'small' : 'large'}
         />
       </div>
-      {timeAverage !== TimeAverages.HOURLY && (
+      {isBreakdownGraphOverlayEnabled && (
         <div
           className="prose my-1 rounded bg-gray-200 p-2 text-sm leading-snug"
           dangerouslySetInnerHTML={{ __html: __('country-panel.exchangesAreMissing') }}
