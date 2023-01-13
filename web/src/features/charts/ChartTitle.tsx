@@ -37,7 +37,7 @@ export function ChartTitle({ translationKey }: Props) {
           href="https://electricitymaps.com/?utm_source=app.electricitymaps.com&utm_medium=referral&utm_campaign=country_panel"
           target="_blank"
           rel="noreferrer"
-          className="whitespace-nowrap pl-0.5 text-sky-600 no-underline hover:underline  dark:invert"
+          className="pl-0.5 text-sky-600 no-underline hover:underline  dark:invert"
         >
           {__('country-history.Getdata')}
         </a>
