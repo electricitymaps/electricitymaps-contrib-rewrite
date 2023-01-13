@@ -19,7 +19,7 @@ fi
 gsutil mb -p tmrow-152415 -c regional -l europe-west1 $BUCKET_NAME || true
 
 # Upload files and set proper index page
-gsutil -h "Cache-Control:public,max-age=0" -m cp -a public-read -r dist/* $BUCKET_NAME
+gsutil -m cp -a public-read -r dist/* $BUCKET_NAME
 gsutil web set -m index.html -e index.html $BUCKET_NAME
 
 # Unsure if this is required, but we have used it before...
@@ -29,6 +29,8 @@ gsutil web set -m index.html -e index.html $BUCKET_NAME
 
 # Set no-cache for certain files if required
 gsutil setmeta -h "Cache-Control:no-cache,max-age=0" $BUCKET_NAME/client-version.json
+gsutil setmeta -h "Cache-Control:no-cache,max-age=0" $BUCKET_NAME/index.html
+gsutil -m setmeta -h "Cache-Control:no-cache,max-age=0" "$BUCKET_NAME/**/index.html"
 #gsutil setmeta -h "Cache-Control:no-cache,max-age=0" $BUCKET_NAME/*.json
 
 # Create new git tag and Github release
