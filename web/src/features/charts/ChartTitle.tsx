@@ -32,7 +32,7 @@ export function ChartTitle({ translationKey }: Props) {
               formatTimeRange(localDefaultExists ? i18n.language : 'en', timeAverage)
             )}
       </h3>
-      <div className=" flex flex-row items-center pb-2 text-center text-sm  ">
+      <div className="flex flex-row items-center pb-2 text-center text-[11px]">
         <HiOutlineArrowDownTray className="min-w-[12px]" size={12} />
         <a
           href="https://electricitymaps.com/?utm_source=app.electricitymaps.com&utm_medium=referral&utm_campaign=country_panel"
