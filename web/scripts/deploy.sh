@@ -18,8 +18,9 @@ fi
 
 BUCKET_NAME="gs://$SUBDOMAIN.electricitymaps.com"
 
-# Create bucket (if not already done)
+# Create bucket and ensure everything is public - only required first time
 # gsutil mb -p tmrow-152415 -c regional -l europe-west1 $BUCKET_NAME || true
+# gsutil iam ch allUsers:objectViewer $BUCKET_NAME
 
 # Upload files and set proper index page
 gsutil -m cp -a public-read -r dist/* $BUCKET_NAME
