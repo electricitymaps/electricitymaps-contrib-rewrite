@@ -18,18 +18,22 @@ import RankingPanel from './ranking-panel/RankingPanel';
 import ZoneDetails from './zone/ZoneDetails';
 
 // Remove index.html from URL
-function HandleIndexRoutes() {
+function RedirectIndexWrapper({ children }: { children: JSX.Element }) {
   const location = useLocation();
-  console.log('Removing index.html from', location.pathname);
-  const pathWithoutIndex = location.pathname.replace('/index.html', '');
 
-  return (
-    <Navigate
-      to={{
-        pathname: pathWithoutIndex,
-      }}
-    />
-  );
+  if (location.pathname.includes('/index.html')) {
+    console.log('Removing index.html from', location.pathname);
+    const pathWithoutIndex = location.pathname.replace('/index.html', '');
+    return (
+      <Navigate
+        to={{
+          pathname: pathWithoutIndex,
+        }}
+      />
+    );
+  }
+
+  return children;
 }
 
 function HandleLegacyRoutes() {
@@ -113,7 +117,6 @@ export default function LeftPanel() {
     <OuterPanel>
       <SentryRoutes>
         <Route path="/" element={<HandleLegacyRoutes />} />
-        <Route path="*/index.html" element={<HandleIndexRoutes />} />
         <Route
           path="/zone/:zoneId"
           element={
@@ -124,7 +127,14 @@ export default function LeftPanel() {
         />
         <Route path="/faq" element={<FAQPanel />} />
         {/* Alternative: add /map here and have a NotFound component for anything else*/}
-        <Route path="*" element={<RankingPanel />} />
+        <Route
+          path="*"
+          element={
+            <RedirectIndexWrapper>
+              <RankingPanel />
+            </RedirectIndexWrapper>
+          }
+        />
       </SentryRoutes>
     </OuterPanel>
   );
