@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { TimeDisplay } from 'components/TimeDisplay';
 import Logo from 'features/header/Logo';
 import { useAtom } from 'jotai';
@@ -13,9 +14,23 @@ import {
 import FAQPanel from './faq/FAQPanel';
 import { leftPanelOpenAtom } from './panelAtoms';
 import RankingPanel from './ranking-panel/RankingPanel';
-import * as Sentry from '@sentry/react';
 
 import ZoneDetails from './zone/ZoneDetails';
+
+// Remove index.html from URL
+function HandleIndexRoutes() {
+  const location = useLocation();
+  console.log('Removing index.html from', location.pathname);
+  const pathWithoutIndex = location.pathname.replace('/index.html', '');
+
+  return (
+    <Navigate
+      to={{
+        pathname: pathWithoutIndex,
+      }}
+    />
+  );
+}
 
 function HandleLegacyRoutes() {
   const [searchParameters] = useSearchParams();
@@ -98,6 +113,7 @@ export default function LeftPanel() {
     <OuterPanel>
       <SentryRoutes>
         <Route path="/" element={<HandleLegacyRoutes />} />
+        <Route path="*/index.html" element={<HandleIndexRoutes />} />
         <Route
           path="/zone/:zoneId"
           element={
