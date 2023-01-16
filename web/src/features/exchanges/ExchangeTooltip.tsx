@@ -15,7 +15,7 @@ export function CarbonIntensity({ intensity }: { intensity?: number }) {
         style={{ backgroundColor: co2ColorScale(intensity ?? 0) }}
       />
       <b className="flex items-center font-bold">{Math.round(intensity ?? 0) || '?'}</b>
-      <p className="pl-0.5"> gCO₂eq/kWh</p>
+      <p className="pl-0.5 font-light"> gCO₂eq/kWh</p>
     </div>
   );
 }
