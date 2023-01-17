@@ -30,7 +30,7 @@ const ZONE_SOURCE = 'zones-clickable';
 const SOUTHERN_LATITUDE_BOUND = -66.947_193;
 const NORTHERN_LATITUDE_BOUND = 84.313_245;
 const MAP_STYLE = { version: 8, sources: {}, layers: [] };
-
+const isMobile = window.innerWidth < 768;
 // TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
 // We could even consider not changing it hear, but always reading it from the path parameter?
 export default function MapPage(): ReactElement {
@@ -189,7 +189,7 @@ export default function MapPage(): ReactElement {
 
       const center = JSON.parse(feature.properties.center);
       const centerMinusLeftPanelWidth = [center[0] - 10, center[1]] as [number, number];
-      map.flyTo({ center: centerMinusLeftPanelWidth, zoom: 3.5 });
+      map.flyTo({ center: isMobile ? center : centerMinusLeftPanelWidth, zoom: 3.5 });
 
       const zoneId = feature.properties.zoneId;
       navigate(createToWithState(`/zone/${zoneId}`));

@@ -111,6 +111,35 @@ body,
 #root {
   @apply h-full;
 }
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+}
+
+/* Override CSS for react spring bottom sheet to prevent header offset on some iOS devices  */
+[data-rsbs-header] {
+  text-align: center;
+  user-select: none;
+  box-shadow: 0 1px 0
+    rgba(46, 59, 66, calc(var(--rsbs-content-opacity) * 0.125));
+  z-index: 1;
+  padding-top: 20px;
+  padding-bottom: 8px;
+}
+[data-rsbs-header]:before {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 36px;
+  height: 4px;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background-color: var(--rsbs-handle-bg);
+}
 
 noscript div {
   height: 100vh;

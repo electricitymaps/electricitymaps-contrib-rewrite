@@ -15,7 +15,7 @@ function BottomSheetWrappedTimeController() {
   // Don't show the time controller until the onboarding has been seen
   // But it still has to be rendered to avoid re-querying data and showing loading
   // indicators again. Therefore we set the snap points to 0 until modal is closed.
-  const snapPoints = hasOnboardingBeenSeen ? SNAP_POINTS : [0];
+  const snapPoints = hasOnboardingBeenSeen && !isLoadingMap ? SNAP_POINTS : [0];
 
   return (
     <BottomSheet
