@@ -1,6 +1,6 @@
 # Electricity Maps
 
-[![Slack Status](https://slack.electricitymaps.com/badge.svg)](https://slack.electricitymaps.com) [![Twitter Follow](https://img.shields.io/twitter/follow/ElectricityMaps.svg?style=social&label=Follow)](https://twitter.com/ElectricityMaps)
+<img src="https://img.shields.io/github/license/electricitymaps/electricitymaps-contrib-rewrite" alt="Electricity Maps is released under the GNU-AGPL license." /> [![Slack Status](https://slack.electricitymaps.com/badge.svg)](https://slack.electricitymaps.com) [![Twitter Follow](https://img.shields.io/twitter/follow/ElectricityMaps.svg?style=social&label=Follow)](https://twitter.com/ElectricityMaps)
 
 A real-time visualisation of the Greenhouse Gas (in terms of CO<sub>2</sub> equivalent) footprint of electricity consumption built with [d3.js](https://d3js.org/) and [mapbox GL](https://github.com/mapbox/mapbox-gl-js/). Try it out at [app.electricitymaps.com](https://app.electricitymaps.com), or download the app on [Google Play](https://play.google.com/store/apps/details?id=com.tmrow.electricitymap&utm_source=github) or [App store](https://itunes.apple.com/us/app/electricity-map/id1224594248&utm_source=github).
 
@@ -23,6 +23,10 @@ Here are some of the ways you can contribute:
 Join us on [Slack](https://slack.electricitymaps.com) if you wish to discuss development or need help to get started.
 
 We would love your feedback on how to improve the contribution experience, please feel free to fill out this [form](https://forms.gle/VRWvEFwhtnhpzPVX8)
+
+## License
+
+Electricity Maps is licensed under GNU-AGPL. Find our license [here](link to license file)
 
 ## Frequently asked questions
 
