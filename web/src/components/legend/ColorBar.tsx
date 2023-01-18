@@ -14,7 +14,7 @@ function HorizontalColorbar({
   id,
   ticksCount = 5,
 }: {
-  colorScale: Co2Scale<string, string, string>;
+  colorScale: Co2Scale<string, string, string> | ScaleLinear<string, string, string>;
   id: string;
   ticksCount?: number;
 }) {
