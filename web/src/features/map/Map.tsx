@@ -97,6 +97,7 @@ export default function MapPage(): ReactElement {
       return;
     }
     map.touchZoomRotate.disableRotation();
+    map.touchPitch.disable();
     // An issue where the map has not loaded source yet causing map errors
     const isSourceLoaded = map.getSource('zones-clickable') != undefined;
     if (!isSourceLoaded) {
