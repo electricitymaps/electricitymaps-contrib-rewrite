@@ -43,7 +43,9 @@ function TimeAverageToggle({ timeAverage, onToggleGroupClick }: TimeAverageToggl
   const options = getOptions(i18n.language);
   return (
     <ToggleGroupPrimitive.Root
-      className={'flex-start mb-2 flex flex-row items-center gap-x-2'}
+      className={
+        'flex-start mb-2 flex flex-row items-center gap-x-2 md:gap-x-1.5 lg:gap-x-2'
+      }
       type="multiple"
       aria-label="Font settings"
     >
@@ -55,7 +57,7 @@ function TimeAverageToggle({ timeAverage, onToggleGroupClick }: TimeAverageToggl
           aria-label={label}
           onClick={() => onToggleGroupClick(value)}
           className={`
-          inline-flex select-none rounded-full px-3 py-2 text-sm sm:px-2 md:px-2 lg:px-3
+          inline-flex select-none rounded-full px-2.5 py-2 text-sm sm:px-2 lg:px-3
             ${
               timeAverage === value
                 ? 'items-center bg-white font-bold text-green-900 shadow-2xl dark:bg-gray-500 dark:text-white'
@@ -63,7 +65,7 @@ function TimeAverageToggle({ timeAverage, onToggleGroupClick }: TimeAverageToggl
             }`}
         >
           {timeAverage === value && (
-            <HiOutlineClock className="mr-1 block text-[0.87rem] sm:hidden lg:block" />
+            <HiOutlineClock className="min-[370px]:block mr-1 hidden text-[0.87rem] sm:hidden xl:block" />
           )}
           <p className="w-15">{label}</p>
         </ToggleGroupPrimitive.Item>
