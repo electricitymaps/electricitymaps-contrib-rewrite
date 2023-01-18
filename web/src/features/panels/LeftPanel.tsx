@@ -22,12 +22,12 @@ function RedirectIndexWrapper({ children }: { children: JSX.Element }) {
   const location = useLocation();
 
   if (location.pathname.includes('/index.html')) {
-    console.log('Removing index.html from', location.pathname);
     const pathWithoutIndex = location.pathname.replace('/index.html', '');
     return (
       <Navigate
         to={{
           pathname: pathWithoutIndex,
+          search: location.search,
         }}
       />
     );
