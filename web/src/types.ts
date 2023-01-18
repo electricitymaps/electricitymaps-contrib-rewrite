@@ -86,7 +86,7 @@ export interface ZoneDetail extends ZoneOverview {
   dischargeCo2IntensitySources: { [key in ElectricityStorageKeyType]: string };
   exchange: Exchange;
   exchangeCapacities?: {
-    [key: string]: number[]; // TODO: Why can I not use [number, number] here?
+    [key: string]: [number, number];
   };
   exchangeCo2Intensities: Exchange;
   fossilFuelRatio: number;
