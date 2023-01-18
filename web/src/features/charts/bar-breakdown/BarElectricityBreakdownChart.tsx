@@ -121,12 +121,14 @@ function BarElectricityBreakdownChart({
             onMouseOut={onProductionRowMouseOut}
             isMobile={isMobile}
           >
-            <HorizontalBar
-              className="text-black/10 dark:text-white/10"
-              fill="currentColor"
-              range={d.isStorage ? [-d.capacity, d.capacity] : [0, d.capacity]}
-              scale={powerScale}
-            />
+            {d.capacity && (
+              <HorizontalBar
+                className="text-black/10 dark:text-white/10"
+                fill="currentColor"
+                range={d.isStorage ? [-d.capacity, d.capacity] : [0, d.capacity]}
+                scale={powerScale}
+              />
+            )}
             <HorizontalBar
               className="production"
               fill={modeColor[d.mode]}
