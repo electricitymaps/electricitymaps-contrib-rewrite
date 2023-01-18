@@ -66,14 +66,11 @@ export async function fetchGfsForecast(
   const response = await fetch(`${getBasePath()}${path}`, requestOptions);
   if (response.ok) {
     const { data } = await response.json();
-    // TODO: Change this on backend instead
     // Convert solar data to array to ensure that data is consistent between weather layers
     return resource === 'solar' ? [data] : data;
   }
 
   if (retries >= 3 || response.status !== 404) {
-    // TODO: Handle this error gracefully and show message to users that wind layer is not available
-    // TODO: Log to Sentry if status is not 404
     throw new Error(
       `Failed to fetch GFS forecast after ${retries} retries (status: ${response.status})`
     );

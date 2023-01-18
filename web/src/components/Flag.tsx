@@ -33,7 +33,6 @@ export function CountryFlag({
   }
   return (
     <FlagIcon
-      title="TODO"
       width={size}
       height={Math.floor((size / 3) * 2)}
       style={{

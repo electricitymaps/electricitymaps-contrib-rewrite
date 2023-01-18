@@ -35,8 +35,6 @@ const getZone = async (
   throw new Error(await response.text());
 };
 
-// TODO: The frontend (graphs) expects that the datetimes in state are the same as in zone
-// should we add a check for this?
 const useGetZone = (
   options?: UseQueryOptions<ZoneDetails>
 ): UseQueryResult<ZoneDetails> => {
