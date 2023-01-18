@@ -111,9 +111,7 @@ export default function MapPage(): ReactElement {
           ? getCO2IntensityByMode(zone[selectedDatetime.datetimeString], mixMode)
           : undefined;
 
-      const fillColor = co2intensity
-        ? getCo2colorScale(co2intensity)
-        : theme.clickableFill;
+      const fillColor = getCo2colorScale(co2intensity);
 
       const existingColor = map.getFeatureState({
         source: 'zones-clickable',

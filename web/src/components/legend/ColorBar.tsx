@@ -1,5 +1,6 @@
-import { ScaleLinear, scaleLinear } from 'd3-scale';
 import { extent } from 'd3-array';
+import { ScaleLinear, scaleLinear } from 'd3-scale';
+import { Co2ScaleType } from 'hooks/theme';
 
 const spreadOverDomain = (scale: any, count: number) => {
   const [x1, x2] = (extent(scale.domain()) as unknown as [number, number]) ?? [0, 0];
@@ -13,7 +14,7 @@ function HorizontalColorbar({
   id,
   ticksCount = 5,
 }: {
-  colorScale: ScaleLinear<string, string, string>;
+  colorScale: Co2ScaleType<string, string, string>;
   id: string;
   ticksCount?: number;
 }) {

@@ -1,3 +1,4 @@
+import { Co2Scale } from 'hooks/theme';
 import { getCountryName, getZoneName } from 'translation/translation';
 import type { GridState } from 'types';
 import { getCO2IntensityByMode } from 'utils/helpers';
@@ -5,7 +6,7 @@ import { ZoneRowType } from './ZoneList';
 
 export const getRankedState = (
   data: GridState | undefined,
-  getCo2colorScale: (co2intensity: number) => string,
+  getCo2colorScale: Co2Scale<string, string, string>,
   sortOrder: 'asc' | 'desc',
   datetimeIndex: string,
   electricityMode: string
@@ -25,7 +26,7 @@ export const getRankedState = (
       const co2intensity = zoneData
         ? getCO2IntensityByMode(zoneData, electricityMode)
         : undefined;
-      const fillColor = co2intensity ? getCo2colorScale(co2intensity) : undefined;
+      const fillColor = getCo2colorScale(co2intensity);
       return {
         zoneId: key,
         color: fillColor,
