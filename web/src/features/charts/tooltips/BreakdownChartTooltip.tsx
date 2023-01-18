@@ -6,7 +6,7 @@ import { useAtom } from 'jotai';
 import { renderToString } from 'react-dom/server';
 import AreaGraphToolTipHeader from 'stories/tooltips/AreaGraphTooltipHeader';
 import { getZoneName, useTranslation } from 'translation/translation';
-import { ElectricityModeType, ZoneDetail } from 'types';
+import { ElectricityModeType, ZoneDetail, ZoneKey } from 'types';
 import { TimeAverages, modeColor, modeOrder } from 'utils/constants';
 import { formatCo2, formatPower } from 'utils/formatting';
 import { displayByEmissionsAtom, timeAverageAtom } from 'utils/state/atoms';
@@ -15,11 +15,11 @@ import { getExchangeTooltipData, getProductionTooltipData } from '../tooltipCalc
 import { InnerAreaGraphTooltipProps } from '../types';
 
 function calculateTooltipContentData(
-  selectedLayerKey: ElectricityModeType,
+  selectedLayerKey: ElectricityModeType | ZoneKey,
   zoneDetail: ZoneDetail,
   displayByEmissions: boolean
 ) {
-  const isExchange = !modeOrder.includes(selectedLayerKey);
+  const isExchange = !(modeOrder as ReadonlyArray<string>).includes(selectedLayerKey);
 
   return isExchange
     ? getExchangeTooltipData(selectedLayerKey, zoneDetail, displayByEmissions)
@@ -31,7 +31,7 @@ export default function BreakdownChartTooltip(props: InnerAreaGraphTooltipProps)
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   // If layer key is not a generation type, it is an exchange
-  const isExchange = !modeOrder.includes(selectedLayerKey);
+  const isExchange = !(modeOrder as ReadonlyArray<string>).includes(selectedLayerKey);
 
   const contentData = calculateTooltipContentData(
     selectedLayerKey,

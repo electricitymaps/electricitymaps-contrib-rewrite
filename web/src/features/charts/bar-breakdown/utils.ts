@@ -69,25 +69,19 @@ export const getProductionData = (data: ZoneDetail): ProductionDataType[] =>
     };
   });
 
-interface GetElectricityProductionValueType {
-  capacity: number;
-  isStorage: boolean;
-  production: number;
-  storage: number;
-}
 export function getElectricityProductionValue({
   capacity,
   isStorage,
   production,
   storage,
-}: GetElectricityProductionValueType) {
-  const value = isStorage ? -storage : production;
+}: ProductionDataType) {
+  const value = isStorage && storage ? -storage : production;
   // If the value is not defined but the capacity
   // is zero, assume the value is also zero.
   if (!Number.isFinite(value) && capacity === 0) {
     return 0;
   }
-  return value;
+  return value || 0;
 }
 
 export const getDataBlockPositions = (
@@ -115,7 +109,7 @@ export const getDataBlockPositions = (
 
 export interface ExchangeDataType {
   exchange: number;
-  exchangeCapacityRange: number[];
+  exchangeCapacityRange: [number, number];
   mode: ZoneKey; // TODO: This should not be called "mode" as it's a zonekey
   gCo2eqPerkWh: Maybe<number>;
   tCo2eqPerMin: Maybe<number>;

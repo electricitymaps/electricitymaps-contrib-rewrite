@@ -3,9 +3,10 @@ import { max as d3Max, min as d3Min } from 'd3-array';
 
 import { scaleLinear } from 'd3-scale';
 import { useCo2ColorScale } from 'hooks/theme';
+import { d } from 'msw/lib/glossary-dc3fd077';
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
-import { ElectricityModeType, ZoneDetail, ZoneDetails } from 'types';
+import { ElectricityModeType, ZoneDetail, ZoneDetails, ZoneKey } from 'types';
 import { modeColor } from 'utils/constants';
 import { LABEL_MAX_WIDTH, PADDING_X } from './constants';
 import Axis from './elements/Axis';
@@ -33,7 +34,7 @@ interface BarElectricityBreakdownChartProps {
   ) => void;
   onProductionRowMouseOut: () => void;
   onExchangeRowMouseOver: (
-    mode: ElectricityModeType,
+    mode: ZoneKey,
     data: ZoneDetail,
     event: React.MouseEvent<SVGPathElement, MouseEvent>
   ) => void;
