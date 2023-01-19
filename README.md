@@ -26,7 +26,7 @@ We would love your feedback on how to improve the contribution experience, pleas
 
 ## License
 
-Electricity Maps is licensed under GNU-AGPLv3. Find our license [here](link to license file)
+Electricity Maps is licensed under GNU-AGPLv3. Find our license [here](https://github.com/electricitymaps/electricitymaps-contrib-rewrite/blob/master/LICENSE.md)
 
 ## Frequently asked questions
 
