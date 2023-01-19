@@ -76,11 +76,11 @@ interface AreagraphProps {
   markerUpdateHandler: any;
   markerHideHandler: any;
   isMobile: boolean;
-  isOverlayEnabled: boolean;
+  isOverlayEnabled?: boolean;
   height: string;
   datetimes: Date[];
   selectedTimeAggregate: TimeAverages; // TODO: Graph does not need to know about this
-  tooltip: (props: InnerAreaGraphTooltipProps) => JSX.Element;
+  tooltip: (props: InnerAreaGraphTooltipProps) => JSX.Element | null;
   tooltipSize?: 'small' | 'large';
 }
 
@@ -99,7 +99,7 @@ function AreaGraph({
   valueAxisLabel,
   isMobile,
   height = '10em',
-  isOverlayEnabled,
+  isOverlayEnabled = false,
   selectedTimeAggregate,
   datetimes,
   tooltip,

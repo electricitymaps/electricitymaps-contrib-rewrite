@@ -1,9 +1,22 @@
 import CarbonIntensitySquare from 'components/CarbonIntensitySquare';
 import { CircularGauge } from 'components/CircularGauge';
-import ZoneHeaderTitle from './ZoneHeaderTitle';
-import { productionConsumptionAtom } from 'utils/state/atoms';
-import { Mode } from 'utils/constants';
 import { useAtom } from 'jotai';
+import { useTranslation } from 'translation/translation';
+import { Mode } from 'utils/constants';
+import { productionConsumptionAtom } from 'utils/state/atoms';
+import ZoneHeaderTitle from './ZoneHeaderTitle';
+
+function LowCarbonTooltip() {
+  const { __ } = useTranslation();
+  return (
+    <div className="text-left">
+      <b>{__('tooltips.lowcarbon')}</b>
+      <br />
+      <small>{__('tooltips.lowCarbDescription')}</small>
+      <br />
+    </div>
+  );
+}
 
 interface ZoneHeaderProps {
   zoneId: string;
@@ -32,7 +45,7 @@ export function ZoneHeader({
   const isConsumption = currentMode === Mode.CONSUMPTION;
   const intensity = isConsumption ? co2intensity : co2intensityProduction;
   const renewable = isConsumption ? renewableRatio : renewableRatioProduction;
-  const fossilFuel = isConsumption ? fossilFuelRatio : fossilFuelRatioProduction;
+  const fossilFuel = (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction) ?? 0;
 
   return (
     <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
@@ -45,7 +58,8 @@ export function ZoneHeader({
         <CarbonIntensitySquare co2intensity={intensity ?? Number.NaN} withSubtext />
         <CircularGauge
           name="Low-carbon"
-          ratio={fossilFuel ? 1 - fossilFuel : Number.NaN}
+          ratio={1 - fossilFuel}
+          tooltipContent={<LowCarbonTooltip />}
         />
         <CircularGauge name="Renewable" ratio={renewable ?? Number.NaN} />
       </div>
