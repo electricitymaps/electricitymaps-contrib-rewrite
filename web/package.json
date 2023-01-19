@@ -1,6 +1,6 @@
 {
   "name": "electricitymap-web",
-  "version": "1.1.0-beta.33",
+  "version": "1.1.0-beta.54",
   "description": "A real-time visualisation of the CO2 emissions of electricity consumption",
   "license": "GPL-3.0-or-later",
   "engines": {
@@ -18,7 +18,7 @@
     "generate-zones-config": "ts-node ./scripts/generate-zones-config.ts",
     "predevelop": "pnpm run generate-zones-config",
     "prebuild": "pnpm run generate-zones-config",
-    "postinstall": "pnpm run generate-index-files",
+    "postinstall": "pnpm run generate-zones-config",
     "cy:components": "cypress open --components -b electron",
     "cy:e2e": "cypress open --e2e -b electron",
     "dev": "vite --open",
@@ -53,7 +53,7 @@
     "@tailwindcss/typography": "^0.5.8",
     "@tanstack/react-query": "4.13.0",
     "@tanstack/react-query-devtools": "^4.13.0",
-    "@turf/turf": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "@types/d3": "^7.4.0",
     "@types/d3-array": "^3.0.3",
     "@types/d3-selection": "^3.0.3",
@@ -116,6 +116,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.4.3",
+    "@turf/turf": "^6.5.0",
     "@types/css-mediaquery": "0.1.1",
     "@types/d3-format": "^3.0.1",
     "@types/d3-interpolate": "^3.0.1",

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BarBreakdownProductionChart from './BarBreakdownProductionChart';
+import BarElectricityBreakdownChart from './BarElectricityBreakdownChart';
 
-const meta: Meta<typeof BarBreakdownProductionChart> = {
-  title: 'charts/BarBreakdownProductionChart',
-  component: BarBreakdownProductionChart,
+const meta: Meta<typeof BarElectricityBreakdownChart> = {
+  title: 'charts/BarElectricityBreakdownChart',
+  component: BarElectricityBreakdownChart,
 };
 
-type Story = StoryObj<typeof BarBreakdownProductionChart>;
+type Story = StoryObj<typeof BarElectricityBreakdownChart>;
 
 const data = {
   co2intensity: 187.32,

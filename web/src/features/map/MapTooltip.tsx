@@ -7,6 +7,7 @@ import { CircularGauge } from 'components/CircularGauge';
 import { ZoneName } from 'components/ZoneName';
 import { getSafeTooltipPosition } from 'components/tooltips/utilities';
 import { useTranslation } from 'translation/translation';
+import { StateZoneData } from 'types';
 import { Mode } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
 import {
@@ -23,16 +24,7 @@ function TooltipInner({
 }: {
   date: string;
   zoneId: string;
-  zoneData: {
-    co2intensity: number;
-    co2intensityProduction: number;
-    zoneKey: string;
-    fossilFuelRatio: number;
-    fossilFuelRatioProduction: number;
-    renewableRatio: number;
-    renewableRatioProduction: number;
-    stateDatetime: number;
-  };
+  zoneData: StateZoneData;
 }) {
   const {
     co2intensity,
@@ -44,10 +36,11 @@ function TooltipInner({
   } = zoneData;
   const [currentMode] = useAtom(productionConsumptionAtom);
   const isConsumption = currentMode === Mode.CONSUMPTION;
+  const fossilFuel = (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction) ?? 0;
   return (
-    <div className="w-full p-4 text-center">
-      <div className="pl-1">
-        <ZoneName zone={zoneId} textStyle="text-base" />
+    <div className="w-full text-center">
+      <div className="pl-2">
+        <ZoneName zone={zoneId} textStyle="text-base font-medium" />
         <div className="flex self-start text-xs">{date}</div>{' '}
       </div>
       <div className="flex w-full flex-grow py-1 sm:pr-2">
@@ -56,10 +49,7 @@ function TooltipInner({
             co2intensity={isConsumption ? co2intensity : co2intensityProduction}
           />
           <div className="px-4">
-            <CircularGauge
-              name="Low-carbon"
-              ratio={1 - (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction)}
-            />
+            <CircularGauge name="Low-carbon" ratio={1 - fossilFuel} />
           </div>
           <CircularGauge
             name="Renewable"
@@ -77,7 +67,7 @@ export default function MapTooltip() {
   const [selectedDatetime] = useAtom(selectedDatetimeIndexAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
   const [isMapMoving] = useAtom(mapMovingAtom);
-  const { i18n } = useTranslation();
+  const { i18n, __ } = useTranslation();
   const { data } = useGetState();
 
   if (!hoveredZone || isMapMoving) {
@@ -104,7 +94,7 @@ export default function MapTooltip() {
     return (
       <Portal.Root className="absolute left-0 top-0 h-0 w-0">
         <div
-          className="relative h-[176px] w-[276px] rounded border bg-zinc-50  text-sm shadow-lg dark:border-0 dark:bg-gray-900"
+          className="relative h-[176px] w-[276px] rounded border bg-zinc-50 p-3  text-sm shadow-lg dark:border-0 dark:bg-gray-900"
           style={{ left: tooltipWithDataPositon.x, top: tooltipWithDataPositon.y }}
         >
           <div>
@@ -121,13 +111,13 @@ export default function MapTooltip() {
   return (
     <Portal.Root className="absolute left-0 top-0 h-0 w-0">
       <div
-        className="relative h-[80px] w-[176px] rounded border bg-gray-100 p-3 text-center text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
+        className="relative h-[80px] w-[176px] rounded border bg-zinc-50 p-3 text-center text-sm drop-shadow-sm dark:border-0 dark:bg-gray-900"
         style={{ left: emptyTooltipPosition.x, top: emptyTooltipPosition.y }}
       >
         <div>
-          <ZoneName zone={hoveredZone.zoneId} textStyle="text-base" />
+          <ZoneName zone={hoveredZone.zoneId} textStyle="font-medium" />
           <div className="flex self-start text-xs">{formattedDate}</div>
-          <p className="text-start">No data available</p>
+          <p className="text-start">{__('tooltips.noParserInfo')}</p>
         </div>
       </div>
     </Portal.Root>

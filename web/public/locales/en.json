@@ -277,6 +277,9 @@
     "AT": {
       "zoneName": "Austria"
     },
+    "AU": {
+      "zoneName": "Australia"
+    },
     "AU-NSW": {
       "countryName": "Australia",
       "zoneName": "New South Wales"
@@ -764,6 +767,29 @@
     "IM": {
       "zoneName": "Isle of Man"
     },
+    "IN": {
+      "zoneName": "India"
+    },
+    "IN-EA": {
+      "countryName": "India",
+      "zoneName": "Eastern India"
+    },
+    "IN-NE": {
+      "countryName": "India",
+      "zoneName": "North Eastern India"
+    },
+    "IN-NO": {
+      "countryName": "India",
+      "zoneName": "Northern India"
+    },
+    "IN-SO": {
+      "countryName": "India",
+      "zoneName": "Southern India"
+    },
+    "IN-WE": {
+      "countryName": "India",
+      "zoneName": "Western India"
+    },
     "IN-AN": {
       "countryName": "India",
       "zoneName": "Andaman and Nicobar Islands"
@@ -913,15 +939,15 @@
     },
     "IT-CNO": {
       "countryName": "Italy",
-      "zoneName": "Central North"
+      "zoneName": "Central North Italy"
     },
     "IT-CSO": {
       "countryName": "Italy",
-      "zoneName": "Central South"
+      "zoneName": "Central South Italy"
     },
     "IT-NO": {
       "countryName": "Italy",
-      "zoneName": "North"
+      "zoneName": "North Italy"
     },
     "IT-SAR": {
       "countryName": "Italy",
