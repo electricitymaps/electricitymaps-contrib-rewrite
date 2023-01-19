@@ -1,6 +1,6 @@
 # Electricity Maps
 
-<img src="https://img.shields.io/github/license/electricitymaps/electricitymaps-contrib-rewrite" alt="Electricity Maps is released under the GNU-AGPL license." /> [![Slack Status](https://slack.electricitymaps.com/badge.svg)](https://slack.electricitymaps.com) [![Twitter Follow](https://img.shields.io/twitter/follow/ElectricityMaps.svg?style=social&label=Follow)](https://twitter.com/ElectricityMaps)
+<img src="https://img.shields.io/github/license/electricitymaps/electricitymaps-contrib-rewrite" alt="Electricity Maps is released under the GNU-AGPLv3 license." /> [![Slack Status](https://slack.electricitymaps.com/badge.svg)](https://slack.electricitymaps.com) [![Twitter Follow](https://img.shields.io/twitter/follow/ElectricityMaps.svg?style=social&label=Follow)](https://twitter.com/ElectricityMaps)
 
 A real-time visualisation of the Greenhouse Gas (in terms of CO<sub>2</sub> equivalent) footprint of electricity consumption built with [d3.js](https://d3js.org/) and [mapbox GL](https://github.com/mapbox/mapbox-gl-js/). Try it out at [app.electricitymaps.com](https://app.electricitymaps.com), or download the app on [Google Play](https://play.google.com/store/apps/details?id=com.tmrow.electricitymap&utm_source=github) or [App store](https://itunes.apple.com/us/app/electricity-map/id1224594248&utm_source=github).
 
