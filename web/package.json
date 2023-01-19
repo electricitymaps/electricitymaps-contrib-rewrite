@@ -152,6 +152,7 @@
     "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-prefer-function-component": "3.0.0",
+    "eslint-plugin-simple-import-sort": "^9.0.0",
     "eslint-plugin-storybook": "^0.6.7",
     "eslint-plugin-testing-library": "5.9.1",
     "eslint-plugin-unicorn": "44.0.2",

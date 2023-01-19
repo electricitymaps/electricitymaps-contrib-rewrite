@@ -90,6 +90,7 @@ specifiers:
   eslint-plugin-react: 7.31.10
   eslint-plugin-react-hooks: 4.6.0
   eslint-plugin-react-prefer-function-component: 3.0.0
+  eslint-plugin-simple-import-sort: ^9.0.0
   eslint-plugin-storybook: ^0.6.7
   eslint-plugin-testing-library: 5.9.1
   eslint-plugin-unicorn: 44.0.2
@@ -253,6 +254,7 @@ devDependencies:
   eslint-plugin-react: 7.31.10_eslint@8.26.0
   eslint-plugin-react-hooks: 4.6.0_eslint@8.26.0
   eslint-plugin-react-prefer-function-component: 3.0.0
+  eslint-plugin-simple-import-sort: 9.0.0_eslint@8.26.0
   eslint-plugin-storybook: 0.6.7_wyqvi574yv7oiwfeinomdzmc3m
   eslint-plugin-testing-library: 5.9.1_wyqvi574yv7oiwfeinomdzmc3m
   eslint-plugin-unicorn: 44.0.2_eslint@8.26.0
@@ -10629,6 +10631,14 @@ packages:
       resolve: 2.0.0-next.4
       semver: 6.3.0
       string.prototype.matchall: 4.0.7
+    dev: true
+
+  /eslint-plugin-simple-import-sort/9.0.0_eslint@8.26.0:
+    resolution: {integrity: sha512-PtrLjyXP8kjRneWT1n0b99y/2Fyup37we7FVoWsI61/O7x4ztLohzhep/pxI/cYlECr/cQ2j6utckdvWpVwXNA==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.26.0
     dev: true
 
   /eslint-plugin-storybook/0.6.7_wyqvi574yv7oiwfeinomdzmc3m:

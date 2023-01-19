@@ -6,7 +6,7 @@
     "es2021": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react-prefer-function-component"],
+  "plugins": ["react-prefer-function-component", "simple-import-sort"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -66,6 +66,8 @@
     ],
     "import/no-deprecated": "error",
     "import/no-unresolved": "off", // Off as TS handles this
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "import/no-extraneous-dependencies": [
       "error",
       {
