@@ -8,7 +8,7 @@ A real-time visualisation of the Greenhouse Gas (in terms of CO<sub>2</sub> equi
 
 ## Contribute
 
-Thank you for your interest. Check out the [Wiki](https://github.com/electricityMaps/electricitymaps-contrib/wiki) for how to get started. Also, have a look at our current [issues](https://github.com/electricityMaps/electricitymaps-contrib/issues) and [discussions](https://github.com/electricityMaps/electricitymaps-contrib/discussions)
+Thank you for your interest. Check out our general [contribution guidelines](Add link to the contribution guidelines). Our [Wiki](https://github.com/electricityMaps/electricitymaps-contrib/wiki) gathers all information about how to get started. Also, have a look at our current [issues](https://github.com/electricityMaps/electricitymaps-contrib/issues) and [discussions](https://github.com/electricityMaps/electricitymaps-contrib/discussions).
 
 Here are some of the ways you can contribute:
 
@@ -26,7 +26,7 @@ We would love your feedback on how to improve the contribution experience, pleas
 
 ## License
 
-Electricity Maps is licensed under GNU-AGPLv3. Find our license [here](https://github.com/electricitymaps/electricitymaps-contrib-rewrite/blob/master/LICENSE.md)
+Electricity Maps is licensed under GNU-AGPLv3. Find our license [here](https://github.com/electricitymaps/electricitymaps-contrib/blob/master/LICENSE.md)
 
 ## Frequently asked questions
 
