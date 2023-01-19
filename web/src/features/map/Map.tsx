@@ -322,10 +322,10 @@ export default function MapPage(): ReactElement {
         <WindLayer />
       </CustomLayer>
       <CustomLayer>
-        <SolarLayer />
+        <ExchangeLayer />
       </CustomLayer>
       <CustomLayer>
-        <ExchangeLayer />
+        <SolarLayer />
       </CustomLayer>
       <ZoomControls />
     </Map>
