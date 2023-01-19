@@ -8,16 +8,17 @@ import { defineConfig } from 'vite';
 // import { VitePWA } from 'vite-plugin-pwa';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-// const manualChunkMap = {
+const manualChunkMap = {
+// These dependencies are disabled for now, as we had problems were Radix would crash the app because it did not have React available
 //   '@sentry': 'sentry',
 //   '@radix-ui': 'radix',
 //   'country-flag-icons': 'flags',
 //   recharts: 'recharts',
-//   'world.json': 'world',
-//   'zones.json': 'config',
-//   'exchanges.json': 'config',
-//   'excludedAggregatedExchanges.json': 'config',
-// };
+   'world.json': 'world',
+   'zones.json': 'config',
+   'exchanges.json': 'config',
+   'excludedAggregatedExchanges.json': 'config',
+};
 
 export default defineConfig(({ mode }) => ({
   optimizeDeps: {
@@ -31,17 +32,17 @@ export default defineConfig(({ mode }) => ({
     commonjsOptions: {
       include: [],
     },
-    // rollupOptions: {
-    //   output: {
-    //     manualChunks(id) {
-    //       for (const [searchString, value] of Object.entries(manualChunkMap)) {
-    //         if (id.includes(searchString)) {
-    //           return value;
-    //         }
-    //       }
-    //     },
-    //   },
-    // },
+     rollupOptions: {
+       output: {
+         manualChunks(id) {
+           for (const [searchString, value] of Object.entries(manualChunkMap)) {
+             if (id.includes(searchString)) {
+               return value;
+             }
+           }
+         },
+       },
+     },
   },
   test: {
     css: false,
