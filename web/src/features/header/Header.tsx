@@ -1,5 +1,6 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import trackEvent from 'utils/analytics';
+
 import Logo from './Logo';
 
 interface MenuLinkProps {

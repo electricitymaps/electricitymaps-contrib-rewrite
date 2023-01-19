@@ -1,5 +1,6 @@
 import { useTranslation } from 'translation/translation';
 import { Mode, TimeAverages } from 'utils/constants';
+
 import { ChartTitle } from './ChartTitle';
 import AreaGraph from './elements/AreaGraph';
 import { noop } from './graphUtils';

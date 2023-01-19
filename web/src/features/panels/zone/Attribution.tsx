@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
 import { formatDataSources } from 'utils/formatting';
+
 import { getContributors } from './util';
 
 export function removeDuplicateSources(source: string | undefined) {

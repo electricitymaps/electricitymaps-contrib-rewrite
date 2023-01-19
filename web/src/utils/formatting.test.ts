@@ -1,4 +1,5 @@
 import { removeDuplicateSources } from 'features/panels/zone/Attribution';
+
 import { formatDataSources } from './formatting';
 
 describe('formatDataSources', () => {

@@ -2,6 +2,7 @@ import { multiPolygon } from '@turf/helpers';
 import { merge } from 'topojson-client';
 import { MapGeometries, MapTheme } from 'types';
 import { ToggleOptions } from 'utils/constants';
+
 import topo from '../../../../config/world.json';
 // TODO: Investigate if we can move this step to buildtime geo scripts
 export interface TopoObject {

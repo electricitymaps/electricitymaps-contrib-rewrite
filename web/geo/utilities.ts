@@ -1,3 +1,5 @@
+import * as fs from 'node:fs';
+
 import {
   area,
   Feature,
@@ -12,7 +14,6 @@ import {
   Properties,
   truncate,
 } from '@turf/turf';
-import * as fs from 'node:fs';
 
 function getPolygons(input) {
   /* Transform the feature collection of polygons and multi-polygons into a feature collection of polygons only */
@@ -88,4 +89,4 @@ const round = (number, decimals = 2) => {
   return Math.round((number + Number.EPSILON) * 10 ** decimals) / 10 ** decimals;
 };
 
-export { getPolygons, getHoles, isSliver, writeJSON, getJSON, log, round, fileExists };
+export { fileExists,getHoles, getJSON, getPolygons, isSliver, log, round, writeJSON };

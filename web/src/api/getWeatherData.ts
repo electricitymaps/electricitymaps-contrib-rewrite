@@ -1,9 +1,9 @@
-import { UseQueryOptions, useQuery } from '@tanstack/react-query';
+import { useQuery,UseQueryOptions } from '@tanstack/react-query';
 import { add, startOfHour, sub } from 'date-fns';
 import { useInterpolatedData } from 'features/weather-layers/hooks';
 import type { Maybe } from 'types';
 
-import { REFETCH_INTERVAL_FIVE_MINUTES, getBasePath, getHeaders } from './helpers';
+import { getBasePath, getHeaders,REFETCH_INTERVAL_FIVE_MINUTES } from './helpers';
 
 export type WeatherType = 'wind' | 'solar';
 

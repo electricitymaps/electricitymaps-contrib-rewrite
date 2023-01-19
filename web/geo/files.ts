@@ -1,6 +1,7 @@
-import yaml from 'js-yaml';
 import fs from 'node:fs';
 import path from 'node:path';
+
+import yaml from 'js-yaml';
 
 const saveZoneYaml = (zoneKey: string, zone: any) => {
   const zonePath = path.resolve(__dirname, `../../config/zones/${zoneKey}.yaml`);

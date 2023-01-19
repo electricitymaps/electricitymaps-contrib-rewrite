@@ -2,6 +2,7 @@ import { scaleLinear } from 'd3-scale';
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
 import { modeOrder } from 'utils/constants';
+
 import { LABEL_MAX_WIDTH, PADDING_X } from './constants';
 import Axis from './elements/Axis';
 import HorizontalBar from './elements/HorizontalBar';

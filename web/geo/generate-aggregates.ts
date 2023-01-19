@@ -1,4 +1,5 @@
 import { Feature, MultiPolygon, Polygon, Properties, union } from '@turf/turf';
+
 import { ZoneConfig } from './types';
 
 const generateAggregates = (geojson, zones: ZoneConfig) => {

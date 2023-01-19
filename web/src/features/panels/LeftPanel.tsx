@@ -11,10 +11,10 @@ import {
   useParams,
   useSearchParams,
 } from 'react-router-dom';
+
 import FAQPanel from './faq/FAQPanel';
 import { leftPanelOpenAtom } from './panelAtoms';
 import RankingPanel from './ranking-panel/RankingPanel';
-
 import ZoneDetails from './zone/ZoneDetails';
 
 // Remove index.html from URL

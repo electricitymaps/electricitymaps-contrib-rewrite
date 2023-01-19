@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { MapboxMap } from 'react-map-gl';
 import { resolvePath } from 'react-router-dom';
 import { ExchangeArrowData } from 'types';
+
 import ExchangeTooltip from './ExchangeTooltip';
 import { quantizedCo2IntensityScale, quantizedExchangeSpeedScale } from './scales';
 

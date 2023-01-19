@@ -5,6 +5,7 @@ import {
   ZoneDetail,
 } from 'types';
 import { getProductionCo2Intensity } from 'utils/helpers';
+
 import { getElectricityProductionValue, getTotalElectricity } from './graphUtils';
 
 export function getProductionTooltipData(

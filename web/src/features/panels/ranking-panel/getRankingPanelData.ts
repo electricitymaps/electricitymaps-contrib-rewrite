@@ -1,6 +1,7 @@
 import { getCountryName, getZoneName } from 'translation/translation';
 import type { GridState } from 'types';
 import { getCO2IntensityByMode } from 'utils/helpers';
+
 import { ZoneRowType } from './ZoneList';
 
 export const getRankedState = (

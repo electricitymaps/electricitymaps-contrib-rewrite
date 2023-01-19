@@ -1,4 +1,5 @@
 import * as d3 from 'd3-format';
+
 import { translate } from '../translation/translation';
 import { TimeAverages } from './constants';
 
@@ -185,4 +186,4 @@ function formatDataSources(dataSources: string[], language: string) {
     : dataSources.join(', ');
 }
 
-export { scalePower, formatDate, formatTimeRange, formatDateTick, formatDataSources };
+export { formatDataSources,formatDate, formatDateTick, formatTimeRange, scalePower };

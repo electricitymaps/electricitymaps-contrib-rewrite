@@ -7,6 +7,7 @@ import {
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state/atoms';
+
 import { useTranslation } from '../../../translation/translation';
 import { getRankedState } from './getRankingPanelData';
 import InfoText from './InfoText';

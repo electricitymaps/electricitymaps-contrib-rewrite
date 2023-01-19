@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+
 import fruits from './data/fruits.json';
 
 const handlers = [

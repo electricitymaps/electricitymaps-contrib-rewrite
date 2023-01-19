@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import { MapboxMap } from 'react-map-gl';
 import { useReferenceWidthHeightObserver } from 'utils/viewport';
+
 import ExchangeArrow from './ExchangeArrow';
 
 function ExchangeLayer({ map }: { map?: MapboxMap }) {

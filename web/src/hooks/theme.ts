@@ -2,8 +2,9 @@ import { scaleLinear } from 'd3-scale';
 import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 import { MapTheme } from 'types';
-import { colors } from './colors';
 import { colorblindModeAtom } from 'utils/state/atoms';
+
+import { colors } from './colors';
 
 // TODO: Convert this to a Jotai atom and consider if we want to do things differently now with new setup
 export function useTheme(): MapTheme {

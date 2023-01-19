@@ -4,6 +4,7 @@ import { scaleLinear } from 'd3-scale';
 import { useAtom } from 'jotai';
 import { Mode } from 'utils/constants';
 import { productionConsumptionAtom } from 'utils/state/atoms';
+
 import { getTotalElectricity, tonsPerHourToGramsPerMinute } from '../graphUtils';
 import { AreaGraphElement } from '../types';
 

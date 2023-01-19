@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+
 import { Mode, ThemeOptions, TimeAverages, ToggleOptions } from '../constants';
 
 // TODO: Move these atoms to relevant features

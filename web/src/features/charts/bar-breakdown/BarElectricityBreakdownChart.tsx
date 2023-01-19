@@ -1,21 +1,21 @@
 import { CountryFlag } from 'components/Flag';
 import { max as d3Max, min as d3Min } from 'd3-array';
-
 import { scaleLinear } from 'd3-scale';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useMemo } from 'react';
 import { useTranslation } from 'translation/translation';
 import { ElectricityModeType, ZoneDetail, ZoneDetails } from 'types';
 import { modeColor } from 'utils/constants';
+
 import { LABEL_MAX_WIDTH, PADDING_X } from './constants';
 import Axis from './elements/Axis';
 import HorizontalBar from './elements/HorizontalBar';
 import Row from './elements/Row';
 import {
   ExchangeDataType,
-  ProductionDataType,
   getDataBlockPositions,
   getElectricityProductionValue,
+  ProductionDataType,
 } from './utils';
 
 interface BarElectricityBreakdownChartProps {

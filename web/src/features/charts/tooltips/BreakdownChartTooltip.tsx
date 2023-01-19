@@ -7,9 +7,10 @@ import { renderToString } from 'react-dom/server';
 import AreaGraphToolTipHeader from 'stories/tooltips/AreaGraphTooltipHeader';
 import { getZoneName, useTranslation } from 'translation/translation';
 import { ElectricityModeType, Maybe, ZoneDetail } from 'types';
-import { TimeAverages, modeColor, modeOrder } from 'utils/constants';
+import { modeColor, modeOrder,TimeAverages } from 'utils/constants';
 import { formatCo2, formatPower } from 'utils/formatting';
 import { displayByEmissionsAtom, timeAverageAtom } from 'utils/state/atoms';
+
 import { getRatioPercent } from '../graphUtils';
 import { getExchangeTooltipData, getProductionTooltipData } from '../tooltipCalculations';
 import { InnerAreaGraphTooltipProps } from '../types';

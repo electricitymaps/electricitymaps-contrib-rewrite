@@ -1,5 +1,6 @@
 import { ScaleLinear } from 'd3-scale';
 import { MouseEventHandler } from 'react';
+
 import { LABEL_MAX_WIDTH, PADDING_Y, ROW_HEIGHT, TEXT_ADJUST_Y } from '../constants';
 
 type Props = {

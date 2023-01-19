@@ -8,6 +8,7 @@ import { ElectricityModeType, ZoneDetail } from 'types';
 import { displayByEmissionsAtom } from 'utils/state/atoms';
 import { useBreakpoint } from 'utils/styling';
 import { useReferenceWidthHeightObserver } from 'utils/viewport';
+
 import useBarBreakdownChartData from '../hooks/useBarElectricityBreakdownChartData';
 import BreakdownChartTooltip from '../tooltips/BreakdownChartTooltip';
 import BarBreakdownEmissionsChart from './BarBreakdownEmissionsChart';

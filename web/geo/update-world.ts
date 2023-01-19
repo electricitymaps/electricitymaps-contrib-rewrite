@@ -1,5 +1,7 @@
-import { coordEach } from '@turf/turf';
 import * as path from 'node:path';
+
+import { coordEach } from '@turf/turf';
+
 import { mergeZones } from '../scripts/generate-zones-config';
 import { generateAggregates } from './generate-aggregates';
 import { generateExchangesToIgnore } from './generate-exchanges-to-exclude';

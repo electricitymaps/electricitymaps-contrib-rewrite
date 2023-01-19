@@ -3,10 +3,11 @@ import { CarbonIntensityDisplay } from 'components/CarbonIntensity';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
+import { Mode } from 'utils/constants';
 import { formatDate } from 'utils/formatting';
 import { productionConsumptionAtom, timeAverageAtom } from 'utils/state/atoms';
+
 import { InnerAreaGraphTooltipProps } from '../types';
-import { Mode } from 'utils/constants';
 
 export default function CarbonChartTooltip(props: InnerAreaGraphTooltipProps) {
   const [timeAverage] = useAtom(timeAverageAtom);

@@ -16,6 +16,7 @@ import {
   selectedDatetimeIndexAtom,
   timeAverageAtom,
 } from 'utils/state/atoms';
+
 import { isSettingsModalOpenAtom } from './modalAtoms';
 
 function WeatherToggleButton({

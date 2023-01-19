@@ -3,6 +3,7 @@ import CarbonChart from 'features/charts/CarbonChart';
 import EmissionChart from 'features/charts/EmissionChart';
 import PriceChart from 'features/charts/PriceChart';
 import { TimeAverages } from 'utils/constants';
+
 import Divider from './Divider';
 
 export default function AreaGraphContainer({

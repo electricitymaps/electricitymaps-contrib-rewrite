@@ -1,5 +1,6 @@
 import * as Toggle from '@radix-ui/react-toggle';
 import type { ReactElement } from 'react';
+
 import TooltipWrapper from '../../components/tooltips/TooltipWrapper';
 
 interface MapButtonProperties {

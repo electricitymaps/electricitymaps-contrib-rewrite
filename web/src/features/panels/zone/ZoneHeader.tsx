@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import { useTranslation } from 'translation/translation';
 import { Mode } from 'utils/constants';
 import { productionConsumptionAtom } from 'utils/state/atoms';
+
 import ZoneHeaderTitle from './ZoneHeaderTitle';
 
 function LowCarbonTooltip() {

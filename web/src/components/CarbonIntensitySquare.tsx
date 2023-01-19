@@ -1,5 +1,6 @@
 // import { useTranslation } from '../helpers/translation';
 import { animated, useSpring } from '@react-spring/web';
+
 import { useCo2ColorScale } from '../hooks/theme';
 
 /**

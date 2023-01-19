@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { resolvePath } from 'react-router-dom';
+
 import { REFETCH_INTERVAL_ONE_HOUR } from './helpers';
 
 async function getVersion(): Promise<{ version: string }> {

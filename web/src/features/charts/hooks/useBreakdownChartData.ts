@@ -3,8 +3,7 @@ import { max as d3Max } from 'd3-array';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { ElectricityStorageType, ZoneDetail } from 'types';
-
-import { Mode, ToggleOptions, modeColor, modeOrder } from 'utils/constants';
+import { Mode, modeColor, modeOrder,ToggleOptions } from 'utils/constants';
 import { scalePower } from 'utils/formatting';
 import {
   displayByEmissionsAtom,
@@ -12,9 +11,10 @@ import {
   selectedDatetimeIndexAtom,
   spatialAggregateAtom,
 } from 'utils/state/atoms';
+
+import { getExchangesToDisplay } from '../bar-breakdown/utils';
 import { getGenerationTypeKey } from '../graphUtils';
 import { AreaGraphElement } from '../types';
-import { getExchangesToDisplay } from '../bar-breakdown/utils';
 
 export const getLayerFill = (exchangeKeys: string[], co2ColorScale: any) => {
   const layerFill = (key: string) => {

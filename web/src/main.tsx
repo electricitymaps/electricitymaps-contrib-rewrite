@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from 'App';
 import { REFETCH_INTERVAL_FIVE_MINUTES } from 'api/helpers';
+import App from 'App';
 import { useAtomsDevtools } from 'jotai/devtools';
 import { createRoot } from 'react-dom/client';
 import {

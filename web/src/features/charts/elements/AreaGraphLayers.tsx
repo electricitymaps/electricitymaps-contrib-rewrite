@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-handler-names */
 import { area, curveStepAfter } from 'd3-shape';
 import React from 'react';
+
 import { detectHoveredDatapointIndex, getNextDatetime, noop } from '../graphUtils';
 import { AreaGraphElement } from '../types';
 

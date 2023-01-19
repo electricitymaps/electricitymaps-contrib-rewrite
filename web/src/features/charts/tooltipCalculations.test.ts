@@ -1,4 +1,5 @@
 import { ZoneDetail } from 'types';
+
 import { getExchangeTooltipData, getProductionTooltipData } from './tooltipCalculations';
 
 const zoneDetailsData = {
