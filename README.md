@@ -24,6 +24,14 @@ Join us on [Slack](https://slack.electricitymaps.com) if you wish to discuss dev
 
 We would love your feedback on how to improve the contribution experience, please feel free to fill out this [form](https://forms.gle/VRWvEFwhtnhpzPVX8)
 
+## Contributions workflow
+
+If you wonder what happens to your contributions, check out this workflow of contributions review and acceptance. 
+
+[Add workflow here]
+
+We would love your feedback on how to improve the contribution experience, please feel free to fill out this [form](https://forms.gle/VRWvEFwhtnhpzPVX8)
+
 ## License
 
 Electricity Maps is licensed under GNU-AGPLv3. Find our license [here](https://github.com/electricitymaps/electricitymaps-contrib/blob/master/LICENSE.md)
