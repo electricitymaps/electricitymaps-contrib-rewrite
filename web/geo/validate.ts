@@ -1,5 +1,6 @@
 import {
   Feature,
+  FeatureCollection,
   Polygon,
   area,
   bbox,
@@ -17,7 +18,7 @@ import { mergeZones } from '../scripts/generate-zones-config';
 
 // TODO: Improve this function so each check returns error messages,
 // so we can show all errors instead of taking them one at a time.
-function validateGeometry(fc, config) {
+function validateGeometry(fc: FeatureCollection, config) {
   console.info('Validating geometries...');
   zeroNullGeometries(fc);
   containsRequiredProperties(fc);

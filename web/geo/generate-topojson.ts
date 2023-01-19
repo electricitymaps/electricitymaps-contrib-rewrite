@@ -4,23 +4,26 @@ import { fileExists, getJSON, round, writeJSON } from './utilities';
 
 function getCenter(geojson, zoneName) {
   switch (zoneName) {
-    case 'US-AK':
+    case 'US-AK': {
       return [-151.77, 65.32];
-    case 'FJ':
+    }
+    case 'FJ': {
       return [178.09, -17.78];
-    case 'RU-FE':
+    }
+    case 'RU-FE': {
       return [171.57, 66.26];
-    default:
+    }
+    default: {
       [0, 0];
+    }
   }
   const geojsonFeatures = geojson.features.filter(
     (f) => f.properties.zoneName === zoneName
   );
   if (geojsonFeatures.length !== 1) {
-    console.error(
+    throw new Error(
       `ERROR: Found ${geojsonFeatures.length} features matching zoneName ${zoneName}`
     );
-    process.exit(1);
   }
 
   const longitudes: number[] = [];
@@ -33,10 +36,9 @@ function getCenter(geojson, zoneName) {
   }
 
   if (longitudes.length === 0 || latitudes.length === 0) {
-    console.error(
+    throw new Error(
       `ERROR: Found ${longitudes.length} longitudes and ${latitudes} latitudes for zoneName ${zoneName}`
     );
-    process.exit(1);
   }
 
   return [
@@ -70,10 +72,9 @@ function generateTopojson(fc, { OUT_PATH, verifyNoUpdates }) {
   }
 
   if (verifyNoUpdates) {
-    console.error(
+    throw new Error(
       'Did not expect any updates to world.json. Please run "pnpm update-world"'
     );
-    process.exit(1);
   }
 
   writeJSON(OUT_PATH, topo);

@@ -1,10 +1,15 @@
 /* This script aggregates the per-zone config files into a single zones.json/exchanges.json
 file to enable easy importing within web/ */
-import * as yaml from 'js-yaml';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import * as yaml from 'js-yaml';
 
 const BASE_CONFIG_PATH = '../../config';
+
+// Replace native Node.js __dirname with an es module compatible version
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config = {
   verifyNoUpdates: process.env.VERIFY_NO_UPDATES !== undefined,
@@ -131,4 +136,4 @@ if (config.verifyNoUpdates) {
 writeJSON(`${autogenConfigPath}/zones.json`, zonesConfig);
 writeJSON(`${autogenConfigPath}/exchanges.json`, exchangesConfig);
 
-export { mergeZones, mergeExchanges, mergeRatioParameters };
+export { mergeExchanges, mergeRatioParameters, mergeZones };

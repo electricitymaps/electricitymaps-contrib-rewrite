@@ -2,6 +2,8 @@ import yaml from 'js-yaml';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { __dirname } from './utilities';
+
 const saveZoneYaml = (zoneKey: string, zone: any) => {
   const zonePath = path.resolve(__dirname, `../../config/zones/${zoneKey}.yaml`);
   const sortObjectByKey = (object: any) =>

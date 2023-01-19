@@ -1,3 +1,7 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import {
   area,
   Feature,
@@ -12,7 +16,9 @@ import {
   Properties,
   truncate,
 } from '@turf/turf';
-import * as fs from 'node:fs';
+
+// Replace native Node.js __dirname with an es module compatible version
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function getPolygons(input) {
   /* Transform the feature collection of polygons and multi-polygons into a feature collection of polygons only */
@@ -50,7 +56,7 @@ function isSliver(polygon, polArea, sliverRatio) {
   return Number(lineStringLength / polArea) > Number(sliverRatio);
 }
 
-function getHoles(fc, minArea, sliverRatio) {
+function getHoles(fc, minArea: number, sliverRatio) {
   const holes: Feature<Polygon, Properties>[] = [];
   featureEach(fc, (ft: any) => {
     const coords = getCoords(ft);
@@ -67,14 +73,14 @@ function getHoles(fc, minArea, sliverRatio) {
   return featureCollection(holes);
 }
 
-const fileExists = (fileName) => fs.existsSync(fileName);
+const fileExists = (fileName: string) => fs.existsSync(fileName);
 
 const getJSON = (fileName: string) => JSON.parse(fs.readFileSync(fileName, 'utf8'));
 
-const writeJSON = (fileName, object) =>
+const writeJSON = (fileName: string, object: any) =>
   fs.writeFileSync(fileName, JSON.stringify(object), { encoding: 'utf8', flag: 'w' });
 
-function log(message) {
+function log(message: string) {
   console.error('\u001B[31m%s\u001B[0m', `ERROR: ${message}`);
 }
 
@@ -84,8 +90,18 @@ function log(message) {
  * @param {number} decimals - Defaults to 2 decimals.
  * @returns {number} Rounded number.
  */
-const round = (number, decimals = 2) => {
+const round = (number: number, decimals = 2) => {
   return Math.round((number + Number.EPSILON) * 10 ** decimals) / 10 ** decimals;
 };
 
-export { getPolygons, getHoles, isSliver, writeJSON, getJSON, log, round, fileExists };
+export {
+  __dirname,
+  fileExists,
+  getHoles,
+  getJSON,
+  getPolygons,
+  isSliver,
+  log,
+  round,
+  writeJSON,
+};
