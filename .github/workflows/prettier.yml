@@ -19,8 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-          cache: 'pnpm'
-          cache-dependency-path: 'web/pnpm-lock.yaml'
       - name: Restore node_modules for web
         id: cache-web
         uses: actions/cache@v3
