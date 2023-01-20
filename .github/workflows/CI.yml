@@ -1,9 +1,5 @@
 name: CI
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   # This job is used to determine what files have changed and is used by later jobs to determine if they should run.
