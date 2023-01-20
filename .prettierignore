@@ -9,6 +9,8 @@ pnpm-lock.yaml
 web/config/world.json
 web/config/exchanges.json
 web/config/zones.json
+web/config/excludedAggregatedExchanges.json
+web/client-version.json
 world-aggregated.json
 
 # disabling index.html as we want to keep longer lines to make scanning easier
