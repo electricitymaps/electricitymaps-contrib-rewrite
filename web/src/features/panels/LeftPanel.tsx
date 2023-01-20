@@ -104,6 +104,7 @@ function OuterPanel({ children }: { children: React.ReactNode }) {
         location.pathname === '/map' ? 'hidden' : ''
       } ${!isOpen ? '-translate-x-full' : ''}`}
     >
+      t
       <MobileHeader />
       <section className="h-full w-full p-2 pl-1 pr-0">{children}</section>
       <CollapseButton isCollapsed={!isOpen} onCollapse={onCollapse} />
