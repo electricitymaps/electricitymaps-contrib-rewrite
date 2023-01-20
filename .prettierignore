@@ -11,10 +11,6 @@ pnpm-lock.yaml
 # Temporarily disables folder
 web-old
 
-# disabling index.html as we want to keep longer lines to make scanning easier
-# TODO: Move this to .prettierrc overwrites instead
-web/index.html
-
 mobileapp/android
 mobileapp/ios
 
