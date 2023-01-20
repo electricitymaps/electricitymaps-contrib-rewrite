@@ -9,13 +9,13 @@ import TimeHeader from './TimeHeader';
 function BottomSheetWrappedTimeController() {
   const [isLoadingMap] = useAtom(loadingMapAtom);
   const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
+  const safeAreaBottomString = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue('--sab');
 
-  const safeAreaBottom =
-    Number.parseInt(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue('--sab')
-        .replace('px', '')
-    ) || 0;
+  const safeAreaBottom = safeAreaBottomString
+    ? Number.parseInt(safeAreaBottomString.replace('px', ''))
+    : 0;
   const SNAP_POINTS = [60 + safeAreaBottom, 160 + safeAreaBottom];
 
   // Don't show the time controller until the onboarding has been seen
@@ -31,7 +31,7 @@ function BottomSheetWrappedTimeController() {
       blocking={false}
       header={<TimeHeader />}
     >
-      <TimeController className=" p-2 px-4 pt-1" />
+      <TimeController className="p-2 px-4 pt-1" />
     </BottomSheet>
   );
 }
