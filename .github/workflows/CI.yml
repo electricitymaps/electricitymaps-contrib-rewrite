@@ -143,5 +143,6 @@ jobs:
 
   # Code quality checks
   codeql:
+    needs: [setup, prettier]
     name: CodeQL
     uses: ./.github/workflows/codeql.yml
