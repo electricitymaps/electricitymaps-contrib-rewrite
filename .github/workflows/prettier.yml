@@ -7,9 +7,6 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14]
     timeout-minutes: 5
     steps:
       - name: Checkout
@@ -18,10 +15,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 7
-      - name: Setup Node v${{ matrix.node-version }}
+      - name: Setup Node v14.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14
           cache: 'pnpm'
           cache-dependency-path: 'web/pnpm-lock.yaml'
       # - name: Restore node_modules for web
