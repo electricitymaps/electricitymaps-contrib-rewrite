@@ -25,7 +25,9 @@ export default function ZoneDetails(): JSX.Element {
     enabled: Boolean(zoneId),
   });
 
-  if (!zoneId) {
+  // TODO: App-backend should not return an empty array as "data" if the zone does not
+  // exist.
+  if (!zoneId || Array.isArray(data)) {
     return <Navigate to="/" replace />;
   }
 
@@ -43,7 +45,7 @@ export default function ZoneDetails(): JSX.Element {
         isAggregated={timeAverage !== TimeAverages.HOURLY}
         isEstimated={selectedData?.estimationMethod !== undefined}
       />
-      <DisplayByEmissionToggle />
+      {zoneDataStatus !== ZoneDataStatus.NO_INFORMATION && <DisplayByEmissionToggle />}
       <div className="h-[calc(100%-290px)] overflow-y-scroll p-4 pt-2 pb-40">
         <ZoneDetailsContent
           isLoading={isLoading}

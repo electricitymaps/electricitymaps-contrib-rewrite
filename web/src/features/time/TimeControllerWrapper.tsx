@@ -6,16 +6,22 @@ import { useBreakpoint } from 'utils/styling';
 import TimeController from './TimeController';
 import TimeHeader from './TimeHeader';
 
-const SNAP_POINTS = [60, 160];
-
 function BottomSheetWrappedTimeController() {
   const [isLoadingMap] = useAtom(loadingMapAtom);
   const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
 
+  const safeAreaBottom =
+    Number.parseInt(
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--sab')
+        .replace('px', '')
+    ) || 0;
+  const SNAP_POINTS = [60 + safeAreaBottom, 160 + safeAreaBottom];
+
   // Don't show the time controller until the onboarding has been seen
   // But it still has to be rendered to avoid re-querying data and showing loading
   // indicators again. Therefore we set the snap points to 0 until modal is closed.
-  const snapPoints = hasOnboardingBeenSeen ? SNAP_POINTS : [0];
+  const snapPoints = hasOnboardingBeenSeen && !isLoadingMap ? SNAP_POINTS : [0, 0];
 
   return (
     <BottomSheet
@@ -25,14 +31,14 @@ function BottomSheetWrappedTimeController() {
       blocking={false}
       header={<TimeHeader />}
     >
-      <TimeController className="p-2 px-4 pt-1" />
+      <TimeController className="min-[370px]:px-4 p-2 pt-1" />
     </BottomSheet>
   );
 }
 
 function FloatingTimeController() {
   return (
-    <div className="fixed bottom-3 left-3 z-20 w-[calc(14vw_+_16rem)] rounded-xl bg-white px-5 py-3 shadow-xl drop-shadow-2xl dark:bg-gray-900  md:w-[calc((14vw_+_16rem)_-_30px)]">
+    <div className="min-[780px]:w-[calc((14vw_+_16rem)_-_30px)] fixed bottom-3 left-3 z-20 w-[calc(14vw_+_16rem)] rounded-xl bg-white px-4 py-3 shadow-xl drop-shadow-2xl dark:bg-gray-900  xl:px-5">
       <TimeController />
     </div>
   );

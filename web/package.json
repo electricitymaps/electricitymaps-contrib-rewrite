@@ -1,6 +1,6 @@
 {
   "name": "electricitymaps-web",
-  "version": "1.1.0-beta.40",
+  "version": "1.1.0-beta.54",
   "description": "A real-time visualisation of the CO2 emissions of electricity consumption",
   "license": "AGPL-3.0-or-later",
   "engines": {
@@ -18,7 +18,7 @@
     "generate-zones-config": "ts-node ./scripts/generate-zones-config.ts",
     "predevelop": "pnpm run generate-zones-config",
     "prebuild": "pnpm run generate-zones-config",
-    "postinstall": "pnpm run generate-index-files",
+    "postinstall": "pnpm run generate-zones-config",
     "cy:components": "cypress open --components -b electron",
     "cy:e2e": "cypress open --e2e -b electron",
     "dev": "vite --open",
@@ -87,7 +87,7 @@
     "recharts": "^2.1.16",
     "sprintf-js": "^1.1.2",
     "tailwind-merge": "^1.8.1",
-    "tailwindcss": "3.1.8",
+    "tailwindcss": "^3.2.4",
     "tailwindcss-radix": "^2.6.1",
     "tiny-invariant": "^1.3.1",
     "topojson-client": "^3.1.0",

@@ -41,11 +41,13 @@ export function ZoneHeader({
   renewableRatioProduction,
   fossilFuelRatioProduction,
 }: ZoneHeaderProps) {
+  const { __ } = useTranslation();
   const [currentMode] = useAtom(productionConsumptionAtom);
   const isConsumption = currentMode === Mode.CONSUMPTION;
   const intensity = isConsumption ? co2intensity : co2intensityProduction;
   const renewable = isConsumption ? renewableRatio : renewableRatioProduction;
-  const fossilFuel = isConsumption ? fossilFuelRatio : fossilFuelRatioProduction;
+  const fossilFuel =
+    (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction) ?? null;
 
   return (
     <div className="mt-1 grid w-full gap-y-5 sm:pr-4">
@@ -57,11 +59,16 @@ export function ZoneHeader({
       <div className="flex flex-row justify-evenly">
         <CarbonIntensitySquare co2intensity={intensity ?? Number.NaN} withSubtext />
         <CircularGauge
-          name="Low-carbon"
+          name={__('country-panel.lowcarbon')}
           ratio={fossilFuel ? 1 - fossilFuel : Number.NaN}
           tooltipContent={<LowCarbonTooltip />}
+          testId="zone-header-lowcarbon-gauge"
         />
-        <CircularGauge name="Renewable" ratio={renewable ?? Number.NaN} />
+        <CircularGauge
+          name={__('country-panel.renewable')}
+          ratio={renewable ?? Number.NaN}
+          testId="zone-header-renewable-gauge"
+        />
       </div>
     </div>
   );

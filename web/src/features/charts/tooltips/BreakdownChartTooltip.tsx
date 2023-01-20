@@ -1,18 +1,18 @@
-import { CarbonIntensityDisplayWithSquare } from 'components/CarbonIntensity';
+import { CarbonIntensityDisplay } from 'components/CarbonIntensityDisplay';
 import { CountryFlag } from 'components/Flag';
 import { MetricRatio } from 'components/MetricRatio';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { renderToString } from 'react-dom/server';
-import AreaGraphToolTipHeader from 'stories/tooltips/AreaGraphTooltipHeader';
 import { getZoneName, useTranslation } from 'translation/translation';
-import { ElectricityModeType, ZoneDetail } from 'types';
+import { ElectricityModeType, Maybe, ZoneDetail } from 'types';
 import { TimeAverages, modeColor, modeOrder } from 'utils/constants';
 import { formatCo2, formatPower } from 'utils/formatting';
 import { displayByEmissionsAtom, timeAverageAtom } from 'utils/state/atoms';
 import { getRatioPercent } from '../graphUtils';
 import { getExchangeTooltipData, getProductionTooltipData } from '../tooltipCalculations';
 import { InnerAreaGraphTooltipProps } from '../types';
+import AreaGraphToolTipHeader from './AreaGraphTooltipHeader';
 
 function calculateTooltipContentData(
   selectedLayerKey: ElectricityModeType,
@@ -26,10 +26,17 @@ function calculateTooltipContentData(
     : getProductionTooltipData(selectedLayerKey, zoneDetail, displayByEmissions);
 }
 
-export default function BreakdownChartTooltip(props: InnerAreaGraphTooltipProps) {
-  const { zoneDetail, selectedLayerKey } = props;
+export default function BreakdownChartTooltip({
+  zoneDetail,
+  selectedLayerKey,
+}: InnerAreaGraphTooltipProps) {
   const [displayByEmissions] = useAtom(displayByEmissionsAtom);
   const [timeAverage] = useAtom(timeAverageAtom);
+
+  if (!zoneDetail || !selectedLayerKey) {
+    return null;
+  }
+
   // If layer key is not a generation type, it is an exchange
   const isExchange = !modeOrder.includes(selectedLayerKey);
 
@@ -70,7 +77,7 @@ export default function BreakdownChartTooltip(props: InnerAreaGraphTooltipProps)
 interface BreakdownChartTooltipContentProperties {
   datetime: Date;
   usage: number;
-  capacity: number;
+  capacity: Maybe<number>;
   totalElectricity: number;
   totalEmissions: number;
   co2Intensity: number;
@@ -82,30 +89,26 @@ interface BreakdownChartTooltipContentProperties {
   isExchange: boolean;
   selectedLayerKey: string;
   co2IntensitySource?: string;
-  storage?: number;
-  production?: number;
+  storage?: Maybe<number>;
+  production?: Maybe<number>;
 }
 
-export function BreakdownChartTooltipContent(
-  props: BreakdownChartTooltipContentProperties
-) {
-  const {
-    datetime,
-    usage,
-    totalElectricity,
-    displayByEmissions,
-    timeAverage,
-    capacity,
-    emissions,
-    totalEmissions,
-    co2Intensity,
-    co2IntensitySource,
-    zoneKey,
-    originTranslateKey,
-    isExchange,
-    selectedLayerKey,
-  } = props;
-
+export function BreakdownChartTooltipContent({
+  datetime,
+  usage,
+  totalElectricity,
+  displayByEmissions,
+  timeAverage,
+  capacity,
+  emissions,
+  totalEmissions,
+  co2Intensity,
+  co2IntensitySource,
+  zoneKey,
+  originTranslateKey,
+  isExchange,
+  selectedLayerKey,
+}: BreakdownChartTooltipContentProperties) {
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
   // Dynamically generate the translated headline HTML based on the exchange or generation type
@@ -177,7 +180,7 @@ export function BreakdownChartTooltipContent(
           <br />
           <div className="flex-wrap">
             <div className="inline-flex items-center gap-x-1">
-              <CarbonIntensityDisplayWithSquare co2Intensity={co2Intensity} />
+              <CarbonIntensityDisplay withSquare co2Intensity={co2Intensity} />
             </div>
             {!isExchange && (
               <small>

@@ -34,8 +34,11 @@ function TooltipInner({
     renewableRatio,
     renewableRatioProduction,
   } = zoneData;
+  const { __ } = useTranslation();
+
   const [currentMode] = useAtom(productionConsumptionAtom);
   const isConsumption = currentMode === Mode.CONSUMPTION;
+  const fossilFuel = (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction) ?? 0;
   return (
     <div className="w-full text-center">
       <div className="pl-2">
@@ -48,13 +51,10 @@ function TooltipInner({
             co2intensity={isConsumption ? co2intensity : co2intensityProduction}
           />
           <div className="px-4">
-            <CircularGauge
-              name="Low-carbon"
-              ratio={1 - (isConsumption ? fossilFuelRatio : fossilFuelRatioProduction)}
-            />
+            <CircularGauge name={__('country-panel.lowcarbon')} ratio={1 - fossilFuel} />
           </div>
           <CircularGauge
-            name="Renewable"
+            name={__('country-panel.renewable')}
             ratio={isConsumption ? renewableRatio : renewableRatioProduction}
           />
         </div>

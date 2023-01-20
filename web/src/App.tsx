@@ -7,7 +7,6 @@ import LegendContainer from 'components/legend/LegendContainer';
 import { OnboardingModal } from 'components/modals/OnboardingModal';
 import ErrorComponent from 'features/error-boundary/ErrorBoundary';
 import Header from 'features/header/Header';
-import MapControls from 'features/map-controls/MapControls';
 import FAQModal from 'features/modals/FAQModal';
 import InfoModal from 'features/modals/InfoModal';
 import SettingsModal from 'features/modals/SettingsModal';
@@ -15,7 +14,6 @@ import TimeControllerWrapper from 'features/time/TimeControllerWrapper';
 import { ReactElement, Suspense, lazy } from 'react';
 
 const isProduction = import.meta.env.PROD;
-
 const MapWrapper = lazy(async () => import('features/map/MapWrapper'));
 const LeftPanel = lazy(async () => import('features/panels/LeftPanel'));
 const handleReload = () => {
@@ -52,7 +50,6 @@ export default function App(): ReactElement {
               <LeftPanel />
               <MapWrapper />
               <TimeControllerWrapper />
-              <MapControls />
               <LegendContainer />
             </Sentry.ErrorBoundary>
           </div>
