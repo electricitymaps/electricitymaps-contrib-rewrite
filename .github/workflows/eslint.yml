@@ -27,16 +27,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 14
-          cache: 'pnpm'
-          cache-dependency-path: web/pnpm-lock.yaml
-      # - name: Restore node_modules
-      #   id: cache
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ./web/node_modules
-      #     key: ${{ runner.os }}-node_modules-${{ hashFiles('./web/yarn.lock') }}
+      - name: Restore node_modules for web
+        id: cache-web
+        uses: actions/cache@v3
+        with:
+          path: |
+            web/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('./web/pnpm-lock.yaml') }}
       - name: Install web dependencies
-        # if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
       - name: Generate zone config
         if: steps.cache.outputs.cache-hit == 'true'
