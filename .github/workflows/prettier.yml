@@ -21,15 +21,15 @@ jobs:
           node-version: 14
           cache: 'pnpm'
           cache-dependency-path: 'web/pnpm-lock.yaml'
-      # - name: Restore node_modules for web
-      #   id: cache-web
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: |
-      #       web/node_modules
-      #     key: ${{ runner.os }}-node_modules-${{ hashFiles('./web/pnpm-lock.yaml') }}
+      - name: Restore node_modules for web
+        id: cache-web
+        uses: actions/cache@v3
+        with:
+          path: |
+            web/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('./web/pnpm-lock.yaml') }}
       - name: Install web dependencies
-        # if: steps.cache-web.outputs.cache-hit != 'true'
+        if: steps.cache-web.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
         working-directory: ./web
       - name: Prettier Check
