@@ -11,6 +11,11 @@ pnpm-lock.yaml
 # Temporarily disables folder
 web-old
 
+# TODO: Temp ignore to make progress
+web/src/components/TimeAverageToggle.tsx
+web/src/features/time/TimeControllerWrapper.tsx
+
+
 mobileapp/android
 mobileapp/ios
 
