@@ -28,7 +28,7 @@ We would love your feedback on how to improve the contribution experience, pleas
 
 If you wonder what happens to your contributions, check out this workflow of contributions review and acceptance. 
 
-[Add workflow here]
+![image](https://github.com/electricitymaps/electricitymaps-contrib/blob/master/EMaps_contrib_workflow.png)
 
 We would love your feedback on how to improve the contribution experience, please feel free to fill out this [form](https://forms.gle/VRWvEFwhtnhpzPVX8)
 
