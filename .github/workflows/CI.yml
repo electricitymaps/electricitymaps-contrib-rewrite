@@ -143,6 +143,6 @@ jobs:
 
   # Code quality checks
   codeql:
-    needs: [setup, prettier]
+    needs: [setup, prettier, eslint, unit_test]
     name: CodeQL
     uses: ./.github/workflows/codeql.yml
