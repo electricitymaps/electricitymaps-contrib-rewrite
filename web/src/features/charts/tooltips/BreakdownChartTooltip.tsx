@@ -1,10 +1,9 @@
-import { CarbonIntensityDisplayWithSquare } from 'components/CarbonIntensity';
+import { CarbonIntensityDisplay } from 'components/CarbonIntensityDisplay';
 import { CountryFlag } from 'components/Flag';
 import { MetricRatio } from 'components/MetricRatio';
 import { useCo2ColorScale } from 'hooks/theme';
 import { useAtom } from 'jotai';
 import { renderToString } from 'react-dom/server';
-import AreaGraphToolTipHeader from 'stories/tooltips/AreaGraphTooltipHeader';
 import { getZoneName, useTranslation } from 'translation/translation';
 import { ElectricityModeType, Maybe, ZoneDetail } from 'types';
 import { TimeAverages, modeColor, modeOrder } from 'utils/constants';
@@ -13,6 +12,7 @@ import { displayByEmissionsAtom, timeAverageAtom } from 'utils/state/atoms';
 import { getRatioPercent } from '../graphUtils';
 import { getExchangeTooltipData, getProductionTooltipData } from '../tooltipCalculations';
 import { InnerAreaGraphTooltipProps } from '../types';
+import AreaGraphToolTipHeader from './AreaGraphTooltipHeader';
 
 function calculateTooltipContentData(
   selectedLayerKey: ElectricityModeType,
@@ -177,7 +177,7 @@ export function BreakdownChartTooltipContent(
           <br />
           <div className="flex-wrap">
             <div className="inline-flex items-center gap-x-1">
-              <CarbonIntensityDisplayWithSquare co2Intensity={co2Intensity} />
+              <CarbonIntensityDisplay withSquare co2Intensity={co2Intensity} />
             </div>
             {!isExchange && (
               <small>
