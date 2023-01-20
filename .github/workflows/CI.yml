@@ -83,13 +83,13 @@ jobs:
       needs.setup.outputs.workflows != 'false'
     uses: ./.github/workflows/validate-local-links-in-md.yml
 
-  jest:
-    name: Jest
+  unit_test:
+    name: Unit test
     needs: [setup, prettier]
     if: >-
       needs.setup.outputs.frontend != 'false' ||
       needs.setup.outputs.workflows != 'false'
-    uses: ./.github/workflows/jest.yml
+    uses: ./.github/workflows/unit_tests.yml
 
   jsonlint:
     name: JSONLint
@@ -119,7 +119,7 @@ jobs:
 
   cypress:
     name: Cypress
-    needs: [eslint, verify, jest]
+    needs: [eslint, verify, unit_test]
     uses: ./.github/workflows/cypress.yml
     secrets: inherit
 
