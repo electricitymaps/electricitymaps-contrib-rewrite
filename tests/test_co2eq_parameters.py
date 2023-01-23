@@ -16,7 +16,7 @@ from electricitymap.contrib.config import (
 def get_possible_modes():
     """Get the set of possible modes."""
     modes = set()
-    with open("web/src/helpers/constants.js", encoding="utf-8") as file_:
+    with open("web/src/utils/constants.ts", encoding="utf-8") as file_:
         # The call to `eval` is a hack to parse the `modeOrder` array from the
         # JavaScript source file.
         search = re.search(
