@@ -119,7 +119,6 @@ jobs:
 
   cypress:
     name: Cypress
-    needs: [eslint, verify, unit_test]
     uses: ./.github/workflows/cypress.yml
     secrets: inherit
 
