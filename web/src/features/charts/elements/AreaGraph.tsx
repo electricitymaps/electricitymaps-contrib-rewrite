@@ -128,9 +128,9 @@ function AreaGraph({
     () => getValueScale(containerHeight, totalValues),
     [containerHeight, totalValues]
   );
-  const startTime = datetimes.at(0) ?? undefined;
-  const lastTime = datetimes.at(-1) ?? undefined;
-  const interval = datetimes?.at(-2) ?? undefined;
+  const startTime = datetimes?.at(0);
+  const lastTime = datetimes?.at(-1);
+  const interval = datetimes?.at(-2);
 
   if (!startTime || !lastTime || !interval) {
     return null;
