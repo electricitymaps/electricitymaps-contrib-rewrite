@@ -114,7 +114,7 @@
     <script>
       if (![].at) {
         Array.prototype.at = function (n) {
-          console.log('Running .at with', n);
+          console.debug('Running .at with', n);
           // ToInteger() abstract op
           n = Math.trunc(n) || 0;
           // Allow negative indexing from the end
