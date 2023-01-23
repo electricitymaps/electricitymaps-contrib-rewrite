@@ -27,8 +27,8 @@ import {
 import { FeatureId } from './mapTypes';
 
 const ZONE_SOURCE = 'zones-clickable';
-const SOUTHERN_LATITUDE_BOUND = -66.947_193;
-const NORTHERN_LATITUDE_BOUND = 84.313_245;
+const SOUTHERN_LATITUDE_BOUND = -78;
+const NORTHERN_LATITUDE_BOUND = 85;
 const MAP_STYLE = { version: 8, sources: {}, layers: [] };
 const isMobile = window.innerWidth < 768;
 // TODO: Selected feature-id should be stored in a global state instead (and as zoneId).
