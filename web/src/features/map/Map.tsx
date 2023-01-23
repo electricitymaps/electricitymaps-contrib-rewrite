@@ -92,12 +92,12 @@ export default function MapPage(): ReactElement {
   useEffect(() => {
     // This effect colors the zones based on the co2 intensity
     const map = mapReference.current?.getMap();
-
+    map?.touchZoomRotate.disableRotation();
+    map?.touchPitch.disable();
     if (!map || isLoading || isError) {
       return;
     }
-    map.touchZoomRotate.disableRotation();
-    map.touchPitch.disable();
+
     // An issue where the map has not loaded source yet causing map errors
     const isSourceLoaded = map.getSource('zones-clickable') != undefined;
     if (!isSourceLoaded) {
