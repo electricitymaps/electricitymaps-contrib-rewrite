@@ -25,30 +25,27 @@ const getTextColor = (rgbColor: string) => {
 };
 
 interface CarbonIntensitySquareProps {
-  co2intensity: number;
+  intensity: number;
   withSubtext?: boolean;
 }
 
-function CarbonIntensitySquare({
-  co2intensity,
-  withSubtext,
-}: CarbonIntensitySquareProps) {
+function CarbonIntensitySquare({ intensity, withSubtext }: CarbonIntensitySquareProps) {
   const { __ } = useTranslation();
   const co2ColorScale = useCo2ColorScale();
-  const styles = useSpring({ backgroundColor: co2ColorScale(co2intensity) });
+  const styles = useSpring({ backgroundColor: co2ColorScale(intensity) });
 
   return (
     <div>
       <div>
         <animated.div
           style={{
-            color: getTextColor(co2ColorScale(co2intensity)),
+            color: getTextColor(co2ColorScale(intensity)),
             ...styles,
           }}
           className="mx-auto flex h-[65px] w-[65px] flex-col items-center justify-center rounded-2xl"
         >
           <p className="select-none text-[1rem]" data-test-id="co2-square-value">
-            <span className="font-bold">{Math.round(co2intensity) || '?'}</span>
+            <span className="font-bold">{Math.round(intensity) || '?'}</span>
             &nbsp;
             <span>g</span>
           </p>
