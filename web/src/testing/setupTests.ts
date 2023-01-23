@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import mediaQuery from 'css-mediaquery';
-import 'whatwg-fetch';
 import server from './mocks/server';
 import { DESKTOP_RESOLUTION_HEIGHT, DESKTOP_RESOLUTION_WIDTH } from './testUtils';
+import 'whatwg-fetch';
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' });
@@ -38,9 +38,7 @@ beforeAll(() => {
         const change = matchQuery();
         if (change !== instance.matches) {
           instance.matches = change;
-          for (const listener of listeners) {
-            listener();
-          }
+          for (const listener of listeners) {listener();}
         }
       });
 

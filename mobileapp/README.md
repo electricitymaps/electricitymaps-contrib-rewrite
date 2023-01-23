@@ -27,6 +27,9 @@ Android Studio
 
 Node 18+
 
+
+
+
 ## First make sure you have installed and built the web app:
 
 Navigate to the web directory then:
@@ -42,6 +45,7 @@ To enable hot reload you must runt he web app locally on port 5173:
 Navigate to the moibleapp directory then:
 
 `pnpm install`
+
 
 Add Android and iOS:
 
@@ -66,6 +70,8 @@ iOS:
 
 `pnpm dev-ios`
 
+
+
 **Build app bundles**
 
 App bundles are built through Android Studio and iOS
@@ -77,12 +83,19 @@ iOS:
 
 `pnpm exec open ios`
 
----
+
+
+-------------------------------------------------------------------------------------
+
+
 
 If you need more information:
 https://capacitorjs.com/docs/getting-started
+
+
 
 Android emulator not working?
 
 Android studio will need a virtual device, shown here in the Android Studio opening screen:
 ![](./VDM.png)
+
