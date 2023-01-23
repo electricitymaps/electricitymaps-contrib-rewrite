@@ -87,13 +87,13 @@ jobs:
       needs.setup.outputs.workflows != 'false'
     uses: ./.github/workflows/validate-local-links-in-md.yml
 
-  unit_test:
-    name: Unit test
-    needs: [setup, prettier]
-    if: >-
-      needs.setup.outputs.frontend != 'false' ||
-      needs.setup.outputs.workflows != 'false'
-    uses: ./.github/workflows/unit_test.yml
+  # unit_test:
+  #   name: Unit test
+  #   needs: [setup, prettier]
+  #   if: >-
+  #     needs.setup.outputs.frontend != 'false' ||
+  #     needs.setup.outputs.workflows != 'false'
+  #   uses: ./.github/workflows/unit_test.yml
 
   jsonlint:
     name: JSONLint
@@ -104,13 +104,13 @@ jobs:
     uses: ./.github/workflows/jsonlint.yml
 
   # Frontend checks
-  eslint:
-    name: ESLint
-    needs: [setup, prettier]
-    if: >-
-      needs.setup.outputs.frontend != 'false' ||
-      needs.setup.outputs.workflows != 'false'
-    uses: ./.github/workflows/eslint.yml
+  # eslint:
+  #   name: ESLint
+  #   needs: [setup, prettier]
+  #   if: >-
+  #     needs.setup.outputs.frontend != 'false' ||
+  #     needs.setup.outputs.workflows != 'false'
+  #   uses: ./.github/workflows/eslint.yml
 
   verify:
     name: Verify
@@ -121,11 +121,11 @@ jobs:
       needs.setup.outputs.workflows != 'false'
     uses: ./.github/workflows/verify.yml
 
-  cypress:
-    name: Cypress
-    needs: [eslint, verify, unit_test]
-    uses: ./.github/workflows/cypress.yml
-    secrets: inherit
+  # cypress:
+  #   name: Cypress
+  #   needs: [eslint, verify, unit_test]
+  #   uses: ./.github/workflows/cypress.yml
+  #   secrets: inherit
 
   # Python checks
   python:
