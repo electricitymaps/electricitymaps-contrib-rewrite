@@ -55,7 +55,7 @@ const mergeExchanges = () => {
   const exchangeFiles = fs.readdirSync(basePath);
   const filesWithDirectory = exchangeFiles.map((file) => `${basePath}/${file}`);
 
-    const UNNECESSARY_EXCHANGE_FIELDS = ['capacity', 'comment', '_comment', 'parsers'];
+    const UNNECESSARY_EXCHANGE_FIELDS = ['comment', '_comment', 'parsers'];
 
   const exchanges = filesWithDirectory.reduce((exchanges, filepath) => {
     const exchangeConfig: any = yaml.load(fs.readFileSync(filepath, 'utf8'));
