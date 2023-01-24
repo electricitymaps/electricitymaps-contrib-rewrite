@@ -3,6 +3,7 @@ file to enable easy importing within web/ */
 import * as yaml from 'js-yaml';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { round } from '../geo/utilities';
 
 const BASE_CONFIG_PATH = '../../config';
 
@@ -28,6 +29,11 @@ const mergeZones = () => {
   ]);
   const zones = filesWithDirectory.reduce((zones, filepath) => {
     const zoneConfig: any = yaml.load(fs.readFileSync(filepath, 'utf8'));
+    zoneConfig.bounding_box?.forEach((point: number[]) => {
+      point[0] = round(point[0], 4);
+      point[1] = round(point[1], 4);
+    });
+
     for (const key in zoneConfig) {
       if (UNNECESSARY_ZONE_FIELDS.has(key)) {
         delete zoneConfig[key];
@@ -55,10 +61,12 @@ const mergeExchanges = () => {
   const exchangeFiles = fs.readdirSync(basePath);
   const filesWithDirectory = exchangeFiles.map((file) => `${basePath}/${file}`);
 
-    const UNNECESSARY_EXCHANGE_FIELDS = ['comment', '_comment', 'parsers'];
+  const UNNECESSARY_EXCHANGE_FIELDS = ['comment', '_comment', 'parsers'];
 
   const exchanges = filesWithDirectory.reduce((exchanges, filepath) => {
     const exchangeConfig: any = yaml.load(fs.readFileSync(filepath, 'utf8'));
+    exchangeConfig.lonlat[0] = round(exchangeConfig.lonlat[0], 3);
+    exchangeConfig.lonlat[1] = round(exchangeConfig.lonlat[1], 3);
     for (const key in exchangeConfig) {
       if (UNNECESSARY_EXCHANGE_FIELDS.includes(key)) {
         delete exchangeConfig[key];
