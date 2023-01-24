@@ -26,6 +26,8 @@ const mergeZones = () => {
     'comment',
     '_comment',
     'sources',
+    'flag_file_name',
+    'bypassedSubZones',
   ]);
   const zones = filesWithDirectory.reduce((zones, filepath) => {
     const zoneConfig: any = yaml.load(fs.readFileSync(filepath, 'utf8'));
