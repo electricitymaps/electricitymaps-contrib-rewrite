@@ -9,13 +9,13 @@ import TimeHeader from './TimeHeader';
 function BottomSheetWrappedTimeController() {
   const [isLoadingMap] = useAtom(loadingMapAtom);
   const [hasOnboardingBeenSeen] = useAtom(hasOnboardingBeenSeenAtom);
+  const safeAreaBottomString = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue('--sab');
 
-  const safeAreaBottom =
-    Number.parseInt(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue('--sab')
-        .replace('px', '')
-    ) || 0;
+  const safeAreaBottom = safeAreaBottomString
+    ? Number.parseInt(safeAreaBottomString.replace('px', ''))
+    : 0;
   const SNAP_POINTS = [60 + safeAreaBottom, 160 + safeAreaBottom];
 
   // Don't show the time controller until the onboarding has been seen
@@ -31,14 +31,14 @@ function BottomSheetWrappedTimeController() {
       blocking={false}
       header={<TimeHeader />}
     >
-      <TimeController className="min-[370px]:px-4 p-2 pt-1" />
+      <TimeController className="p-2 pt-1 min-[370px]:px-4" />
     </BottomSheet>
   );
 }
 
 function FloatingTimeController() {
   return (
-    <div className="min-[780px]:w-[calc((14vw_+_16rem)_-_30px)] fixed bottom-3 left-3 z-20 w-[calc(14vw_+_16rem)] rounded-xl bg-white px-4 py-3 shadow-xl drop-shadow-2xl dark:bg-gray-900  xl:px-5">
+    <div className="fixed bottom-3 left-3 z-20 w-[calc(14vw_+_16rem)] rounded-xl bg-white px-4 py-3 shadow-xl drop-shadow-2xl dark:bg-gray-900 min-[780px]:w-[calc((14vw_+_16rem)_-_30px)]  xl:px-5">
       <TimeController />
     </div>
   );
