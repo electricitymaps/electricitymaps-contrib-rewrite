@@ -4,7 +4,7 @@
   "description": "A real-time visualisation of the CO2 emissions of electricity consumption",
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": ">=14.15"
+    "node": ">=14.18"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,8 @@
     "update-world": "ts-node ./geo/update-world.ts",
     "generate-index-files": "ts-node ./scripts/generate-index-files.ts",
     "generate-zones-config": "ts-node ./scripts/generate-zones-config.ts",
+    "verify-world": "VERIFY_NO_UPDATES=1 pnpm update-world",
+    "verify-zones-config": "VERIFY_NO_UPDATES=1 pnpm generate-zones-config",
     "predevelop": "pnpm run generate-zones-config",
     "prebuild": "pnpm run generate-zones-config",
     "cy:components": "cypress open --components -b electron",
